@@ -1,0 +1,46 @@
+"""
+Authentication Routes.
+"""
+from flask import Blueprint, request, g
+from app.schemas.auth import LoginSchema, RegisterSchema
+from app.services.auth_service import AuthService
+from app.services.user_service import UserService
+from app.utils.response import success_response, created_response
+from app.middleware.auth_middleware import jwt_required
+
+auth_bp = Blueprint("auth", __name__)
+
+
+@auth_bp.route("/login", methods=["POST"])
+def login():
+    """Authenticates user credentials and returns JWT token."""
+    raw_json = request.get_json() or {}
+    validated = LoginSchema(**raw_json)
+
+    service = AuthService()
+    result = service.authenticate_user(email=validated.email, password=validated.password)
+
+    return success_response(data=result, message="Login successful")
+
+
+@auth_bp.route("/register", methods=["POST"])
+def register():
+    """Registers a new user and returns JWT token."""
+    raw_json = request.get_json() or {}
+    validated = RegisterSchema(**raw_json)
+
+    service = AuthService()
+    result = service.register_user(data=validated.model_dump())
+
+    return created_response(data=result, message="User registered successfully")
+
+
+@auth_bp.route("/me", methods=["GET"])
+@jwt_required()
+def get_current_user():
+    """Retrieves current authenticated user profile."""
+    user_id = int(g.current_user["sub"])
+    service = UserService()
+    user_data = service.get_user_by_id(user_id)
+
+    return success_response(data=user_data, message="Profile retrieved successfully")

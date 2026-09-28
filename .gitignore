@@ -1,0 +1,38 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node.js / Next.js
+node_modules/
+web/node_modules/
+web/.next/
+web/out/
+web/.env.local
+web/.env.development.local
+web/.env.test.local
+web/.env.production.local
+web/npm-debug.log*
+web/yarn-debug.log*
+web/yarn-error.log*
+
+# Python / Flask
+__pycache__/
+*.py[cod]
+*$py.class
+api/__pycache__/
+api/*/__pycache__/
+api/*/*/__pycache__/
+api/*/*/*/__pycache__/
+api/venv/
+api/.venv/
+api/env/
+api/.env
+api/.pytest_cache/
+api/.coverage
+api/htmlcov/
+
+# Logs & Temporary files
+*.log
+scratch/
+tmp/
