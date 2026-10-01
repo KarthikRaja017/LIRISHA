@@ -1,0 +1,554 @@
+{
+  "tab-sm1": {
+    "id": "tab-sm1",
+    "name": "Real Estate",
+    "items": [
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Deculttering/001-before-525x.webp",
+        "beforeAlt": "Deculttering before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Deculttering/001-after-525x.webp",
+        "afterAlt": "Deculttering After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Drone/001-before-525x.webp",
+        "beforeAlt": "Drone Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Drone/001-after-525x.webp",
+        "afterAlt": "Drone After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/HDR/001-before-525x.webp",
+        "beforeAlt": "HDR Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/HDR/001-after-525x.webp",
+        "afterAlt": "HDR After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Lawn-Replacement/001-before-525x.webp",
+        "beforeAlt": "Lawn Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Lawn-Replacement/001-after-525x.webp",
+        "afterAlt": "Lawn After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Panoroma/001-before-525x.webp",
+        "beforeAlt": "Panorama Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Panoroma/001-after-525x.webp",
+        "afterAlt": "Panoroma After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Sky-Replacement/001-before-525x.webp",
+        "beforeAlt": "Sky Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Sky-Replacement/001-after-525x.webp",
+        "afterAlt": "Sky After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Twilight-(Day%20to%20Dusk%20)/001-before-525x.webp",
+        "beforeAlt": "Twilight Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Twilight-(Day%20to%20Dusk%20)/001-after-525x.webp",
+        "afterAlt": "Twilight After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Virtual-staging/001-before-525x.webp",
+        "beforeAlt": "Virtual Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Virtual-staging/001-after-525x.webp",
+        "afterAlt": "Virtual After",
+        "localBefore": "/images/sample-images/Real_Estate//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Real_Estate//001-after-525x.webp"
+      }
+    ]
+  },
+  "tab-sm2": {
+    "id": "tab-sm2",
+    "name": "Portrait",
+    "items": [
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/001-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/001-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Portrait//001-before.webp",
+        "localAfter": "/images/sample-images/Portrait//001-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/002-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/002-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Portrait//002-before.webp",
+        "localAfter": "/images/sample-images/Portrait//002-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/003-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/003-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Portrait//003-before.webp",
+        "localAfter": "/images/sample-images/Portrait//003-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/004-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/004-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Portrait//004-before.webp",
+        "localAfter": "/images/sample-images/Portrait//004-after.webp"
+      }
+    ]
+  },
+  "tab-sm3": {
+    "id": "tab-sm3",
+    "name": "Fashion",
+    "items": [
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/001-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/001-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Fashion//001-before.webp",
+        "localAfter": "/images/sample-images/Fashion//001-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/002-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/002-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Fashion//002-before.webp",
+        "localAfter": "/images/sample-images/Fashion//002-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/003-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/003-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Fashion//003-before.webp",
+        "localAfter": "/images/sample-images/Fashion//003-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/004-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/004-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Fashion//004-before.webp",
+        "localAfter": "/images/sample-images/Fashion//004-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/005-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/005-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Fashion//005-before.webp",
+        "localAfter": "/images/sample-images/Fashion//005-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/006-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/006-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Fashion//006-before.webp",
+        "localAfter": "/images/sample-images/Fashion//006-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/007-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/007-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Fashion//007-before.webp",
+        "localAfter": "/images/sample-images/Fashion//007-after.webp"
+      }
+    ]
+  },
+  "tab-sm4": {
+    "id": "tab-sm4",
+    "name": "Jewelery",
+    "items": [
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/001-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/001-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//001-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//001-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/002-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/002-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//002-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//002-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/003-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/003-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//003-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//003-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/004-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/004-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//004-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//004-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/005-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/005-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//005-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//005-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/006-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/006-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//006-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//006-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/007-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/007-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//007-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//007-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/008-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/008-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//008-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//008-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/009-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/009-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//009-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//009-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/010-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/010-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Jewelery//010-before.webp",
+        "localAfter": "/images/sample-images/Jewelery//010-after.webp"
+      }
+    ]
+  },
+  "tab-sm5": {
+    "id": "tab-sm5",
+    "name": "Product",
+    "items": [
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Deculttering/001-before-525x.webp",
+        "beforeAlt": "Deculttering before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Deculttering/001-after-525x.webp",
+        "afterAlt": "Deculttering After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Drone/001-before-525x.webp",
+        "beforeAlt": "Drone Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Drone/001-after-525x.webp",
+        "afterAlt": "Drone After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/HDR/001-before-525x.webp",
+        "beforeAlt": "HDR Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/HDR/001-after-525x.webp",
+        "afterAlt": "HDR After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Lawn-Replacement/001-before-525x.webp",
+        "beforeAlt": "Lawn Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Lawn-Replacement/001-after-525x.webp",
+        "afterAlt": "Lawn After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Panoroma/001-before-525x.webp",
+        "beforeAlt": "Panorama Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Panoroma/001-after-525x.webp",
+        "afterAlt": "Panoroma After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Sky-Replacement/001-before-525x.webp",
+        "beforeAlt": "Sky Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Sky-Replacement/001-after-525x.webp",
+        "afterAlt": "Sky After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Twilight-(Day%20to%20Dusk%20)/001-before-525x.webp",
+        "beforeAlt": "Twilight Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Twilight-(Day%20to%20Dusk%20)/001-after-525x.webp",
+        "afterAlt": "Twilight After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Virtual-staging/001-before-525x.webp",
+        "beforeAlt": "Virtual Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Realestate/Virtual-staging/001-after-525x.webp",
+        "afterAlt": "Virtual After",
+        "localBefore": "/images/sample-images/Product//001-before-525x.webp",
+        "localAfter": "/images/sample-images/Product//001-after-525x.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/001-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/001-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Product//001-before.webp",
+        "localAfter": "/images/sample-images/Product//001-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/002-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/002-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Product//002-before.webp",
+        "localAfter": "/images/sample-images/Product//002-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/003-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/003-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Product//003-before.webp",
+        "localAfter": "/images/sample-images/Product//003-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/004-before.webp",
+        "beforeAlt": "Portrait Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Portrait/004-after.webp",
+        "afterAlt": "Portrait After",
+        "localBefore": "/images/sample-images/Product//004-before.webp",
+        "localAfter": "/images/sample-images/Product//004-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/001-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/001-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Product//001-before.webp",
+        "localAfter": "/images/sample-images/Product//001-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/002-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/002-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Product//002-before.webp",
+        "localAfter": "/images/sample-images/Product//002-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/003-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/003-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Product//003-before.webp",
+        "localAfter": "/images/sample-images/Product//003-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/004-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/004-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Product//004-before.webp",
+        "localAfter": "/images/sample-images/Product//004-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/005-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/005-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Product//005-before.webp",
+        "localAfter": "/images/sample-images/Product//005-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/006-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/006-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Product//006-before.webp",
+        "localAfter": "/images/sample-images/Product//006-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/007-before.webp",
+        "beforeAlt": "Fashion Before",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Fashion/007-after.webp",
+        "afterAlt": "Fashion After",
+        "localBefore": "/images/sample-images/Product//007-before.webp",
+        "localAfter": "/images/sample-images/Product//007-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/001-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/001-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//001-before.webp",
+        "localAfter": "/images/sample-images/Product//001-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/002-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/002-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//002-before.webp",
+        "localAfter": "/images/sample-images/Product//002-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/003-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/003-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//003-before.webp",
+        "localAfter": "/images/sample-images/Product//003-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/004-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/004-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//004-before.webp",
+        "localAfter": "/images/sample-images/Product//004-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/005-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/005-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//005-before.webp",
+        "localAfter": "/images/sample-images/Product//005-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/006-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/006-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//006-before.webp",
+        "localAfter": "/images/sample-images/Product//006-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/007-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/007-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//007-before.webp",
+        "localAfter": "/images/sample-images/Product//007-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/008-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/008-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//008-before.webp",
+        "localAfter": "/images/sample-images/Product//008-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/009-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/009-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//009-before.webp",
+        "localAfter": "/images/sample-images/Product//009-after.webp"
+      },
+      {
+        "title": "",
+        "beforeSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/010-before.webp",
+        "beforeAlt": "Jewellery",
+        "afterSrc": "https://cdn-kglcp.nitrocdn.com/SHzaNANRXFrCblvqwWjtxqWqqvNwNsjl/assets/images/optimized/rev-2b1418b/www.smartphotoeditors.com/images/sample-images/Jewellery/010-after.webp",
+        "afterAlt": "Jewellery",
+        "localBefore": "/images/sample-images/Product//010-before.webp",
+        "localAfter": "/images/sample-images/Product//010-after.webp"
+      }
+    ]
+  }
+}

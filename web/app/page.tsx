@@ -1,100 +1,66 @@
-"use client";
+import React from "react";
+import { SiteNavbar } from "@/components/smartphoto/SiteNavbar";
+import { HeroSlider } from "@/components/smartphoto/HeroSlider";
+import { CounterSection } from "@/components/smartphoto/CounterSection";
+import { AboutSection } from "@/components/smartphoto/AboutSection";
+import { VideoSection } from "@/components/smartphoto/VideoSection";
+import { GetStartedCTA } from "@/components/smartphoto/GetStartedCTA";
+import { ServicesScroll } from "@/components/smartphoto/ServicesScroll";
+import { TestimonialsSection } from "@/components/smartphoto/TestimonialsSection";
+import { CaseStudySection } from "@/components/smartphoto/CaseStudySection";
+import { FAQSection } from "@/components/smartphoto/FAQSection";
+import { EnquiryForm } from "@/components/smartphoto/EnquiryForm";
+import { SiteFooter } from "@/components/smartphoto/SiteFooter";
+import { CustomCursor } from "@/components/smartphoto/CustomCursor";
+import { FadeInObserver } from "@/components/smartphoto/FadeInObserver";
 
-import React, { useState } from "react";
-import { Header } from "@/components/layout/Header";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { UserTable } from "@/features/users/components/UserTable";
-import { UserFormModal } from "@/features/users/components/UserFormModal";
-import { Pagination } from "@/components/ui/Pagination";
-import { ErrorState } from "@/components/ui/ErrorState";
-import { useUsers } from "@/features/users/hooks/useUsers";
-import { User, CreateUserPayload, UpdateUserPayload } from "@/types/user";
-
-export default function UsersPage() {
-  const {
-    users,
-    pagination,
-    search,
-    setSearch,
-    isLoading,
-    error,
-    changePage,
-    refetch,
-    createUser,
-    updateUser,
-    deleteUser,
-  } = useUsers();
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
-
-  const handleOpenCreate = () => {
-    setSelectedUser(null);
-    setIsModalOpen(true);
-  };
-
-  const handleOpenEdit = (user: User) => {
-    setSelectedUser(user);
-    setIsModalOpen(true);
-  };
-
-  const handleDelete = async (id: number) => {
-    if (confirm("Are you sure you want to delete this user?")) {
-      await deleteUser(id);
-    }
-  };
-
-  const handleModalSubmit = async (payload: CreateUserPayload | UpdateUserPayload) => {
-    if (selectedUser) {
-      await updateUser(selectedUser.id, payload as UpdateUserPayload);
-    } else {
-      await createUser(payload as CreateUserPayload);
-    }
-  };
-
+export default function HomePage() {
   return (
-    <div className="space-y-6">
-      <Header
-        title="Users Management"
-        description="Sample feature module demonstrating end-to-end CRUD with Next.js, Flask & raw PostgreSQL."
-        action={
-          <Button variant="primary" onClick={handleOpenCreate}>
-            + Add New User
-          </Button>
-        }
-      />
+    <div className="relative min-h-screen bg-white">
+      {/* Magic Cursor */}
+      <CustomCursor />
 
-      <div className="flex items-center justify-between gap-4">
-        <div className="w-full sm:w-72">
-          <Input
-            placeholder="Search users..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </div>
+      {/* Global Scroll Fade-in Trigger */}
+      <FadeInObserver />
 
-      {error ? (
-        <ErrorState message={error} onRetry={refetch} />
-      ) : (
-        <div className="space-y-4">
-          <UserTable
-            users={users}
-            isLoading={isLoading}
-            onEdit={handleOpenEdit}
-            onDelete={handleDelete}
-          />
-          <Pagination meta={pagination} onPageChange={changePage} />
-        </div>
-      )}
+      {/* Navbar Header */}
+      <SiteNavbar />
 
-      <UserFormModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        user={selectedUser}
-        onSubmit={handleModalSubmit}
-      />
+      {/* Main Content Sections */}
+      <main className="main-section">
+        {/* Hero Swiper Slider with Ken Burns Effect */}
+        <HeroSlider />
+
+        {/* Counter Stats Section */}
+        <CounterSection />
+
+        {/* About SmartPHOTOeditors Intro */}
+        <AboutSection />
+
+        {/* Video Showcase Section */}
+        <VideoSection />
+
+        {/* Get Started Quick Action Bar */}
+        <GetStartedCTA />
+
+        {/* GSAP ScrollTrigger Pinned Overlapping Services Cards */}
+        <ServicesScroll />
+
+        {/* Testimonials Section */}
+        <TestimonialsSection />
+
+        {/* Case Studies / Success Stories Section */}
+        <CaseStudySection />
+
+        {/* FAQ Accordion Section */}
+        <FAQSection />
+
+        {/* Animated Clouds Enquiry Form Section */}
+        <EnquiryForm />
+
+        {/* Comprehensive 4-Column Footer */}
+        <SiteFooter />
+      </main>
     </div>
   );
 }

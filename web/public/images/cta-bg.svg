@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="795" height="135" viewBox="0 0 795 135">
+  <defs>
+    <clipPath id="clip-path">
+      <path id="Path_596" data-name="Path 596" d="M6,0H789a6,6,0,0,1,6,6V129a6,6,0,0,1-6,6H6a6,6,0,0,1-6-6V6A6,6,0,0,1,6,0Z" transform="translate(375 3390)" fill="#332ea4"/>
+    </clipPath>
+  </defs>
+  <g id="cta-bg" transform="translate(-375 -3412.104)">
+    <rect id="Rectangle_100" data-name="Rectangle 100" width="795" height="135" rx="6" transform="translate(375 3412.104)" fill="#332ea4"/>
+    <g id="Mask_Group_1" data-name="Mask Group 1" transform="translate(0 22.104)" clip-path="url(#clip-path)">
+      <g id="Group_71" data-name="Group 71" transform="translate(803 3377.667)">
+        <path id="Rectangle_1" data-name="Rectangle 1" d="M315.867,30.1C468.591-3.648,541.223-4.4,541.223-4.4L513.592,144.5H106.674S104.96,97.9,183.64,91.766,258.6,42.755,315.867,30.1Z" transform="translate(-89.737 5.998)" fill="#8d9eef"/>
+        <path id="Rectangle_1-2" data-name="Rectangle 1" d="M228.116,8.931C293.759-16.558,429.333-6.007,429.333-6.007l-1.46,148.329H-28s6.092-25.966,69.765-29.345S120.5,95.724,133.956,84.108,162.473,34.421,228.116,8.931Z" transform="translate(28 8.171)" fill="#463fdb"/>
+        <path id="Rectangle_1-3" data-name="Rectangle 1" d="M394.223,72.534c62.667-36,72-68.667,72-68.667h84l7.333,144.494H357.2S331.556,108.534,394.223,72.534Z" transform="translate(-106.556 2.133)" fill="#2a2592"/>
+      </g>
+    </g>
+  </g>
+</svg>
