@@ -45,6 +45,12 @@ export const SiteFooter: React.FC = () => {
               <p className="footer-menu-heading">Quick Links</p>
               <ul>
                 <li>
+                  <a href="/services"> Services</a>
+                </li>
+                <li>
+                  <a href="/resources"> Resources</a>
+                </li>
+                <li>
                   <a href="/about-us.php"> About Us</a>
                 </li>
                 <li>
@@ -145,7 +151,9 @@ export const SiteFooter: React.FC = () => {
           <div className="col-12 col-md-4">
             <ul className="widget contact-us">
               <li className="contact-col">
-                <i className="fa fa-envelope icons-size" aria-hidden="true"></i>
+                <span className="icons-size">
+                  <i className="fa-solid fa-envelope" aria-hidden="true"></i>
+                </span>
                 <div className="contact-text">
                   <p>
                     <span>Email</span> <br />
@@ -165,12 +173,13 @@ export const SiteFooter: React.FC = () => {
                   </p>
                 </div>
               </li>
-              <br />
               <li className="contact-col">
-                <i
-                  className="fa-solid fa-comments icons-size"
-                  aria-hidden="true"
-                ></i>
+                <span className="icons-size">
+                  <i
+                    className="fa-solid fa-comments"
+                    aria-hidden="true"
+                  ></i>
+                </span>
                 <div className="contact-text">
                   <p>
                     <span>
@@ -189,12 +198,13 @@ export const SiteFooter: React.FC = () => {
                   </p>
                 </div>
               </li>
-              <br />
               <li className="contact-col">
-                <i
-                  className="fa-solid fa-phone icons-size"
-                  aria-hidden="true"
-                ></i>
+                <span className="icons-size">
+                  <i
+                    className="fa-solid fa-phone"
+                    aria-hidden="true"
+                  ></i>
+                </span>
                 <div className="contact-text">
                   <p>
                     <span>Toll Free Number</span> <br />

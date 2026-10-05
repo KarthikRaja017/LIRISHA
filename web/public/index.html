@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 
 <head>
@@ -1174,12 +1174,25 @@ if (imRef) {
     width: 45px;
     height: 45px;
     text-align: center;
-    margin: 0 auto;
     border-radius: 50%;
-    line-height: 45px;
     color: #fff;
     font-size: 20px;
     margin-right: 15px;
+    flex-shrink: 0;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    line-height: 1;
+}
+.contact-col .icons-size i {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    font-size: 20px;
+    color: #fff;
+    margin: 0;
+    padding: 0;
 }
 .footer-menu-heading{
     font-size: 18px;
@@ -1292,29 +1305,29 @@ if (imRef) {
       <div class="col-md-4">
         <ul class="widget contact-us">
           <li class="contact-col">
-            <i class="fa fa-envelope icons-size" aria-hidden="true"></i>
+            <span class="icons-size"><i class="fa-solid fa-envelope" aria-hidden="true"></i></span>
             <div class="contact-text">
               <p><span>Email</span> <br>
                 <a href="javascript:void(0);" class="click2copy" id="footerEmail">info***@smartphotoeditors.com <i class="far fa-copy copy-icon"></i></a>
               </p>
             </div>
-          </li><br>
+          </li>
           <li class="contact-col">
-           <i class="fa-solid fa-comments icons-size" aria-hidden="true"></i>
+            <span class="icons-size"><i class="fa-solid fa-comments" aria-hidden="true"></i></span>
             <div class="contact-text">
               <p><span><a href="#" id="footerliveChatButton" onclick="LC_API.open_chat_window();return false;">Live Chat</a></span>
               </p>
             </div>
-          </li><br>
+          </li>
           <li class="contact-col">
-            <i class="fa-solid fa-phone icons-size" aria-hidden="true"></i>
+            <span class="icons-size"><i class="fa-solid fa-phone" aria-hidden="true"></i></span>
             <div class="contact-text">
               <p><span>Toll Free Number</span> <br>
                 <a href="tel:18559240830" id="footerPhone">1-855-924-0830</a>
               </p>
             </div>
           </li>
-</ul>
+        </ul>
       </div>
     </div>
     <div class="copyright">

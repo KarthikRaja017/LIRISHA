@@ -53,16 +53,20 @@ export const SiteNavbar: React.FC = () => {
                       setActiveSubmenu(null);
                     }}
                   >
-                    <a
-                      className="nav-link cursor-pointer"
-                      href="#"
+                    <Link
+                      className="nav-link cursor-pointer inline-flex items-center gap-1"
+                      href="/services"
                       onClick={(e) => {
-                        e.preventDefault();
-                        toggleDropdown("services");
+                        // On small screens, toggle dropdown if clicked
+                        if (window.innerWidth < 768) {
+                          e.preventDefault();
+                          toggleDropdown("services");
+                        }
                       }}
                     >
-                      Services
-                    </a>
+                      <span>Services</span>
+                      <i className="fa-solid fa-caret-down text-[11px] opacity-75"></i>
+                    </Link>
                     <ul
                       className={`dropdown-menu ${
                         activeDropdown === "services" ? "show" : ""
@@ -341,16 +345,19 @@ export const SiteNavbar: React.FC = () => {
                     onMouseEnter={() => setActiveDropdown("resources")}
                     onMouseLeave={() => setActiveDropdown(null)}
                   >
-                    <a
-                      className="nav-link cursor-pointer"
-                      href="#"
+                    <Link
+                      className="nav-link cursor-pointer inline-flex items-center gap-1"
+                      href="/resources"
                       onClick={(e) => {
-                        e.preventDefault();
-                        toggleDropdown("resources");
+                        if (window.innerWidth < 768) {
+                          e.preventDefault();
+                          toggleDropdown("resources");
+                        }
                       }}
                     >
-                      Resources
-                    </a>
+                      <span>Resources</span>
+                      <i className="fa-solid fa-caret-down text-[11px] opacity-75"></i>
+                    </Link>
                     <ul
                       className={`dropdown-menu ${
                         activeDropdown === "resources" ? "show" : ""

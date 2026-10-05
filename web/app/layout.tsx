@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
+import { SiteNavbar } from "@/components/smartphoto/SiteNavbar";
+import { SiteFooter } from "@/components/smartphoto/SiteFooter";
+import { CustomCursor } from "@/components/smartphoto/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Outsource Image Editing Services - SmartPHOTOeditors",
@@ -47,7 +50,16 @@ export default function RootLayout({
         />
       </head>
       <body>
-        <AuthProvider>{children}</AuthProvider>
+        <AuthProvider>
+          <div className="relative min-h-screen flex flex-col bg-white">
+            <CustomCursor />
+            <SiteNavbar />
+            <main className="main-section flex-1">
+              {children}
+            </main>
+            <SiteFooter />
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );

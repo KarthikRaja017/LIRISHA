@@ -1,8 +1,5 @@
 import type { Metadata } from "next";
-import { SiteNavbar } from "@/components/smartphoto/SiteNavbar";
-import { SiteFooter } from "@/components/smartphoto/SiteFooter";
 import { PortfolioGallery } from "@/components/smartphoto/PortfolioGallery";
-import { CustomCursor } from "@/components/smartphoto/CustomCursor";
 
 export const metadata: Metadata = {
   title: "Sample Images | SmartPHOTOeditors",
@@ -11,14 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function SampleImagesRoutePage() {
-  return (
-    <div className="relative min-h-screen bg-white">
-      <CustomCursor />
-      <SiteNavbar />
-      <main className="main-section">
-        <PortfolioGallery />
-        <SiteFooter />
-      </main>
-    </div>
-  );
+  return <PortfolioGallery />;
 }
