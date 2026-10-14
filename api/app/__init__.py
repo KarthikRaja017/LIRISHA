@@ -44,10 +44,21 @@ def create_app(config_object=None) -> Flask:
     from app.routes.health import health_bp
     from app.routes.auth import auth_bp
     from app.routes.users import users_bp
+    from app.routes.services import services_bp
+    from app.routes.resources import resources_bp
+    from app.routes.gallery import gallery_bp
+    from app.routes.pages import pages_bp
+    from app.routes.settings import settings_bp
 
     app.register_blueprint(health_bp, url_prefix="/api/v1/health")
     app.register_blueprint(auth_bp, url_prefix="/api/v1/auth")
     app.register_blueprint(users_bp, url_prefix="/api/v1/users")
+    app.register_blueprint(services_bp, url_prefix="/api/v1/services")
+    app.register_blueprint(resources_bp, url_prefix="/api/v1/resources")
+    app.register_blueprint(gallery_bp, url_prefix="/api/v1/gallery")
+    app.register_blueprint(pages_bp, url_prefix="/api/v1/pages")
+    app.register_blueprint(settings_bp, url_prefix="/api/v1/settings")
+
 
     # Teardown database connection pool on app context teardown
     @app.teardown_appcontext

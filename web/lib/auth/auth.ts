@@ -25,6 +25,10 @@ export const authService = {
     return apiClient.get<User>(ENDPOINTS.AUTH.ME);
   },
 
+  async updateCurrentUser(payload: { email?: string; password?: string; first_name?: string; last_name?: string }): Promise<User> {
+    return apiClient.put<User>(ENDPOINTS.AUTH.ME, payload);
+  },
+
   logout(): void {
     removeToken();
   },

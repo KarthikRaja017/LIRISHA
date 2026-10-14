@@ -4,9 +4,14 @@ Loads setting values from environment variables with sensible defaults.
 """
 import os
 from typing import List, Type
+from dotenv import load_dotenv
+
+# Ensure .env is loaded
+load_dotenv()
 
 
 class Config:
+
     """Base Configuration."""
     SECRET_KEY: str = os.getenv("SECRET_KEY", "dev-secret-key-change-in-production")
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/project_db")
@@ -44,8 +49,9 @@ class TestingConfig(Config):
     """Testing Configuration."""
     TESTING: bool = True
     DEBUG: bool = True
-    DATABASE_URL: str = os.getenv("TEST_DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/project_db_test")
+    DATABASE_URL: str = os.getenv("TEST_DATABASE_URL", Config.DATABASE_URL)
     LOG_LEVEL: str = "ERROR"
+
 
 
 def get_config() -> Type[Config]:

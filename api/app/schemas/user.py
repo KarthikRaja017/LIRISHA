@@ -19,6 +19,7 @@ class UserCreateSchema(BaseModel):
 class UserUpdateSchema(BaseModel):
     """Schema for updating a user."""
     email: Optional[EmailStr] = Field(None, description="User email address")
+    password: Optional[str] = Field(None, min_length=6, description="New password")
     first_name: Optional[str] = Field(None, min_length=1, max_length=50, description="First name")
     last_name: Optional[str] = Field(None, min_length=1, max_length=50, description="Last name")
     role: Optional[str] = Field(None, description="User role")

@@ -1,17 +1,25 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
+import { useSettings } from "@/context/SettingsContext";
 
 export const SiteFooter: React.FC = () => {
+  const { getSettingValue } = useSettings();
   const currentYear = new Date().getFullYear();
   const [copied, setCopied] = useState(false);
 
+  const footerLogo = getSettingValue("site_footer_logo", getSettingValue("site_logo", "/images/SPE-logo.svg"));
+  const siteName = getSettingValue("site_name", "SmartPHOTOeditors");
+  const contactEmail = getSettingValue("contact_email", "info@smartphotoeditors.com");
+  const contactPhone = getSettingValue("contact_phone", "1-855-924-0830");
+
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText("info@smartphotoeditors.com").then(() => {
+    navigator.clipboard.writeText(contactEmail).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      alert("Email copied to clipboard: info@smartphotoeditors.com");
+      alert(`Email copied to clipboard: ${contactEmail}`);
     });
   };
 
@@ -21,14 +29,14 @@ export const SiteFooter: React.FC = () => {
         {/* Footer Top Brand */}
         <div className="footer-logo text-center">
           <img
-            src="/images/SPE-logo.svg"
-            alt="SmartPHOTOeditors Footer logo"
+            src={footerLogo}
+            alt={`${siteName} Footer logo`}
             className="footer-logo-img mx-auto"
-            title="SmartPHOTOeditors Footer logo"
+            title={`${siteName} Footer logo`}
             style={{ width: "200px", maxWidth: "100%", height: "auto", display: "inline-block" }}
           />
           <p>
-            SmartPHOTOeditors (SPE) is a team of skilled photo editing specialists
+            {siteName} is a team of skilled photo editing specialists
             with a <br />
             commitment to providing quality, excellence, and satisfaction.
           </p>
@@ -208,8 +216,8 @@ export const SiteFooter: React.FC = () => {
                 <div className="contact-text">
                   <p>
                     <span>Toll Free Number</span> <br />
-                    <a href="tel:18559240830" id="footerPhone">
-                      1-855-924-0830
+                    <a href={`tel:${contactPhone.replace(/[^0-9+]/g, "")}`} id="footerPhone">
+                      {contactPhone}
                     </a>
                   </p>
                 </div>
@@ -225,6 +233,20 @@ export const SiteFooter: React.FC = () => {
               <p>
                 © <span>{currentYear}</span> www.smartphotoeditors.com | Web
                 Property of Flatworld Solutions Inc.{" "}
+                <span className="mx-2 opacity-30">|</span>
+                <Link
+                  href="/admin"
+                  className="text-gray-400 hover:text-white transition-colors underline decoration-dotted text-xs inline-flex items-center gap-1"
+                >
+                  <i className="fa-solid fa-gear text-[10px]"></i> Admin CMS
+                </Link>
+                <span className="mx-2 opacity-30">|</span>
+                <Link
+                  href="/login"
+                  className="text-gray-400 hover:text-white transition-colors underline decoration-dotted text-xs inline-flex items-center gap-1"
+                >
+                  <i className="fa-solid fa-arrow-right-to-bracket text-[10px]"></i> Admin Login
+                </Link>
               </p>
             </div>
             <div className="col-xl-4 col-lg-4 col-xxl-4 col-sm-12 col-md-6">

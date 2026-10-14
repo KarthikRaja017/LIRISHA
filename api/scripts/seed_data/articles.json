@@ -1,0 +1,110 @@
+[
+  {
+    "id": "art-1",
+    "slug": "real-estate-photo-editing-guide-2026",
+    "category": "Articles",
+    "title": "The Ultimate Guide to Real Estate Photo Editing: HDR Blending, Sky Swaps & Staging",
+    "excerpt": "Explore how HDR exposure blending, day-to-dusk twilight conversions, and virtual staging dramatically elevate property listings and increase buyer inquiries.",
+    "date": "Sep 28, 2026",
+    "author": "Editorial Team",
+    "readTime": "6 min read",
+    "image": "/images/homepage/real-estate.webp",
+    "link": "/articles/real-estate-photo-editing-guide-2026",
+    "tags": [
+      "Real Estate",
+      "HDR Blending",
+      "Twilight",
+      "Virtual Staging"
+    ]
+  },
+  {
+    "id": "art-2",
+    "slug": "ghost-mannequin-effect-for-ecommerce-fashion",
+    "category": "Articles",
+    "title": "Mastering the Ghost Mannequin Effect: How to Create 3D Apparel Imagery",
+    "excerpt": "Step-by-step techniques to merge collar and neckline photos for flawless 3D hollow-man effects that reduce product return rates for fashion brands.",
+    "date": "Sep 20, 2026",
+    "author": "Fashion Specialists",
+    "readTime": "5 min read",
+    "image": "/images/homepage/ecommerce-image-editing.webp",
+    "link": "/articles/ghost-mannequin-effect-for-ecommerce-fashion",
+    "tags": [
+      "Fashion",
+      "Ghost Mannequin",
+      "E-Commerce",
+      "Apparel"
+    ]
+  },
+  {
+    "id": "art-3",
+    "slug": "hair-masking-alpha-channel-techniques",
+    "category": "Articles",
+    "title": "Alpha Channel Hair Masking: Advanced Photoshop Techniques for Fine Strands",
+    "excerpt": "Learn how professional retouchers extract intricate flyaway hair and animal fur against complex backgrounds using non-destructive channel calculation.",
+    "date": "Sep 15, 2026",
+    "author": "Photoshop Masters",
+    "readTime": "7 min read",
+    "image": "/images/homepage/image-cliping.webp",
+    "link": "/articles/hair-masking-alpha-channel-techniques",
+    "tags": [
+      "Clipping",
+      "Hair Masking",
+      "Photoshop",
+      "Alpha Channel"
+    ]
+  },
+  {
+    "id": "art-4",
+    "slug": "jewelry-photo-retouching-sparkle-and-luster",
+    "category": "Articles",
+    "title": "Macro Jewelry Retouching: Maximizing Diamond Fire & Eliminating Glare",
+    "excerpt": "A deep dive into focus stacking, facet sharpening, and light reflection balancing to make gemstones and luxury watches sparkle on digital storefronts.",
+    "date": "Sep 08, 2026",
+    "author": "Jewelry Retouchers",
+    "readTime": "8 min read",
+    "image": "/images/homepage/jewellery-retouching.webp",
+    "link": "/articles/jewelry-photo-retouching-sparkle-and-luster",
+    "tags": [
+      "Jewelry",
+      "Macro Photography",
+      "Diamond Sparkle",
+      "Focus Stacking"
+    ]
+  },
+  {
+    "id": "art-5",
+    "slug": "amazon-product-image-guidelines-compliance",
+    "category": "Articles",
+    "title": "Amazon Product Image Requirements: Compliance Standards & Best Practices",
+    "excerpt": "Avoid listing suppressions by ensuring pure RGB (255,255,255) white backgrounds, 85% frame fill ratios, 2000px zoom resolution, and accurate aspect ratios.",
+    "date": "Aug 30, 2026",
+    "author": "E-Commerce Strategy Team",
+    "readTime": "5 min read",
+    "image": "/images/homepage/furniture-photo-editing.webp",
+    "link": "/articles/amazon-product-image-guidelines-compliance",
+    "tags": [
+      "Amazon",
+      "E-Commerce",
+      "Product Guidelines",
+      "Conversion"
+    ]
+  },
+  {
+    "id": "art-6",
+    "slug": "frequency-separation-portrait-retouching",
+    "category": "Articles",
+    "title": "Frequency Separation Demystified: High-End Skin Retouching Without Plastic Look",
+    "excerpt": "How separating high-frequency texture from low-frequency color tones lets editors smooth skin tone blemishes while preserving 100% natural pores.",
+    "date": "Aug 22, 2026",
+    "author": "Portrait Lab",
+    "readTime": "7 min read",
+    "image": "/images/sample-images/Portrait/001-after.webp",
+    "link": "/articles/frequency-separation-portrait-retouching",
+    "tags": [
+      "Portrait",
+      "Skin Texture",
+      "Frequency Separation",
+      "Beauty"
+    ]
+  }
+]

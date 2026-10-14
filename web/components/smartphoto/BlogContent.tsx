@@ -1,11 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { blogPostsData } from "@/lib/resourcesData";
+import { ResourceArticle } from "@/types/content";
+import { getResources } from "@/lib/api/content";
 
-export const BlogContent: React.FC = () => {
+interface BlogContentProps {
+  initialPosts?: ResourceArticle[];
+}
+
+export const BlogContent: React.FC<BlogContentProps> = ({ initialPosts }) => {
+  const [posts, setPosts] = useState<ResourceArticle[]>(initialPosts || []);
+
+  useEffect(() => {
+    if (!initialPosts || initialPosts.length === 0) {
+      getResources("Blog").then((data) => {
+        if (data && data.length > 0) setPosts(data);
+      });
+    }
+  }, [initialPosts]);
+
   return (
     <div className="blog-page-inner">
       {/* HERO BANNER */}
@@ -56,7 +71,7 @@ export const BlogContent: React.FC = () => {
       <section className="py-14 bg-[#f8f9fa]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {blogPostsData.map((post) => (
+            {posts.map((post) => (
               <div
                 key={post.id}
                 className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"

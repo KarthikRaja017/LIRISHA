@@ -1,0 +1,74 @@
+[
+  {
+    "id": "blog-1",
+    "slug": "ai-vs-human-in-the-loop-photo-editing",
+    "category": "Blog",
+    "title": "AI vs. Human-in-the-Loop Photo Editing: Why Pure AI Still Falls Short for Brands",
+    "excerpt": "Why the future of scalable photo editing combines AI speed with human discernment to prevent uncanny valley artifacts and maintain strict brand integrity.",
+    "date": "Sep 24, 2026",
+    "author": "Tech & Innovation Desk",
+    "readTime": "5 min read",
+    "image": "/images/about/professionals-1.webp",
+    "link": "/blog/ai-vs-human-in-the-loop-photo-editing",
+    "tags": [
+      "AI Editing",
+      "Human in the Loop",
+      "Future of Retouching",
+      "Quality"
+    ]
+  },
+  {
+    "id": "blog-2",
+    "slug": "top-5-e-commerce-product-photography-mistakes",
+    "category": "Blog",
+    "title": "Top 5 E-Commerce Product Photography Mistakes That Hurt Conversion Rates",
+    "excerpt": "From inconsistent background color tones to lack of shadow grounding, discover the most common photography pitfalls and how post-processing corrects them.",
+    "date": "Sep 18, 2026",
+    "author": "Conversion Optimization Team",
+    "readTime": "6 min read",
+    "image": "/images/homepage/furniture-photo-editing.webp",
+    "link": "/blog/top-5-e-commerce-product-photography-mistakes",
+    "tags": [
+      "E-Commerce",
+      "Conversion Rate",
+      "Product Photography",
+      "Drop Shadow"
+    ]
+  },
+  {
+    "id": "blog-3",
+    "slug": "how-to-prep-raw-files-for-outsourcing",
+    "category": "Blog",
+    "title": "How to Prepare & Organize RAW Files for Outsourced Post-Production",
+    "excerpt": "Best practices for organizing Lightroom catalogs, generating lightweight Smart Previews, and writing clear creative briefs for external editing teams.",
+    "date": "Sep 10, 2026",
+    "author": "Workflow Consultants",
+    "readTime": "4 min read",
+    "image": "/images/homepage/banner-3.webp",
+    "link": "/blog/how-to-prep-raw-files-for-outsourcing",
+    "tags": [
+      "Lightroom",
+      "Workflow",
+      "Smart Previews",
+      "Outsourcing Guide"
+    ]
+  },
+  {
+    "id": "blog-4",
+    "slug": "the-art-of-day-to-dusk-twilight-conversion",
+    "category": "Blog",
+    "title": "The Art of Day-to-Dusk: How Virtual Twilight Sells Properties Faster",
+    "excerpt": "Discover why evening twilight photos attract 3x more clicks on Zillow and how digital sunset conversions save thousands over real dusk photoshoot setups.",
+    "date": "Aug 29, 2026",
+    "author": "Real Estate Desk",
+    "readTime": "5 min read",
+    "image": "/images/homepage/banner-1.webp",
+    "link": "/blog/the-art-of-day-to-dusk-twilight-conversion",
+    "tags": [
+      "Real Estate",
+      "Twilight",
+      "Day to Dusk",
+      "Architecture"
+    ]
+  }
+]

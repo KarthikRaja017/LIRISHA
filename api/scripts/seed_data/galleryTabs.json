@@ -1,19 +1,4 @@
-export interface GalleryItem {
-  id: string;
-  title: string;
-  beforeSrc: string;
-  beforeAlt: string;
-  afterSrc: string;
-  afterAlt: string;
-}
-
-export interface GalleryTab {
-  id: string;
-  name: string;
-  items: GalleryItem[];
-}
-
-export const galleryTabs: GalleryTab[] = [
+[
   {
     "id": "tab-sm1",
     "name": "Real Estate",
@@ -508,4 +493,4 @@ export const galleryTabs: GalleryTab[] = [
       }
     ]
   }
-];
+]

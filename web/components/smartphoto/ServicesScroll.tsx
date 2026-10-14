@@ -61,8 +61,9 @@ export const ServicesScroll: React.FC = () => {
   }, []);
 
   return (
-    <section ref={sectionRef} className="services-scroll py-8">
-      <div className="container">
+    <section className="services-scroll py-8">
+      <div ref={sectionRef} className="services-scroll-pin-wrapper">
+        <div className="container">
         <div className="scroll-section vertical-section image-editing">
           <div className="row">
             <div className="col-md-10 col-lg-6 col-xl-6 offset-md-1 offset-xl-3 offset-lg-3 text-center mb-6">
@@ -187,6 +188,7 @@ export const ServicesScroll: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </section>
   );

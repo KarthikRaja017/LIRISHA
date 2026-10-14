@@ -1,8 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { servicesData, ServiceCategory, SubServiceItem } from "@/lib/servicesData";
+import { ServiceCategory, SubServiceItem } from "@/types/content";
+import { getServiceBySlug } from "@/lib/api/content";
 import { ImageComparisonSlider } from "./ImageComparisonSlider";
 
 interface SubServiceDetailProps {
@@ -14,6 +15,7 @@ interface SubServiceDetailProps {
   beforeSrc?: string;
   afterSrc?: string;
   features?: string[];
+  parentCategory?: ServiceCategory;
 }
 
 export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
@@ -24,15 +26,29 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
   beforeSrc,
   afterSrc,
   features,
+  parentCategory: initialParentCategory,
 }) => {
-  const parentCategory =
-    servicesData.find((s) => s.slug === categorySlug || s.id === categorySlug) ||
-    servicesData[0];
+  const [parentCategory, setParentCategory] = useState<ServiceCategory | null>(
+    initialParentCategory || null
+  );
 
-  const defaultBefore = beforeSrc || parentCategory.beforeSrc;
-  const defaultAfter = afterSrc || parentCategory.afterSrc;
+  useEffect(() => {
+    if (!parentCategory && categorySlug) {
+      getServiceBySlug(categorySlug).then((data) => {
+        if (data) setParentCategory(data);
+      });
+    }
+  }, [categorySlug, parentCategory]);
+
+  const defaultBefore = beforeSrc || parentCategory?.beforeSrc || "";
+  const defaultAfter = afterSrc || parentCategory?.afterSrc || "";
   const defaultTagline =
     tagline || `Professional ${title} with 12-24h turnaround and 100% satisfaction guarantee.`;
+
+  const parentName = parentCategory?.name || "Services";
+  const parentSlug = parentCategory?.slug || categorySlug;
+  const parentIcon = parentCategory?.iconClass || "fa-solid fa-layer-group";
+  const siblingSubServices = parentCategory?.subServices || [];
 
   return (
     <div className="subservice-page-inner">
@@ -51,8 +67,8 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
             <div className="col-lg-8">
               <div className="mb-3">
                 <div className="inline-flex items-center gap-2 bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
-                  <i className={parentCategory.iconClass}></i>
-                  <span>{parentCategory.name}</span>
+                  <i className={parentIcon}></i>
+                  <span>{parentName}</span>
                 </div>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
                   {title}
@@ -75,8 +91,8 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
                 </li>
                 <li className="text-gray-400">&gt;</li>
                 <li>
-                  <Link href={`/${parentCategory.slug}`} className="text-[#fd5d0a] hover:underline font-medium">
-                    {parentCategory.name}
+                  <Link href={`/${parentSlug}`} className="text-[#fd5d0a] hover:underline font-medium">
+                    {parentName}
                   </Link>
                 </li>
                 <li className="text-gray-400">&gt;</li>
@@ -86,6 +102,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
           </div>
         </div>
       </section>
+
 
       {/* 2. MAIN CONTENT & BEFORE/AFTER */}
       <section className="py-16 bg-white border-b border-gray-100">
@@ -168,22 +185,22 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
           <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
             <div>
               <h3 className="text-xl md:text-2xl font-bold text-[#1c2a5a]">
-                More in {parentCategory.name}
+                More in {parentName}
               </h3>
               <p className="text-xs md:text-sm text-gray-600 mt-1">
                 Explore complementary post-production services from our dedicated studio team.
               </p>
             </div>
             <Link
-              href={`/${parentCategory.slug}`}
+              href={`/${parentSlug}`}
               className="text-xs font-bold uppercase tracking-wider text-[#ff5b0a] hover:underline"
             >
-              View All {parentCategory.name} Services &rarr;
+              View All {parentName} Services &rarr;
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {parentCategory.subServices.slice(0, 3).map((sub) => (
+            {siblingSubServices.slice(0, 3).map((sub) => (
               <div
                 key={sub.id}
                 className="bg-white p-5 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"

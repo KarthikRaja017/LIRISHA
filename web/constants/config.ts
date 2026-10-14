@@ -3,5 +3,6 @@ export const APP_CONFIG = {
   apiUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1",
   tokenStorageKey: "auth_access_token",
   defaultPageSize: 20,
-  requestTimeoutMs: 15000,
+  requestTimeoutMs: 5000,
 } as const;
+

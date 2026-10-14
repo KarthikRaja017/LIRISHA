@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
-import { servicesData } from "@/lib/servicesData";
+import { getServiceBySlug } from "@/lib/api/content";
 
 export const metadata: Metadata = {
   title: "Real Estate Image Editing Services | SmartPHOTOeditors",
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
     "Professional real estate photo editing services: HDR blending, sky replacement, lawn enhancement, decluttering, 360 virtual tours, and floor plans.",
 };
 
-export default function RealEstateServicePage() {
-  const service = servicesData.find((s) => s.id === "real-estate")!;
+export default async function RealEstateServicePage() {
+  const service = await getServiceBySlug("real-estate");
+  if (!service) {
+    notFound();
+  }
   return <ServiceDetailContent service={service} />;
 }
+

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
-import { servicesData } from "@/lib/servicesData";
+import { getServiceBySlug } from "@/lib/api/content";
 
 export const metadata: Metadata = {
   title: "Image Clipping & Masking Services | SmartPHOTOeditors",
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
     "Handcrafted Photoshop Pen Tool clipping path, alpha channel hair masking, transparent background cutouts, and multi-path layer isolation.",
 };
 
-export default function ImageClippingServicePage() {
-  const service = servicesData.find((s) => s.id === "image-clipping")!;
+export default async function ImageClippingServicePage() {
+  const service = await getServiceBySlug("image-clipping");
+  if (!service) {
+    notFound();
+  }
   return <ServiceDetailContent service={service} />;
 }
+

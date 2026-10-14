@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
-import { servicesData } from "@/lib/servicesData";
+import { getServiceBySlug } from "@/lib/api/content";
 
 export const metadata: Metadata = {
   title: "Photoshop Creative & Manipulation Services | SmartPHOTOeditors",
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
     "Advanced Photoshop manipulation, vector conversions, pop art graphics, HDR tonemapping, image cloning, creative composites, and focus stacking.",
 };
 
-export default function PhotoshopServicesPage() {
-  const service = servicesData.find((s) => s.id === "photoshop-services")!;
+export default async function PhotoshopServicesPage() {
+  const service = await getServiceBySlug("photoshop-services");
+  if (!service) {
+    notFound();
+  }
   return <ServiceDetailContent service={service} />;
 }
+

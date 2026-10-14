@@ -1,19 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { articlesData } from "@/lib/resourcesData";
+import { ResourceArticle } from "@/types/content";
+import { getResources } from "@/lib/api/content";
 
-export const ArticlesContent: React.FC = () => {
+interface ArticlesContentProps {
+  initialArticles?: ResourceArticle[];
+}
+
+export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticles }) => {
+  const [articles, setArticles] = useState<ResourceArticle[]>(initialArticles || []);
   const [selectedTag, setSelectedTag] = useState<string>("All");
 
-  const allTags = ["All", ...Array.from(new Set(articlesData.flatMap((a) => a.tags)))];
+  useEffect(() => {
+    if (!initialArticles || initialArticles.length === 0) {
+      getResources("Articles").then((data) => {
+        if (data && data.length > 0) setArticles(data);
+      });
+    }
+  }, [initialArticles]);
+
+  const allTags = ["All", ...Array.from(new Set(articles.flatMap((a) => a.tags || [])))];
 
   const filteredArticles =
     selectedTag === "All"
-      ? articlesData
-      : articlesData.filter((a) => a.tags.includes(selectedTag));
+      ? articles
+      : articles.filter((a) => a.tags && a.tags.includes(selectedTag));
+
 
   return (
     <div className="articles-page-inner">

@@ -1,0 +1,68 @@
+[
+  {
+    "id": "test-1",
+    "quote": "My experience with Frederick at SmartPHOTOeditors has been incredibly positive, particularly in terms of editing my photographs. I am impressed by the professionalism extended to me, as well as the swift turnaround time in handling my items.",
+    "author": "Frederick M.",
+    "role": "Photography Professional",
+    "company": "Studio Vision UK",
+    "location": "United Kingdom",
+    "avatar": "/images/about/test2.webp",
+    "rating": 5,
+    "projectType": "Portrait & Studio Retouching"
+  },
+  {
+    "id": "test-2",
+    "quote": "I've recently had the opportunity to review the edited photos from the 'Millenium Towers' project and I was profoundly impressed. The excellence of your work is truly commendable. Kindly convey my appreciation to your editing team for their outstanding job.",
+    "author": "Marcus Vance",
+    "role": "Director of Media",
+    "company": "Metro Real Estate Media LLC",
+    "location": "California, USA",
+    "avatar": "/images/about/test3.webp",
+    "rating": 5,
+    "projectType": "Real Estate HDR & 360 Virtual Tours"
+  },
+  {
+    "id": "test-3",
+    "quote": "Collaborating with Prashanth Ashok was a remarkable, effortless process. I required immediate assistance with Photoshop services. Prashanth not only responded to my request promptly but also managed to deliver high-quality work within the same day.",
+    "author": "Prashanth Ashok Client",
+    "role": "Enterprise Software & Media Manager",
+    "company": "CloudScale Systems",
+    "location": "Texas, USA",
+    "avatar": "/images/about/test1.webp",
+    "rating": 5,
+    "projectType": "Creative Manipulation & Clipping"
+  },
+  {
+    "id": "test-4",
+    "quote": "We were thoroughly impressed with the quality of our portraits. The service was quick, efficient, and did not put a strain on our budget. Continue the excellent work! We will definitely recommend your services to our associates.",
+    "author": "Elin Nordström",
+    "role": "Photo Editing Manager",
+    "company": "Nordic Vision Studios",
+    "location": "Stockholm, Sweden",
+    "avatar": "/images/about/test2.webp",
+    "rating": 5,
+    "projectType": "High-Volume Wedding & Portrait Culling"
+  },
+  {
+    "id": "test-5",
+    "quote": "Great photos, thanks. We were impressed with our results from our portrait – a great service and high-quality results (and it didn't break the bank). Keep up the good work. We are really impressed with the attention to detail.",
+    "author": "Klaus Hoffmann",
+    "role": "Managing Director",
+    "company": "Hoffmann & Partner Media",
+    "location": "Munich, Germany",
+    "avatar": "/images/about/test3.webp",
+    "rating": 5,
+    "projectType": "E-Commerce Fashion Ghost Mannequin"
+  },
+  {
+    "id": "test-6",
+    "quote": "We were extremely happy with the services provided by Real Estate property image enhancement works. The team was able to see us promptly and was very pleasant to deal with. We are delighted with such professional results.",
+    "author": "Johan Lindqvist",
+    "role": "Creative Director",
+    "company": "Scandinavian Home Visuals",
+    "location": "Gothenburg, Sweden",
+    "avatar": "/images/about/test1.webp",
+    "rating": 5,
+    "projectType": "Real Estate Sky Replacement & Staging"
+  }
+]

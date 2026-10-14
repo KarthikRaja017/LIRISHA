@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
-import { servicesData } from "@/lib/servicesData";
+import { getServiceBySlug } from "@/lib/api/content";
 
 export const metadata: Metadata = {
   title: "Portrait Photo Retouching Services | SmartPHOTOeditors",
@@ -8,7 +9,11 @@ export const metadata: Metadata = {
     "High-end skin retouching, airbrushing, corporate headshot grooming, and wedding photo editing with natural texture retention.",
 };
 
-export default function PortraitServicePage() {
-  const service = servicesData.find((s) => s.id === "portrait")!;
+export default async function PortraitServicePage() {
+  const service = await getServiceBySlug("portrait");
+  if (!service) {
+    notFound();
+  }
   return <ServiceDetailContent service={service} />;
 }
+

@@ -1,27 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { articlesData, blogPostsData, ResourceArticle } from "@/lib/resourcesData";
+import { ResourceArticle } from "@/types/content";
+import { getResourceBySlug, getResources } from "@/lib/api/content";
+
 
 interface ArticleDetailProps {
   slug: string;
   type?: "article" | "blog";
+  initialItem?: ResourceArticle;
 }
 
-export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({ slug, type = "article" }) => {
-  const allItems = [...articlesData, ...blogPostsData];
+export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
+  slug,
+  type = "article",
+  initialItem,
+}) => {
   const normalizedSlug = slug.replace(/\.php$/, "");
-
-  const item: ResourceArticle =
-    allItems.find(
-      (a) =>
-        a.slug === normalizedSlug ||
-        a.slug === slug ||
-        a.id === slug ||
-        a.link.includes(normalizedSlug)
-    ) || {
+  const [item, setItem] = useState<ResourceArticle>(
+    initialItem || {
       id: "default",
       slug: normalizedSlug,
       category: type === "blog" ? "Blog" : "Articles",
@@ -33,8 +32,29 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({ slug, type 
       readTime: "5 min read",
       image: "/images/homepage/real-estate.webp",
       link: `/articles/${normalizedSlug}`,
-      tags: ["Image Editing", "Retouching", "Best Practices", "Workflows"]
-    };
+      tags: ["Image Editing", "Retouching", "Best Practices", "Workflows"],
+    }
+  );
+
+  const [relatedItems, setRelatedItems] = useState<ResourceArticle[]>([]);
+
+  useEffect(() => {
+    if (!initialItem && slug) {
+      getResourceBySlug(normalizedSlug).then((data) => {
+        if (data) setItem(data);
+      });
+    }
+  }, [slug, normalizedSlug, initialItem]);
+
+  useEffect(() => {
+    getResources().then((data) => {
+      if (data) {
+        setRelatedItems(data.filter((a) => a.id !== item.id).slice(0, 4));
+      }
+    });
+  }, [item.id]);
+
+
 
   return (
     <div className="article-detail-page">
@@ -242,10 +262,7 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({ slug, type 
                     Recommended Reads
                   </h4>
                   <div className="space-y-4">
-                    {allItems
-                      .filter((a) => a.id !== item.id)
-                      .slice(0, 4)
-                      .map((rel) => (
+                    {relatedItems.map((rel) => (
                         <div key={rel.id} className="group">
                           <Link href={rel.link} className="block">
                             <span className="text-[11px] font-bold text-[#ff5b0a] uppercase tracking-wider">

@@ -3,8 +3,9 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ServiceCategory } from "@/lib/servicesData";
+import { ServiceCategory } from "@/types/content";
 import { ImageComparisonSlider } from "./ImageComparisonSlider";
+
 
 interface ServiceDetailProps {
   service: ServiceCategory;

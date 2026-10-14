@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
-import { SiteNavbar } from "@/components/smartphoto/SiteNavbar";
-import { SiteFooter } from "@/components/smartphoto/SiteFooter";
-import { CustomCursor } from "@/components/smartphoto/CustomCursor";
+import { SiteShell } from "@/components/layout/SiteShell";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
+
   title: "Outsource Image Editing Services - SmartPHOTOeditors",
   description:
     "SmartPHOTOeditors provides bulk image editing services globally. We cater particularly to North America, Europe, and Australia.",
@@ -16,13 +17,15 @@ export const metadata: Metadata = {
   },
 };
 
+import { SettingsProvider } from "@/context/SettingsContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="/css/fonts.css" />
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
@@ -49,16 +52,11 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         <AuthProvider>
-          <div className="relative min-h-screen flex flex-col bg-white">
-            <CustomCursor />
-            <SiteNavbar />
-            <main className="main-section flex-1">
-              {children}
-            </main>
-            <SiteFooter />
-          </div>
+          <SettingsProvider>
+            <SiteShell>{children}</SiteShell>
+          </SettingsProvider>
         </AuthProvider>
       </body>
     </html>

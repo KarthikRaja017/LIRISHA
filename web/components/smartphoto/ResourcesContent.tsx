@@ -1,27 +1,42 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  articlesData,
-  caseStudiesData,
-  blogPostsData,
-  testimonialsData,
-  ResourceArticle,
-} from "@/lib/resourcesData";
+import { ResourceArticle, TestimonialItem } from "@/types/content";
+import { getResources, getTestimonials } from "@/lib/api/content";
 
-export const ResourcesContent: React.FC = () => {
+interface ResourcesContentProps {
+  initialResources?: ResourceArticle[];
+  initialTestimonials?: TestimonialItem[];
+}
+
+export const ResourcesContent: React.FC<ResourcesContentProps> = ({
+  initialResources,
+  initialTestimonials,
+}) => {
+  const [resources, setResources] = useState<ResourceArticle[]>(initialResources || []);
+  const [testimonials, setTestimonials] = useState<TestimonialItem[]>(initialTestimonials || []);
   const [activeTab, setActiveTab] = useState<string>("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
 
-  const allResources: ResourceArticle[] = [
-    ...caseStudiesData,
-    ...articlesData,
-    ...blogPostsData,
-  ];
+  useEffect(() => {
+    if (!initialResources || initialResources.length === 0) {
+      getResources().then((data) => {
+        if (data && data.length > 0) setResources(data);
+      });
+    }
+    if (!initialTestimonials || initialTestimonials.length === 0) {
+      getTestimonials().then((data) => {
+        if (data && data.length > 0) setTestimonials(data);
+      });
+    }
+  }, [initialResources, initialTestimonials]);
+
+  const allResources: ResourceArticle[] = resources;
 
   const filteredResources = allResources.filter((item) => {
+
     const matchesTab =
       activeTab === "all" ||
       (activeTab === "articles" && item.category === "Articles") ||
@@ -101,7 +116,7 @@ export const ResourcesContent: React.FC = () => {
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
-                Articles & Guides ({articlesData.length})
+                Articles & Guides ({resources.filter((r) => r.category === "Articles").length})
               </button>
               <button
                 onClick={() => setActiveTab("case-study")}
@@ -111,7 +126,7 @@ export const ResourcesContent: React.FC = () => {
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
-                Case Studies ({caseStudiesData.length})
+                Case Studies ({resources.filter((r) => r.category === "Case Studies").length})
               </button>
               <button
                 onClick={() => setActiveTab("blog")}
@@ -121,7 +136,7 @@ export const ResourcesContent: React.FC = () => {
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
-                Blog Posts ({blogPostsData.length})
+                Blog Posts ({resources.filter((r) => r.category === "Blog").length})
               </button>
               <Link
                 href="/testimonials.php"
@@ -441,7 +456,7 @@ export const ResourcesContent: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {testimonialsData.slice(0, 3).map((item) => (
+            {testimonials.slice(0, 3).map((item) => (
               <div
                 key={item.id}
                 className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between"

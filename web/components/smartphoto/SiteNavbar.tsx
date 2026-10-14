@@ -2,11 +2,17 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { useSettings } from "@/context/SettingsContext";
 
 export const SiteNavbar: React.FC = () => {
+  const { getSettingValue } = useSettings();
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+
+  const logoUrl = getSettingValue("site_logo", "/images/SPE-logo.svg");
+  const siteName = getSettingValue("site_name", "SmartPHOTOeditors");
+  const contactPhone = getSettingValue("contact_phone", "1-855-695-6028");
 
   const toggleDropdown = (name: string) => {
     setActiveDropdown((prev) => (prev === name ? null : name));
@@ -20,10 +26,10 @@ export const SiteNavbar: React.FC = () => {
             <nav className="navbar navbar-expand-md">
               <Link className="navbar-brand" href="/">
                 <img
-                  src="/images/SPE-logo.svg"
-                  alt="SmartPHOTOeditors logo"
+                  src={logoUrl}
+                  alt={`${siteName} logo`}
                   className="header-logo-img"
-                  title="SmartPHOTOeditors logo"
+                  title={`${siteName} logo`}
                   style={{ width: "240px", maxWidth: "100%", height: "auto", display: "inline-block" }}
                 />
               </Link>
@@ -74,11 +80,13 @@ export const SiteNavbar: React.FC = () => {
                     >
                       {/* Real Estate */}
                       <li
-                        className="dropdown-item"
+                        className="relative"
                         onMouseEnter={() => setActiveSubmenu("real-estate")}
                         onMouseLeave={() => setActiveSubmenu(null)}
                       >
-                        <a href="/real-estate/">Real Estate</a>
+                        <a className="dropdown-item has-submenu" href="/real-estate/">
+                          Real Estate
+                        </a>
                         <ul
                           className={`submenu dropdown-menu ${
                             activeSubmenu === "real-estate" ? "show" : ""
@@ -134,11 +142,13 @@ export const SiteNavbar: React.FC = () => {
 
                       {/* Portrait Services */}
                       <li
-                        className="dropdown-item"
+                        className="relative"
                         onMouseEnter={() => setActiveSubmenu("portrait")}
                         onMouseLeave={() => setActiveSubmenu(null)}
                       >
-                        <a href="/portrait/">Portrait Services</a>
+                        <a className="dropdown-item has-submenu" href="/portrait/">
+                          Portrait Services
+                        </a>
                         <ul
                           className={`submenu dropdown-menu ${
                             activeSubmenu === "portrait" ? "show" : ""
@@ -199,11 +209,13 @@ export const SiteNavbar: React.FC = () => {
 
                       {/* Image Clipping */}
                       <li
-                        className="dropdown-item"
+                        className="relative"
                         onMouseEnter={() => setActiveSubmenu("clipping")}
                         onMouseLeave={() => setActiveSubmenu(null)}
                       >
-                        <a href="/image-clipping/">Image Clipping</a>
+                        <a className="dropdown-item has-submenu" href="/image-clipping/">
+                          Image Clipping
+                        </a>
                         <ul
                           className={`submenu dropdown-menu ${
                             activeSubmenu === "clipping" ? "show" : ""
@@ -244,11 +256,13 @@ export const SiteNavbar: React.FC = () => {
 
                       {/* Fashion Photo */}
                       <li
-                        className="dropdown-item"
+                        className="relative"
                         onMouseEnter={() => setActiveSubmenu("fashion")}
                         onMouseLeave={() => setActiveSubmenu(null)}
                       >
-                        <a href="/fashion/">Fashion Photo</a>
+                        <a className="dropdown-item has-submenu" href="/fashion/">
+                          Fashion Photo
+                        </a>
                         <ul
                           className={`submenu dropdown-menu ${
                             activeSubmenu === "fashion" ? "show" : ""
@@ -264,11 +278,13 @@ export const SiteNavbar: React.FC = () => {
 
                       {/* Photoshop Services */}
                       <li
-                        className="dropdown-item"
+                        className="relative"
                         onMouseEnter={() => setActiveSubmenu("photoshop")}
                         onMouseLeave={() => setActiveSubmenu(null)}
                       >
-                        <a href="/photoshop-services/">Photoshop Services</a>
+                        <a className="dropdown-item has-submenu" href="/photoshop-services/">
+                          Photoshop Services
+                        </a>
                         <ul
                           className={`submenu dropdown-menu ${
                             activeSubmenu === "photoshop" ? "show" : ""
@@ -308,22 +324,22 @@ export const SiteNavbar: React.FC = () => {
                       </li>
 
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/lightroom-services/">
+                        <a className="dropdown-item" href="/lightroom-services/">
                           Lightroom Services
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/image-manipulation/ecommerce-image-editing.php">
+                        <a className="dropdown-item" href="/image-manipulation/ecommerce-image-editing.php">
                           E-Commerce
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/jewelry/">
+                        <a className="dropdown-item" href="/jewelry/">
                           Jewelry
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/photo-restoration/">
+                        <a className="dropdown-item" href="/photo-restoration/">
                           Photo Restoration
                         </a>
                       </li>
@@ -364,22 +380,22 @@ export const SiteNavbar: React.FC = () => {
                       }`}
                     >
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/blog/">
+                        <a className="dropdown-item" href="/blog/">
                           Blog
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/articles/">
+                        <a className="dropdown-item" href="/articles/">
                           Articles
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/case-study/">
+                        <a className="dropdown-item" href="/case-study/">
                           Case Studies
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item no-dropdown" href="/testimonials.php">
+                        <a className="dropdown-item" href="/testimonials.php">
                           Testimonials
                         </a>
                       </li>
@@ -398,10 +414,10 @@ export const SiteNavbar: React.FC = () => {
                     <a
                       className="navbar-link butn3 butn__new butn1-size"
                       id="menuPhone"
-                      href="tel:18556956028"
+                      href={`tel:${contactPhone.replace(/[^0-9+]/g, "")}`}
                     >
                       <i className="fa-solid fa-phone pr-2" aria-hidden="true" style={{ color: "#1c2a5a" }}></i>{" "}
-                      1-855-695-6028
+                      {contactPhone}
                     </a>
                   </li>
                 </ul>

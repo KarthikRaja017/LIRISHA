@@ -1,25 +1,51 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { caseStudiesData, ResourceArticle } from "@/lib/resourcesData";
+import { ResourceArticle } from "@/types/content";
+import { getResourceBySlug, getResources } from "@/lib/api/content";
 
 interface CaseStudyDetailProps {
   studySlug: string;
+  initialStudy?: ResourceArticle;
 }
 
-export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({ studySlug }) => {
-  // Normalize slug to match with or without .php
+export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
+  studySlug,
+  initialStudy,
+}) => {
   const normalizedSlug = studySlug.replace(/\.php$/, "");
-  const study =
-    caseStudiesData.find(
-      (s) =>
-        s.slug === normalizedSlug ||
-        s.slug === studySlug ||
-        s.id === studySlug ||
-        s.link.includes(normalizedSlug)
-    ) || caseStudiesData[0];
+  const [study, setStudy] = useState<ResourceArticle | null>(initialStudy || null);
+  const [otherStudies, setOtherStudies] = useState<ResourceArticle[]>([]);
+
+  useEffect(() => {
+    if (!initialStudy && studySlug) {
+      getResourceBySlug(normalizedSlug).then((data) => {
+        if (data) setStudy(data);
+      });
+    }
+  }, [studySlug, normalizedSlug, initialStudy]);
+
+  useEffect(() => {
+    if (study) {
+      getResources("Case Studies").then((data) => {
+        if (data) {
+          setOtherStudies(data.filter((s) => s.id !== study.id).slice(0, 2));
+        }
+      });
+    }
+  }, [study]);
+
+
+  if (!study) {
+    return (
+      <div className="py-24 text-center">
+        <p className="text-gray-500">Loading case study...</p>
+      </div>
+    );
+  }
+
 
   return (
     <div className="case-study-detail-page">
@@ -246,9 +272,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({ studySl
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {caseStudiesData
-              .filter((s) => s.id !== study.id)
-              .map((other) => (
+            {otherStudies.map((other) => (
                 <div
                   key={other.id}
                   className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"

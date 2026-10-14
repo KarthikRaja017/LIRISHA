@@ -1,11 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { caseStudiesData } from "@/lib/resourcesData";
+import { ResourceArticle } from "@/types/content";
+import { getResources } from "@/lib/api/content";
 
-export const CaseStudyContent: React.FC = () => {
+interface CaseStudyContentProps {
+  initialCaseStudies?: ResourceArticle[];
+}
+
+export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseStudies }) => {
+  const [studies, setStudies] = useState<ResourceArticle[]>(initialCaseStudies || []);
+
+  useEffect(() => {
+    if (!initialCaseStudies || initialCaseStudies.length === 0) {
+      getResources("Case Studies").then((data) => {
+        if (data && data.length > 0) setStudies(data);
+      });
+    }
+  }, [initialCaseStudies]);
+
   return (
     <div className="case-studies-page-inner">
       {/* HERO BANNER */}
@@ -56,7 +71,7 @@ export const CaseStudyContent: React.FC = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="space-y-16">
-            {caseStudiesData.map((study, idx) => (
+            {studies.map((study, idx) => (
               <div
                 key={study.id}
                 className="bg-[#fafafa] rounded-3xl p-6 md:p-10 border border-gray-200 shadow-sm transition-all hover:shadow-md"

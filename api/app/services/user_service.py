@@ -63,6 +63,9 @@ class UserService:
             if email_conflict:
                 raise ConflictError(message=f"Email '{data['email']}' is already taken")
 
+        if "password" in data and data["password"]:
+            data["password_hash"] = hash_password(data.pop("password"))
+
         updated = self.user_repo.update(user_id, data)
         return updated.to_dict(exclude_password=True) if updated else existing.to_dict(exclude_password=True)
 

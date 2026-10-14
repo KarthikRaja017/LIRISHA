@@ -1,0 +1,146 @@
+[
+  {
+    "id": "cs-1",
+    "slug": "automobile-image-clipping",
+    "category": "Case Studies",
+    "title": "UK's Largest Automotive Seller Clips 5,000+ Car Images with 48h Turnaround",
+    "excerpt": "How SmartPHOTOeditors helped a premier UK car dealership network isolate 5,000 vehicle photos, replace backgrounds with modern digital showrooms, and cut turnaround time by 60%.",
+    "date": "Case Study #CS-01",
+    "author": "Enterprise Solutions",
+    "readTime": "4 min read",
+    "image": "/images/homepage/case-study-2.webp",
+    "link": "/case-study/automobile-image-clipping.php",
+    "tags": [
+      "Automotive",
+      "High Volume",
+      "Background Replacement",
+      "Clipping"
+    ],
+    "metrics": [
+      {
+        "label": "Images Processed",
+        "value": "5,000+"
+      },
+      {
+        "label": "Turnaround Time",
+        "value": "48 Hours"
+      },
+      {
+        "label": "Cost Savings",
+        "value": "45%"
+      },
+      {
+        "label": "Quality Pass Rate",
+        "value": "99.4%"
+      }
+    ],
+    "clientDetails": {
+      "client": "Premier UK Automotive Dealership Group",
+      "industry": "Automotive E-Commerce",
+      "location": "United Kingdom",
+      "challenge": "Processing an unexpected surge of 5,000 inventory car photos taken across 18 dealership forecourts with inconsistent backgrounds, harsh sunlight, and distracting reflections.",
+      "solution": "SPE deployed a dedicated 20-editor task force working in split shifts with handcrafted clipping paths, window tint transparency, wheel spoke cutouts, and uniform virtual showroom backdrop placement.",
+      "results": [
+        "Delivered full 5,000+ catalog in 48 hours without compromising vector accuracy.",
+        "Increased online listing engagement and vehicle inquiries by 32%.",
+        "Saved the client 45% compared to local UK agency editing quotes."
+      ]
+    }
+  },
+  {
+    "id": "cs-2",
+    "slug": "image-clipping-for-design-agency",
+    "category": "Case Studies",
+    "title": "Time-Critical Image Clipping & Masking for Atlanta-Based Design Agency",
+    "excerpt": "Delivering 1,200 complex multi-path product cutouts and alpha hair masks overnight for an Atlanta creative agency facing a strict global advertising deadline.",
+    "date": "Case Study #CS-02",
+    "author": "Creative Operations",
+    "readTime": "4 min read",
+    "image": "/images/homepage/case-study-1.webp",
+    "link": "/case-study/image-clipping-for-design-agency.php",
+    "tags": [
+      "Design Agency",
+      "Overnight TAT",
+      "Multi-Path",
+      "Advertising"
+    ],
+    "metrics": [
+      {
+        "label": "Turnaround",
+        "value": "12 Hours"
+      },
+      {
+        "label": "Total Assets",
+        "value": "1,200"
+      },
+      {
+        "label": "Error Rate",
+        "value": "< 0.2%"
+      },
+      {
+        "label": "Client Retainer",
+        "value": "Ongoing"
+      }
+    ],
+    "clientDetails": {
+      "client": "Atlanta Global Brand Marketing Agency",
+      "industry": "Advertising & Design",
+      "location": "Atlanta, GA, USA",
+      "challenge": "An urgent campaign launch required 1,200 multi-layer product and model cutouts within 12 hours. The agency's in-house team lacked the bandwidth.",
+      "solution": "Leveraging our 24/7 time-zone advantage, SPE received the raw assets at 6:00 PM EST and delivered fully masked, layer-separated PSD files before 6:00 AM EST the next morning.",
+      "results": [
+        "Met the client's advertising deadline with zero delivery delays.",
+        "Delivered 100% vector-precise clipping paths with zero halo artifacts.",
+        "Established a continuing monthly retainer partnership for all agency post-production."
+      ]
+    }
+  },
+  {
+    "id": "cs-3",
+    "slug": "real-estate-studio-scaling-sweden",
+    "category": "Case Studies",
+    "title": "Scandinavian Real Estate Photography Studio Scales Output 4X in Peak Season",
+    "excerpt": "Streamlining HDR bracket blending, sky replacements, and floor plan conversions for 12,000 residential and commercial properties across Stockholm.",
+    "date": "Case Study #CS-03",
+    "author": "Real Estate Division",
+    "readTime": "5 min read",
+    "image": "/images/homepage/case-study-3.webp",
+    "link": "/case-study/real-estate-studio-scaling-sweden.php",
+    "tags": [
+      "Real Estate",
+      "HDR Blending",
+      "Floor Plans",
+      "Sweden"
+    ],
+    "metrics": [
+      {
+        "label": "Annual Listings",
+        "value": "12,000+"
+      },
+      {
+        "label": "Daily Output",
+        "value": "350 Sets"
+      },
+      {
+        "label": "Speed Gain",
+        "value": "4X Faster"
+      },
+      {
+        "label": "SLA Adherence",
+        "value": "99.8%"
+      }
+    ],
+    "clientDetails": {
+      "client": "Top Real Estate Imaging Studio in Sweden",
+      "industry": "Architectural & Real Estate Imaging",
+      "location": "Stockholm, Sweden",
+      "challenge": "Seasonal housing market spikes caused severe backlog bottlenecks. Photographers spent 6+ hours editing each night instead of shooting new properties.",
+      "solution": "SPE set up an automated FTP ingestion queue with dedicated real estate artists specializing in Scandinavian clean, airy interior aesthetics and Nordic sky replacements.",
+      "results": [
+        "Enabled studio photographers to double their daily property shooting appointments.",
+        "Guaranteed 14-hour overnight delivery for morning MLS publication.",
+        "Reduced studio operating overhead costs by 52%."
+      ]
+    }
+  }
+]

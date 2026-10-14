@@ -1,15 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { galleryTabs } from "@/lib/galleryData";
+import { GalleryTab } from "@/types/content";
+import { getGalleryTabs } from "@/lib/api/content";
 import { ImageComparisonSlider } from "./ImageComparisonSlider";
 
-export const PortfolioGallery: React.FC = () => {
+interface PortfolioGalleryProps {
+  initialTabs?: GalleryTab[];
+}
+
+export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ initialTabs }) => {
+  const [tabs, setTabs] = useState<GalleryTab[]>(initialTabs || []);
   const [activeTabId, setActiveTabId] = useState<string>("tab-sm1");
 
+  useEffect(() => {
+    if (!initialTabs || initialTabs.length === 0) {
+      getGalleryTabs().then((data) => {
+        if (data && data.length > 0) {
+          setTabs(data);
+          setActiveTabId(data[0].id);
+        }
+      });
+    }
+  }, [initialTabs]);
+
   const activeTab =
-    galleryTabs.find((t) => t.id === activeTabId) || galleryTabs[0];
+    tabs.find((t) => t.id === activeTabId) || tabs[0] || { id: "default", name: "Gallery", items: [] };
+
 
   return (
     <div className="portfolio-page">
@@ -52,7 +70,7 @@ export const PortfolioGallery: React.FC = () => {
             <div className="col-md-12 sample-images">
               {/* Category Tabs */}
               <div className="border-b-2 border-gray-300 flex justify-center flex-wrap gap-2 md:gap-4 mb-10">
-                {galleryTabs.map((tab) => {
+                {tabs.map((tab) => {
                   const isActive = tab.id === activeTabId;
                   return (
                     <button

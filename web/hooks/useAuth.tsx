@@ -9,6 +9,7 @@ import { getToken } from "@/lib/auth/token";
 interface AuthContextType extends AuthState {
   login: (credentials: LoginCredentials) => Promise<void>;
   register: (payload: RegisterPayload) => Promise<void>;
+  updateUser: (payload: { email?: string; password?: string; first_name?: string; last_name?: string }) => Promise<void>;
   logout: () => void;
   refreshUser: () => Promise<void>;
 }
@@ -75,13 +76,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
+  const updateUser = async (payload: { email?: string; password?: string; first_name?: string; last_name?: string }) => {
+    setState((prev) => ({ ...prev, isLoading: true }));
+    try {
+      const updatedUser = await authService.updateCurrentUser(payload);
+      setState((prev) => ({
+        ...prev,
+        user: updatedUser,
+        isLoading: false,
+      }));
+    } catch (error) {
+      setState((prev) => ({ ...prev, isLoading: false }));
+      throw error;
+    }
+  };
+
   const logout = () => {
     authService.logout();
     setState({ user: null, token: null, isAuthenticated: false, isLoading: false });
   };
 
   return (
-    <AuthContext.Provider value={{ ...state, login, register, logout, refreshUser }}>
+    <AuthContext.Provider value={{ ...state, login, register, updateUser, logout, refreshUser }}>
       {children}
     </AuthContext.Provider>
   );

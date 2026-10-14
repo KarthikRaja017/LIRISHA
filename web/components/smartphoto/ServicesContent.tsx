@@ -1,19 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { servicesData, ServiceCategory } from "@/lib/servicesData";
+import { ServiceCategory } from "@/types/content";
+import { getServices } from "@/lib/api/content";
 import { ImageComparisonSlider } from "./ImageComparisonSlider";
 
-export const ServicesContent: React.FC = () => {
+interface ServicesContentProps {
+  initialServices?: ServiceCategory[];
+}
+
+export const ServicesContent: React.FC<ServicesContentProps> = ({ initialServices }) => {
+  const [services, setServices] = useState<ServiceCategory[]>(initialServices || []);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
+  useEffect(() => {
+    if (!initialServices || initialServices.length === 0) {
+      getServices().then((data) => {
+        if (data && data.length > 0) setServices(data);
+      });
+    }
+  }, [initialServices]);
+
   const filteredServices =
     selectedCategory === "all"
-      ? servicesData
-      : servicesData.filter((s) => s.id === selectedCategory);
+      ? services
+      : services.filter((s) => s.id === selectedCategory);
+
 
   const categories = [
     { id: "all", label: "All Services" },

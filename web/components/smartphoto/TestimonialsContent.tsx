@@ -1,19 +1,34 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { testimonialsData } from "@/lib/resourcesData";
+import { TestimonialItem } from "@/types/content";
+import { getTestimonials } from "@/lib/api/content";
 
-export const TestimonialsContent: React.FC = () => {
+interface TestimonialsContentProps {
+  initialTestimonials?: TestimonialItem[];
+}
+
+export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initialTestimonials }) => {
+  const [testimonials, setTestimonials] = useState<TestimonialItem[]>(initialTestimonials || []);
   const [filterRegion, setFilterRegion] = useState<string>("All");
+
+  useEffect(() => {
+    if (!initialTestimonials || initialTestimonials.length === 0) {
+      getTestimonials().then((data) => {
+        if (data && data.length > 0) setTestimonials(data);
+      });
+    }
+  }, [initialTestimonials]);
 
   const regions = ["All", "USA", "United Kingdom", "Sweden", "Germany"];
 
   const filteredTestimonials =
     filterRegion === "All"
-      ? testimonialsData
-      : testimonialsData.filter((t) => t.location.includes(filterRegion));
+      ? testimonials
+      : testimonials.filter((t) => t.location && t.location.includes(filterRegion));
+
 
   return (
     <div className="testimonials-page-inner">

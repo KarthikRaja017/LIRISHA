@@ -27,19 +27,20 @@ def init_db(app: Flask) -> None:
     timeout = app.config.get("DB_TIMEOUT", 30)
 
     try:
-        # Create connection pool (open=False to defer until used if needed, or open=True)
+        # Create connection pool
         _pool = ConnectionPool(
             conninfo=db_url,
             min_size=min_conn,
             max_size=max_conn,
             timeout=timeout,
             kwargs={"row_factory": dict_row},
-            open=False
+            open=True
         )
-        logger.info("PostgreSQL connection pool configured successfully.")
+        logger.info("PostgreSQL connection pool configured and opened successfully.")
     except Exception as e:
         logger.error(f"Failed to initialize PostgreSQL connection pool: {e}")
         _pool = None
+
 
 
 def close_db() -> None:
