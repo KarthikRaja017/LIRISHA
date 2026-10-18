@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ResourceArticle } from "@/types/content";
 import { getResources } from "@/lib/api/content";
+import { BrandLoader } from "@/components/ui/BrandLoader";
 
 interface CaseStudyContentProps {
   initialCaseStudies?: ResourceArticle[];
@@ -12,14 +13,34 @@ interface CaseStudyContentProps {
 
 export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseStudies }) => {
   const [studies, setStudies] = useState<ResourceArticle[]>(initialCaseStudies || []);
+  const [loading, setLoading] = useState(!initialCaseStudies || initialCaseStudies.length === 0);
 
   useEffect(() => {
     if (!initialCaseStudies || initialCaseStudies.length === 0) {
-      getResources("Case Studies").then((data) => {
-        if (data && data.length > 0) setStudies(data);
-      });
+      setLoading(true);
+      getResources("Case Studies")
+        .then((data) => {
+          if (data && data.length > 0) setStudies(data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, [initialCaseStudies]);
+
+  if (loading && studies.length === 0) {
+    return (
+      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+        <BrandLoader
+          size="lg"
+          message="Loading Case Studies..."
+          subMessage="Fetching client success stories from database"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="case-studies-page-inner">
@@ -37,7 +58,7 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
           <div className="row">
             <div className="col-lg-8">
               <div className="mb-3">
-                <span className="inline-block bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   Proven Client Results
                 </span>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
@@ -81,7 +102,7 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
                     <span className="inline-block bg-purple-100 text-purple-700 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
                       {study.date} &bull; {study.readTime}
                     </span>
-                    <h2 className="text-2xl md:text-3xl font-bold text-[#1c2a5a] mb-3 leading-snug">
+                    <h2 className="text-2xl md:text-3xl font-bold text-[#07152F] mb-3 leading-snug">
                       {study.title}
                     </h2>
                     <p className="text-gray-700 text-sm md:text-base leading-relaxed mb-6">
@@ -96,7 +117,7 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
                             key={mi}
                             className="bg-white p-3 rounded-xl border border-gray-200 text-center"
                           >
-                            <div className="text-lg font-bold text-[#ff5b0a]">{m.value}</div>
+                            <div className="text-lg font-bold text-[#1265E8]">{m.value}</div>
                             <div className="text-xs text-gray-500 font-medium">{m.label}</div>
                           </div>
                         ))}
@@ -121,7 +142,7 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
                     <div className="flex items-center gap-3">
                       <Link
                         href={study.link}
-                        className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-6 py-2.5 rounded-full font-semibold text-xs inline-flex items-center gap-2 transition-colors"
+                        className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-2.5 rounded-full font-semibold text-xs inline-flex items-center gap-2 transition-colors"
                       >
                         Read Full Story
                         <i className="fa-solid fa-arrow-right text-[10px]"></i>
@@ -154,7 +175,7 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
       </section>
 
       {/* CTA */}
-      <div className="section cta-section py-14 bg-[#162249] text-white text-center">
+      <div className="section cta-section py-14 bg-[#07152F] text-white text-center">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
@@ -165,7 +186,7 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
             </p>
             <Link
               href="/contact-us.php"
-              className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
+              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
             >
               Request a Pilot Project
             </Link>

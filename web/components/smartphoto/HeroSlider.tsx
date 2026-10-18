@@ -26,7 +26,7 @@ const slides: SlideData[] = [
     category: "Image Editing",
     title: "Professional Image Editing Services",
     description:
-      "SmartPHOTOeditors is a trusted outsource image editing service with over 200 professional editors, serving clients globally since 2010. Its 12-hour delivery and 100% quality output make it a top choice for professional photographers.",
+      "LIRISHA is a trusted outsource image editing service with over 200 professional editors, serving clients globally since 2010. Its 12-hour delivery and 100% quality output make it a top choice for professional photographers.",
     link: "/photoshop-services/",
     alt: "Image Editing",
   },
@@ -46,7 +46,7 @@ const slides: SlideData[] = [
     category: "Ecommerce Photo Editing",
     title: "Ecommerce Photo Editing Services",
     description:
-      "SPE provides fast, cost-effective E-Commerce Photo Editing Services, specializing in product photo retouching for key markets including the UK, US, and Australia.",
+      "LIRISHA provides fast, cost-effective E-Commerce Photo Editing Services, specializing in product photo retouching for key markets including the UK, US, and Australia.",
     link: "/image-manipulation/ecommerce-image-editing.php",
     alt: "Ecommerce Photo Editing",
   },
@@ -71,7 +71,12 @@ const slides: SlideData[] = [
   },
 ];
 
-export const HeroSlider: React.FC = () => {
+export interface HeroSliderProps {
+  initialSlides?: SlideData[];
+}
+
+export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
+  const activeSlides = initialSlides && initialSlides.length > 0 ? initialSlides : slides;
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -94,7 +99,7 @@ export const HeroSlider: React.FC = () => {
         }}
         className="slide-swiper relative w-full"
       >
-        {slides.map((slide, index) => (
+        {activeSlides.map((slide, index) => (
           <SwiperSlide key={slide.id}>
             <div className="slider-container relative overflow-hidden w-full">
               <img

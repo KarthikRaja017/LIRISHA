@@ -72,7 +72,7 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
           <div className="row">
             <div className="col-lg-10">
               <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   <i className="fa-solid fa-newspaper"></i>
                   <span>{item.category}</span>
                 </div>
@@ -81,7 +81,7 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                 </h1>
                 <div className="flex items-center gap-4 text-xs md:text-sm text-gray-600 mt-2 flex-wrap">
                   <span className="font-semibold text-gray-900">
-                    <i className="fa-solid fa-user-pen mr-1 text-[#ff5b0a]"></i>
+                    <i className="fa-solid fa-user-pen mr-1 text-[#1265E8]"></i>
                     {item.author}
                   </span>
                   <span>•</span>
@@ -141,13 +141,13 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
               </div>
 
               {/* Lead Excerpt */}
-              <div className="text-lg md:text-xl font-medium text-gray-800 leading-relaxed mb-8 border-l-4 border-[#ff5b0a] pl-5 py-1 bg-orange-50/50 rounded-r-2xl">
+              <div className="text-lg md:text-xl font-medium text-gray-800 leading-relaxed mb-8 border-l-4 border-[#1265E8] pl-5 py-1 bg-blue-50/50 rounded-r-2xl">
                 {item.excerpt}
               </div>
 
               {/* Rich Formatted Article Content */}
               <div className="prose prose-lg max-w-none text-gray-700 space-y-6 leading-relaxed">
-                <h2 className="text-2xl font-bold text-[#1c2a5a] mt-8 mb-4">
+                <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
                   1. The Strategic Importance of Post-Production Excellence
                 </h2>
                 <p>
@@ -157,7 +157,7 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                   High-caliber editing bridges the gap between raw camera capture and polished, publication-ready perfection. Professional post-production eliminates distractions, balances complex multi-source lighting, and standardizes color calibration across thousands of assets.
                 </p>
 
-                <h2 className="text-2xl font-bold text-[#1c2a5a] mt-8 mb-4">
+                <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
                   2. Core Best Practices & Technical Execution
                 </h2>
                 <p>
@@ -178,7 +178,7 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                   </li>
                 </ul>
 
-                <h2 className="text-2xl font-bold text-[#1c2a5a] mt-8 mb-4">
+                <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
                   3. Key Takeaways & Operational Efficiency
                 </h2>
                 <p>
@@ -238,8 +238,8 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
             <div className="col-lg-4">
               <div className="sticky top-24 space-y-6">
                 {/* Free Sample CTA Box */}
-                <div className="bg-gradient-to-br from-[#1c2a5a] to-[#0f172a] text-white p-6 rounded-3xl shadow-lg">
-                  <span className="text-[#ff5b0a] text-xs font-bold uppercase tracking-wider">
+                <div className="bg-gradient-to-br from-[#07152F] to-[#0f172a] text-white p-6 rounded-3xl shadow-lg">
+                  <span className="text-[#1265E8] text-xs font-bold uppercase tracking-wider">
                     Free Trial Editing
                   </span>
                   <h4 className="text-xl font-bold mt-2 mb-3">
@@ -250,7 +250,7 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                   </p>
                   <Link
                     href="/contact-us.php"
-                    className="block text-center bg-[#ff5b0a] hover:bg-[#e04f05] text-white py-3 rounded-full font-bold text-sm shadow-md transition-colors"
+                    className="block text-center bg-[#1265E8] hover:bg-[#00C8F8] text-white py-3 rounded-full font-bold text-sm shadow-md transition-colors"
                   >
                     Get Free Sample Edit
                   </Link>
@@ -265,10 +265,10 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                     {relatedItems.map((rel) => (
                         <div key={rel.id} className="group">
                           <Link href={rel.link} className="block">
-                            <span className="text-[11px] font-bold text-[#ff5b0a] uppercase tracking-wider">
+                            <span className="text-[11px] font-bold text-[#1265E8] uppercase tracking-wider">
                               {rel.category}
                             </span>
-                            <h5 className="text-sm font-bold text-gray-900 group-hover:text-[#ff5b0a] transition-colors leading-snug mt-0.5">
+                            <h5 className="text-sm font-bold text-gray-900 group-hover:text-[#1265E8] transition-colors leading-snug mt-0.5">
                               {rel.title}
                             </h5>
                             <span className="text-xs text-gray-400 mt-1 block">

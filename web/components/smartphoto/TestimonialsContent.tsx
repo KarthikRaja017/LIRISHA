@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { TestimonialItem } from "@/types/content";
 import { getTestimonials } from "@/lib/api/content";
+import { BrandLoader } from "@/components/ui/BrandLoader";
 
 interface TestimonialsContentProps {
   initialTestimonials?: TestimonialItem[];
@@ -12,13 +13,21 @@ interface TestimonialsContentProps {
 
 export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initialTestimonials }) => {
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>(initialTestimonials || []);
+  const [loading, setLoading] = useState(!initialTestimonials || initialTestimonials.length === 0);
   const [filterRegion, setFilterRegion] = useState<string>("All");
 
   useEffect(() => {
     if (!initialTestimonials || initialTestimonials.length === 0) {
-      getTestimonials().then((data) => {
-        if (data && data.length > 0) setTestimonials(data);
-      });
+      setLoading(true);
+      getTestimonials()
+        .then((data) => {
+          if (data && data.length > 0) setTestimonials(data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, [initialTestimonials]);
 
@@ -29,6 +38,17 @@ export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initia
       ? testimonials
       : testimonials.filter((t) => t.location && t.location.includes(filterRegion));
 
+  if (loading && testimonials.length === 0) {
+    return (
+      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+        <BrandLoader
+          size="lg"
+          message="Loading Client Reviews..."
+          subMessage="Fetching verified testimonials from database"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="testimonials-page-inner">
@@ -46,7 +66,7 @@ export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initia
           <div className="row">
             <div className="col-lg-8">
               <div className="mb-3">
-                <span className="inline-block bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   Customer Reviews & Ratings
                 </span>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
@@ -87,7 +107,7 @@ export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initia
                 onClick={() => setFilterRegion(reg)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                   filterRegion === reg
-                    ? "bg-[#ff5b0a] text-white shadow-sm"
+                    ? "bg-[#1265E8] text-white shadow-sm"
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
@@ -136,7 +156,7 @@ export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initia
                     <div>
                       <div className="text-sm font-bold text-gray-900">{t.author}</div>
                       <div className="text-xs text-gray-600 font-medium">{t.role}</div>
-                      <div className="text-xs text-[#ff5b0a]">{t.company} &bull; {t.location}</div>
+                      <div className="text-xs text-[#1265E8]">{t.company} &bull; {t.location}</div>
                     </div>
                   </div>
                   <div className="mt-3 text-[11px] text-gray-500 bg-gray-50 p-2 rounded-lg">
@@ -150,7 +170,7 @@ export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initia
       </section>
 
       {/* CTA */}
-      <div className="section cta-section py-14 bg-[#162249] text-white text-center">
+      <div className="section cta-section py-14 bg-[#07152F] text-white text-center">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
@@ -161,7 +181,7 @@ export const TestimonialsContent: React.FC<TestimonialsContentProps> = ({ initia
             </p>
             <Link
               href="/contact-us.php"
-              className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
+              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
             >
               Get Free Test Edits
             </Link>

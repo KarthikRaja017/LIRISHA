@@ -63,7 +63,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
           <div className="row">
             <div className="col-lg-10">
               <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   <i className="fa-solid fa-briefcase"></i>
                   <span>Case Study #{study.id.toUpperCase()}</span>
                 </div>
@@ -102,12 +102,12 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
 
       {/* 2. METRICS BANNER */}
       {study.metrics && (
-        <section className="bg-[#1c2a5a] text-white py-10">
+        <section className="bg-[#07152F] text-white py-10">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
               {study.metrics.map((m, idx) => (
                 <div key={idx} className="border-r border-white/10 last:border-none px-2">
-                  <div className="text-3xl md:text-4xl font-extrabold text-[#ff5b0a] mb-1">
+                  <div className="text-3xl md:text-4xl font-extrabold text-[#1265E8] mb-1">
                     {m.value}
                   </div>
                   <div className="text-xs md:text-sm text-gray-300 uppercase tracking-wider font-semibold">
@@ -143,7 +143,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                       <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-600 font-bold">
                         <i className="fa-solid fa-triangle-exclamation"></i>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-[#1c2a5a]">
+                      <h3 className="text-xl md:text-2xl font-bold text-[#07152F]">
                         The Challenge
                       </h3>
                     </div>
@@ -158,7 +158,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                       <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold">
                         <i className="fa-solid fa-lightbulb"></i>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-[#1c2a5a]">
+                      <h3 className="text-xl md:text-2xl font-bold text-[#07152F]">
                         The SmartPHOTOeditors Solution
                       </h3>
                     </div>
@@ -176,7 +176,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                       <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">
                         <i className="fa-solid fa-circle-check"></i>
                       </div>
-                      <h3 className="text-xl md:text-2xl font-bold text-[#1c2a5a]">
+                      <h3 className="text-xl md:text-2xl font-bold text-[#07152F]">
                         Key Project Outcomes
                       </h3>
                     </div>
@@ -233,8 +233,8 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                 )}
 
                 {/* Free Sample CTA Box */}
-                <div className="bg-gradient-to-br from-[#1c2a5a] to-[#0f172a] text-white p-6 rounded-3xl shadow-lg">
-                  <span className="text-[#ff5b0a] text-xs font-bold uppercase tracking-wider">
+                <div className="bg-gradient-to-br from-[#07152F] to-[#0f172a] text-white p-6 rounded-3xl shadow-lg">
+                  <span className="text-[#1265E8] text-xs font-bold uppercase tracking-wider">
                     Need Similar Results?
                   </span>
                   <h4 className="text-xl font-bold mt-2 mb-3">
@@ -245,7 +245,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                   </p>
                   <Link
                     href="/contact-us.php"
-                    className="block text-center bg-[#ff5b0a] hover:bg-[#e04f05] text-white py-3 rounded-full font-bold text-sm shadow-md transition-colors"
+                    className="block text-center bg-[#1265E8] hover:bg-[#00C8F8] text-white py-3 rounded-full font-bold text-sm shadow-md transition-colors"
                   >
                     Request Free Sample Pilot
                   </Link>
@@ -260,12 +260,12 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
       <section className="py-14 bg-[#f8f9fa] border-b border-gray-200">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
-            <h3 className="text-xl md:text-2xl font-bold text-[#1c2a5a]">
+            <h3 className="text-xl md:text-2xl font-bold text-[#07152F]">
               More Success Stories
             </h3>
             <Link
               href="/case-study"
-              className="text-xs font-bold uppercase text-[#ff5b0a] hover:underline"
+              className="text-xs font-bold uppercase text-[#1265E8] hover:underline"
             >
               All Case Studies &rarr;
             </Link>
@@ -278,7 +278,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                   className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <span className="text-xs font-bold text-[#ff5b0a] uppercase tracking-wider">
+                    <span className="text-xs font-bold text-[#1265E8] uppercase tracking-wider">
                       {other.category}
                     </span>
                     <h4 className="text-base md:text-lg font-bold text-gray-900 mt-1 mb-2">
@@ -290,7 +290,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                   </div>
                   <Link
                     href={other.link}
-                    className="text-xs font-bold text-[#ff5b0a] hover:underline inline-flex items-center gap-1"
+                    className="text-xs font-bold text-[#1265E8] hover:underline inline-flex items-center gap-1"
                   >
                     Read Case Study &rarr;
                   </Link>

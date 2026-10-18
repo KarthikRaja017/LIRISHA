@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { useSettings } from "@/context/SettingsContext";
+import React, { useState } from 'react';
+import Link from 'next/link';
+import { useSettings } from '@/context/SettingsContext';
 
 export const SiteNavbar: React.FC = () => {
   const { getSettingValue } = useSettings();
@@ -10,9 +10,12 @@ export const SiteNavbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
 
-  const logoUrl = getSettingValue("site_logo", "/images/SPE-logo.svg");
-  const siteName = getSettingValue("site_name", "SmartPHOTOeditors");
-  const contactPhone = getSettingValue("contact_phone", "1-855-695-6028");
+  const logoUrl = getSettingValue(
+    'site_logo',
+    '/images/lirisha-camera-logo.png',
+  );
+  const siteName = getSettingValue('site_name', 'LIRISHA');
+  const contactPhone = getSettingValue('contact_phone', '1-855-695-6028');
 
   const toggleDropdown = (name: string) => {
     setActiveDropdown((prev) => (prev === name ? null : name));
@@ -24,13 +27,19 @@ export const SiteNavbar: React.FC = () => {
         <div className="row">
           <div className="col-md-12">
             <nav className="navbar navbar-expand-md">
-              <Link className="navbar-brand" href="/">
+              <Link className="navbar-brand flex items-center gap-2.5" href="/">
                 <img
                   src={logoUrl}
                   alt={`${siteName} logo`}
                   className="header-logo-img"
                   title={`${siteName} logo`}
-                  style={{ width: "240px", maxWidth: "100%", height: "auto", display: "inline-block" }}
+                  style={{
+                    height: '46px',
+                    width: 'auto',
+                    maxWidth: '160px',
+                    objectFit: 'contain',
+                    display: 'inline-block',
+                  }}
                 />
               </Link>
 
@@ -38,27 +47,24 @@ export const SiteNavbar: React.FC = () => {
                 className="navbar-toggler"
                 type="button"
                 onClick={() => setIsOpen(!isOpen)}
-                aria-label="Toggle navigation"
-              >
+                aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
               </button>
 
               <div
-                className={`navbar-collapse ${isOpen ? "show" : ""}`}
-                id="main_nav"
-              >
+                className={`navbar-collapse ${isOpen ? 'show' : ''}`}
+                id="main_nav">
                 <ul className="navbar-nav ml-auto navbar-dark align-items-md-center">
                   {/* Services Dropdown */}
                   <li
                     className={`nav-item dropdown ${
-                      activeDropdown === "services" ? "show" : ""
+                      activeDropdown === 'services' ? 'show' : ''
                     }`}
-                    onMouseEnter={() => setActiveDropdown("services")}
+                    onMouseEnter={() => setActiveDropdown('services')}
                     onMouseLeave={() => {
                       setActiveDropdown(null);
                       setActiveSubmenu(null);
-                    }}
-                  >
+                    }}>
                     <Link
                       className="nav-link cursor-pointer inline-flex items-center gap-1"
                       href="/services"
@@ -66,69 +72,83 @@ export const SiteNavbar: React.FC = () => {
                         // On small screens, toggle dropdown if clicked
                         if (window.innerWidth < 768) {
                           e.preventDefault();
-                          toggleDropdown("services");
+                          toggleDropdown('services');
                         }
-                      }}
-                    >
+                      }}>
                       <span>Services</span>
                       <i className="fa-solid fa-caret-down text-[11px] opacity-75"></i>
                     </Link>
                     <ul
                       className={`dropdown-menu ${
-                        activeDropdown === "services" ? "show" : ""
-                      }`}
-                    >
+                        activeDropdown === 'services' ? 'show' : ''
+                      }`}>
                       {/* Real Estate */}
                       <li
                         className="relative"
-                        onMouseEnter={() => setActiveSubmenu("real-estate")}
-                        onMouseLeave={() => setActiveSubmenu(null)}
-                      >
-                        <a className="dropdown-item has-submenu" href="/real-estate/">
+                        onMouseEnter={() => setActiveSubmenu('real-estate')}
+                        onMouseLeave={() => setActiveSubmenu(null)}>
+                        <a
+                          className="dropdown-item has-submenu"
+                          href="/real-estate/">
                           Real Estate
                         </a>
                         <ul
                           className={`submenu dropdown-menu ${
-                            activeSubmenu === "real-estate" ? "show" : ""
-                          }`}
-                        >
+                            activeSubmenu === 'real-estate' ? 'show' : ''
+                          }`}>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/image-enhancement.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/image-enhancement.php">
                               Image Enhancements
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/floor-plan-conversions.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/floor-plan-conversions.php">
                               Floor Plan Conversions
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/photo-corrections.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/photo-corrections.php">
                               Photo Corrections
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/hdr-blending-corrections.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/hdr-blending-corrections.php">
                               HDR Blending Corrections
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/perspective-correction.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/perspective-correction.php">
                               Perspective Corrections
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/sky-replacement.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/sky-replacement.php">
                               Sky Replacement
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/360-virtual-tours.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/360-virtual-tours.php">
                               360° Virtual Tour
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/real-estate/drone-image-editing.php">
+                            <a
+                              className="dropdown-item"
+                              href="/real-estate/drone-image-editing.php">
                               Drone Image Editing
                             </a>
                           </li>
@@ -143,64 +163,84 @@ export const SiteNavbar: React.FC = () => {
                       {/* Portrait Services */}
                       <li
                         className="relative"
-                        onMouseEnter={() => setActiveSubmenu("portrait")}
-                        onMouseLeave={() => setActiveSubmenu(null)}
-                      >
-                        <a className="dropdown-item has-submenu" href="/portrait/">
+                        onMouseEnter={() => setActiveSubmenu('portrait')}
+                        onMouseLeave={() => setActiveSubmenu(null)}>
+                        <a
+                          className="dropdown-item has-submenu"
+                          href="/portrait/">
                           Portrait Services
                         </a>
                         <ul
                           className={`submenu dropdown-menu ${
-                            activeSubmenu === "portrait" ? "show" : ""
-                          }`}
-                        >
+                            activeSubmenu === 'portrait' ? 'show' : ''
+                          }`}>
                           <li>
-                            <a className="dropdown-item" href="/photo-retouching/">
+                            <a
+                              className="dropdown-item"
+                              href="/photo-retouching/">
                               Photo Retouching
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/airbrushing-services.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/airbrushing-services.php">
                               Airbrushing
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/wedding-photo-editing.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/wedding-photo-editing.php">
                               Wedding Photo Editing
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/photo-montage.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/photo-montage.php">
                               Photo Montage
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/skin-retouching.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/skin-retouching.php">
                               Skin Retouching
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/remove-backgrounds.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/remove-backgrounds.php">
                               Remove Background
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/natural-shadow.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/natural-shadow.php">
                               Natural Shadow
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/color-corrections.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/color-corrections.php">
                               Color Correction
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/exposure-corrections.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/exposure-corrections.php">
                               Exposure Corrections
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/portrait/high-end-retouching.php">
+                            <a
+                              className="dropdown-item"
+                              href="/portrait/high-end-retouching.php">
                               High-end Retouching
                             </a>
                           </li>
@@ -210,44 +250,56 @@ export const SiteNavbar: React.FC = () => {
                       {/* Image Clipping */}
                       <li
                         className="relative"
-                        onMouseEnter={() => setActiveSubmenu("clipping")}
-                        onMouseLeave={() => setActiveSubmenu(null)}
-                      >
-                        <a className="dropdown-item has-submenu" href="/image-clipping/">
+                        onMouseEnter={() => setActiveSubmenu('clipping')}
+                        onMouseLeave={() => setActiveSubmenu(null)}>
+                        <a
+                          className="dropdown-item has-submenu"
+                          href="/image-clipping/">
                           Image Clipping
                         </a>
                         <ul
                           className={`submenu dropdown-menu ${
-                            activeSubmenu === "clipping" ? "show" : ""
-                          }`}
-                        >
+                            activeSubmenu === 'clipping' ? 'show' : ''
+                          }`}>
                           <li>
-                            <a className="dropdown-item" href="/image-clipping/clipping-path-services.php">
+                            <a
+                              className="dropdown-item"
+                              href="/image-clipping/clipping-path-services.php">
                               Clipping Path
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/image-clipping/tracing-image.php">
+                            <a
+                              className="dropdown-item"
+                              href="/image-clipping/tracing-image.php">
                               Tracing Image
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/image-clipping/hair-masking.php">
+                            <a
+                              className="dropdown-item"
+                              href="/image-clipping/hair-masking.php">
                               Hair Masking
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/image-clipping/conversions.php">
+                            <a
+                              className="dropdown-item"
+                              href="/image-clipping/conversions.php">
                               Conversions
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/image-manipulation/car-image-clipping.php">
+                            <a
+                              className="dropdown-item"
+                              href="/image-manipulation/car-image-clipping.php">
                               Car Image Clipping
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/image-clipping/product-image-clipping.php">
+                            <a
+                              className="dropdown-item"
+                              href="/image-clipping/product-image-clipping.php">
                               Product Image Clipping
                             </a>
                           </li>
@@ -257,19 +309,21 @@ export const SiteNavbar: React.FC = () => {
                       {/* Fashion Photo */}
                       <li
                         className="relative"
-                        onMouseEnter={() => setActiveSubmenu("fashion")}
-                        onMouseLeave={() => setActiveSubmenu(null)}
-                      >
-                        <a className="dropdown-item has-submenu" href="/fashion/">
+                        onMouseEnter={() => setActiveSubmenu('fashion')}
+                        onMouseLeave={() => setActiveSubmenu(null)}>
+                        <a
+                          className="dropdown-item has-submenu"
+                          href="/fashion/">
                           Fashion Photo
                         </a>
                         <ul
                           className={`submenu dropdown-menu ${
-                            activeSubmenu === "fashion" ? "show" : ""
-                          }`}
-                        >
+                            activeSubmenu === 'fashion' ? 'show' : ''
+                          }`}>
                           <li>
-                            <a className="dropdown-item" href="/fashion/ghost-mannequin-photo-editing.php">
+                            <a
+                              className="dropdown-item"
+                              href="/fashion/ghost-mannequin-photo-editing.php">
                               Ghost Mannequin Editing
                             </a>
                           </li>
@@ -279,44 +333,56 @@ export const SiteNavbar: React.FC = () => {
                       {/* Photoshop Services */}
                       <li
                         className="relative"
-                        onMouseEnter={() => setActiveSubmenu("photoshop")}
-                        onMouseLeave={() => setActiveSubmenu(null)}
-                      >
-                        <a className="dropdown-item has-submenu" href="/photoshop-services/">
+                        onMouseEnter={() => setActiveSubmenu('photoshop')}
+                        onMouseLeave={() => setActiveSubmenu(null)}>
+                        <a
+                          className="dropdown-item has-submenu"
+                          href="/photoshop-services/">
                           Photoshop Services
                         </a>
                         <ul
                           className={`submenu dropdown-menu ${
-                            activeSubmenu === "photoshop" ? "show" : ""
-                          }`}
-                        >
+                            activeSubmenu === 'photoshop' ? 'show' : ''
+                          }`}>
                           <li>
-                            <a className="dropdown-item" href="/photoshop-services/stock-photo-editing.php">
+                            <a
+                              className="dropdown-item"
+                              href="/photoshop-services/stock-photo-editing.php">
                               Stock Photo Editing
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/photoshop-services/vector-graphics.php">
+                            <a
+                              className="dropdown-item"
+                              href="/photoshop-services/vector-graphics.php">
                               Vector Graphics Editing
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/photoshop-services/image-cloning.php">
+                            <a
+                              className="dropdown-item"
+                              href="/photoshop-services/image-cloning.php">
                               Image Cloning
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/photoshop-services/pop-art.php">
+                            <a
+                              className="dropdown-item"
+                              href="/photoshop-services/pop-art.php">
                               Pop Art
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/photoshop-services/special-effects.php">
+                            <a
+                              className="dropdown-item"
+                              href="/photoshop-services/special-effects.php">
                               Special Effects
                             </a>
                           </li>
                           <li>
-                            <a className="dropdown-item" href="/photoshop-services/focus-stacking.php">
+                            <a
+                              className="dropdown-item"
+                              href="/photoshop-services/focus-stacking.php">
                               Focus Stacking
                             </a>
                           </li>
@@ -324,12 +390,16 @@ export const SiteNavbar: React.FC = () => {
                       </li>
 
                       <li>
-                        <a className="dropdown-item" href="/lightroom-services/">
+                        <a
+                          className="dropdown-item"
+                          href="/lightroom-services/">
                           Lightroom Services
                         </a>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/image-manipulation/ecommerce-image-editing.php">
+                        <a
+                          className="dropdown-item"
+                          href="/image-manipulation/ecommerce-image-editing.php">
                           E-Commerce
                         </a>
                       </li>
@@ -348,7 +418,9 @@ export const SiteNavbar: React.FC = () => {
 
                   {/* Portfolio */}
                   <li className="nav-item">
-                    <a className="nav-link menu_hover" href="/sample-images.php">
+                    <a
+                      className="nav-link menu_hover"
+                      href="/sample-images.php">
                       Portfolio
                     </a>
                   </li>
@@ -356,29 +428,26 @@ export const SiteNavbar: React.FC = () => {
                   {/* Resources */}
                   <li
                     className={`nav-item dropdown ${
-                      activeDropdown === "resources" ? "show" : ""
+                      activeDropdown === 'resources' ? 'show' : ''
                     }`}
-                    onMouseEnter={() => setActiveDropdown("resources")}
-                    onMouseLeave={() => setActiveDropdown(null)}
-                  >
+                    onMouseEnter={() => setActiveDropdown('resources')}
+                    onMouseLeave={() => setActiveDropdown(null)}>
                     <Link
                       className="nav-link cursor-pointer inline-flex items-center gap-1"
                       href="/resources"
                       onClick={(e) => {
                         if (window.innerWidth < 768) {
                           e.preventDefault();
-                          toggleDropdown("resources");
+                          toggleDropdown('resources');
                         }
-                      }}
-                    >
+                      }}>
                       <span>Resources</span>
                       <i className="fa-solid fa-caret-down text-[11px] opacity-75"></i>
                     </Link>
                     <ul
                       className={`dropdown-menu ${
-                        activeDropdown === "resources" ? "show" : ""
-                      }`}
-                    >
+                        activeDropdown === 'resources' ? 'show' : ''
+                      }`}>
                       <li>
                         <a className="dropdown-item" href="/blog/">
                           Blog
@@ -414,9 +483,11 @@ export const SiteNavbar: React.FC = () => {
                     <a
                       className="navbar-link butn3 butn__new butn1-size"
                       id="menuPhone"
-                      href={`tel:${contactPhone.replace(/[^0-9+]/g, "")}`}
-                    >
-                      <i className="fa-solid fa-phone pr-2" aria-hidden="true" style={{ color: "#1c2a5a" }}></i>{" "}
+                      href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}>
+                      <i
+                        className="fa-solid fa-phone pr-2"
+                        aria-hidden="true"
+                        style={{ color: '#07152F' }}></i>{' '}
                       {contactPhone}
                     </a>
                   </li>

@@ -2,8 +2,20 @@
 
 import React from "react";
 
-export const CounterSection: React.FC = () => {
-  const stats = [
+export interface StatItem {
+  count: string;
+  label: string;
+  icon: string;
+  alt?: string;
+  iconClass?: string;
+}
+
+export interface CounterSectionProps {
+  initialStats?: StatItem[];
+}
+
+export const CounterSection: React.FC<CounterSectionProps> = ({ initialStats }) => {
+  const defaultStats: StatItem[] = [
     {
       count: "05+",
       label: "Awards Rewarded",
@@ -34,11 +46,13 @@ export const CounterSection: React.FC = () => {
     },
   ];
 
+  const activeStats = initialStats && initialStats.length > 0 ? initialStats : defaultStats;
+
   return (
     <section className="homepage-counter fadein visible">
       <div className="container">
         <div className="row">
-          {stats.map((stat, idx) => (
+          {activeStats.map((stat, idx) => (
             <div key={idx} className="col-md-6 col-lg-3 col-xl-3 col-sm-6">
               <div className="homepage-counter-box media">
                 <div className="media-body">

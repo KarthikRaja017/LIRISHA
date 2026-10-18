@@ -5,6 +5,7 @@ import Link from "next/link";
 import { GalleryTab } from "@/types/content";
 import { getGalleryTabs } from "@/lib/api/content";
 import { ImageComparisonSlider } from "./ImageComparisonSlider";
+import { BrandLoader } from "@/components/ui/BrandLoader";
 
 interface PortfolioGalleryProps {
   initialTabs?: GalleryTab[];
@@ -12,22 +13,41 @@ interface PortfolioGalleryProps {
 
 export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ initialTabs }) => {
   const [tabs, setTabs] = useState<GalleryTab[]>(initialTabs || []);
+  const [loading, setLoading] = useState(!initialTabs || initialTabs.length === 0);
   const [activeTabId, setActiveTabId] = useState<string>("tab-sm1");
 
   useEffect(() => {
     if (!initialTabs || initialTabs.length === 0) {
-      getGalleryTabs().then((data) => {
-        if (data && data.length > 0) {
-          setTabs(data);
-          setActiveTabId(data[0].id);
-        }
-      });
+      setLoading(true);
+      getGalleryTabs()
+        .then((data) => {
+          if (data && data.length > 0) {
+            setTabs(data);
+            setActiveTabId(data[0].id);
+          }
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, [initialTabs]);
 
   const activeTab =
     tabs.find((t) => t.id === activeTabId) || tabs[0] || { id: "default", name: "Gallery", items: [] };
 
+  if (loading && tabs.length === 0) {
+    return (
+      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+        <BrandLoader
+          size="lg"
+          message="Loading Sample Galleries..."
+          subMessage="Fetching before-and-after photo comparisons"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="portfolio-page">
@@ -79,17 +99,17 @@ export const PortfolioGallery: React.FC<PortfolioGalleryProps> = ({ initialTabs 
                       onClick={() => setActiveTabId(tab.id)}
                       className={`relative px-6 py-4 text-base md:text-lg font-medium transition-colors focus:outline-none ${
                         isActive
-                          ? "text-[#ff5b0a] font-semibold"
-                          : "text-gray-700 hover:text-[#ff5b0a]"
+                          ? "text-[#1265E8] font-semibold"
+                          : "text-gray-700 hover:text-[#1265E8]"
                       }`}
                     >
                       {tab.name}
                       {isActive && (
                         <>
                           {/* Active bottom line */}
-                          <span className="absolute bottom-[-2px] left-0 right-0 h-[3px] bg-[#ff5b0a]" />
+                          <span className="absolute bottom-[-2px] left-0 right-0 h-[3px] bg-[#1265E8]" />
                           {/* Active triangular arrow */}
-                          <span className="absolute bottom-[-11px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-[#ff5b0a]" />
+                          <span className="absolute bottom-[-11px] left-1/2 -translate-x-1/2 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-[#1265E8]" />
                         </>
                       )}
                     </button>

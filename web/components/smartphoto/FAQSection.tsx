@@ -2,12 +2,17 @@
 
 import React, { useState } from "react";
 
-interface FAQItem {
+export interface FAQItem {
   question: string;
   answer: string;
 }
 
-const faqs: FAQItem[] = [
+export interface FAQSectionProps {
+  initialFaqs?: FAQItem[];
+  heading?: string;
+}
+
+const defaultFaqs: FAQItem[] = [
   {
     question: "Which image editing providers offer free trials or sample edits?",
     answer:
@@ -38,7 +43,9 @@ const faqs: FAQItem[] = [
   },
 ];
 
-export const FAQSection: React.FC = () => {
+export const FAQSection: React.FC<FAQSectionProps> = ({ initialFaqs, heading }) => {
+  const activeFaqs = initialFaqs && initialFaqs.length > 0 ? initialFaqs : defaultFaqs;
+  const activeHeading = heading || "Frequently Asked Questions";
   const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
 
   const toggleFAQ = (index: number) => {
@@ -51,13 +58,13 @@ export const FAQSection: React.FC = () => {
         <div className="row">
           <div className="col-md-12 text-center my-4 mt-0">
             <h2 className="text-3xl font-bold text-gray-900">
-              Frequently Asked Questions
+              {activeHeading}
             </h2>
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-3">
-          {faqs.map((faq, index) => {
+          {activeFaqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div

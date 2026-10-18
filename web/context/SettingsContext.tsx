@@ -12,13 +12,13 @@ interface SettingsContextType {
 }
 
 const defaultSettings: SiteSettingsMap = {
-  site_name: { value: "SmartPHOTOeditors" },
+  site_name: { value: "LIRISHA" },
   site_tagline: { value: "Outsource Image Editing Services" },
-  site_logo: { value: "/images/SPE-logo.svg" },
-  site_footer_logo: { value: "/images/SPE-logo.svg" },
-  site_favicon: { value: "/favicon.ico" },
+  site_logo: { value: "/images/lirisha-camera-logo.png" },
+  site_footer_logo: { value: "/images/lirisha-camera-logo.png" },
+  site_favicon: { value: "/favicon.png" },
   contact_phone: { value: "1-855-695-6028" },
-  contact_email: { value: "info@smartphotoeditors.com" },
+  contact_email: { value: "info@lirisha.com" },
 };
 
 const SettingsContext = createContext<SettingsContextType>({
@@ -55,15 +55,19 @@ export const SettingsProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   // Dynamically update document favicon if dynamic favicon is present
   useEffect(() => {
-    const faviconUrl = getSettingValue("site_favicon");
-    if (faviconUrl && typeof document !== "undefined") {
-      let link: HTMLLinkElement | null = document.querySelector("link[rel*='icon']");
-      if (!link) {
-        link = document.createElement("link");
+    const faviconUrl = getSettingValue("site_favicon") || "/favicon.png";
+    if (typeof document !== "undefined") {
+      const links = document.querySelectorAll<HTMLLinkElement>("link[rel*='icon']");
+      if (links.length > 0) {
+        links.forEach((l) => {
+          l.href = faviconUrl;
+        });
+      } else {
+        const link = document.createElement("link");
         link.rel = "shortcut icon";
+        link.href = faviconUrl;
         document.head.appendChild(link);
       }
-      link.href = faviconUrl;
     }
   }, [settings]);
 

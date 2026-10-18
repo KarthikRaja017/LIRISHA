@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ResourceArticle } from "@/types/content";
 import { getResources } from "@/lib/api/content";
+import { BrandLoader } from "@/components/ui/BrandLoader";
 
 interface ArticlesContentProps {
   initialArticles?: ResourceArticle[];
@@ -12,13 +13,21 @@ interface ArticlesContentProps {
 
 export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticles }) => {
   const [articles, setArticles] = useState<ResourceArticle[]>(initialArticles || []);
+  const [loading, setLoading] = useState(!initialArticles || initialArticles.length === 0);
   const [selectedTag, setSelectedTag] = useState<string>("All");
 
   useEffect(() => {
     if (!initialArticles || initialArticles.length === 0) {
-      getResources("Articles").then((data) => {
-        if (data && data.length > 0) setArticles(data);
-      });
+      setLoading(true);
+      getResources("Articles")
+        .then((data) => {
+          if (data && data.length > 0) setArticles(data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, [initialArticles]);
 
@@ -29,6 +38,17 @@ export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticle
       ? articles
       : articles.filter((a) => a.tags && a.tags.includes(selectedTag));
 
+  if (loading && articles.length === 0) {
+    return (
+      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+        <BrandLoader
+          size="lg"
+          message="Loading Articles & Tutorials..."
+          subMessage="Fetching photo editing guides from database"
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="articles-page-inner">
@@ -46,7 +66,7 @@ export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticle
           <div className="row">
             <div className="col-lg-8">
               <div className="mb-3">
-                <span className="inline-block bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   Tutorials & Deep Dives
                 </span>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
@@ -87,7 +107,7 @@ export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticle
                 onClick={() => setSelectedTag(tag)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-medium transition-all ${
                   selectedTag === tag
-                    ? "bg-[#ff5b0a] text-white shadow-sm"
+                    ? "bg-[#1265E8] text-white shadow-sm"
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
@@ -127,7 +147,7 @@ export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticle
                       <span>{article.readTime}</span>
                     </div>
 
-                    <h3 className="text-base md:text-lg font-bold text-gray-900 hover:text-[#ff5b0a] transition-colors mb-2 line-clamp-2">
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 hover:text-[#1265E8] transition-colors mb-2 line-clamp-2">
                       <Link href={article.link}>{article.title}</Link>
                     </h3>
 
@@ -151,7 +171,7 @@ export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticle
                 <div className="p-5 pt-0 border-t border-gray-100 mt-auto">
                   <Link
                     href={article.link}
-                    className="text-xs font-bold uppercase tracking-wider text-[#ff5b0a] hover:text-[#e04f05] inline-flex items-center gap-1.5 pt-3"
+                    className="text-xs font-bold uppercase tracking-wider text-[#1265E8] hover:text-[#00C8F8] inline-flex items-center gap-1.5 pt-3"
                   >
                     <span>Read Full Guide</span>
                     <i className="fa-solid fa-arrow-right text-[10px]"></i>
@@ -175,7 +195,7 @@ export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticle
             </p>
             <Link
               href="/contact-us.php"
-              className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
+              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
             >
               Contact Our Team
             </Link>

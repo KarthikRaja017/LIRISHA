@@ -100,7 +100,7 @@ export const ContactUsContent: React.FC = () => {
             bottom: "30px",
             right: "30px",
             zIndex: 9999,
-            backgroundColor: "#162249",
+            backgroundColor: "#07152F",
             color: "#ffffff",
             padding: "14px 24px",
             borderRadius: "8px",
@@ -110,7 +110,7 @@ export const ContactUsContent: React.FC = () => {
             gap: "12px",
             fontSize: "15px",
             fontWeight: 500,
-            borderLeft: "4px solid #ff5b0a",
+            borderLeft: "4px solid #1265E8",
           }}
         >
           <i className="fa-solid fa-circle-check" style={{ color: "#8dce3c", fontSize: "18px" }}></i>
@@ -354,7 +354,7 @@ export const ContactUsContent: React.FC = () => {
                         <span
                           style={{
                             fontSize: "14px",
-                            color: selectedFiles.length > 0 ? "#162249" : "#707070",
+                            color: selectedFiles.length > 0 ? "#07152F" : "#707070",
                             fontWeight: selectedFiles.length > 0 ? 600 : 400,
                             overflow: "hidden",
                             textOverflow: "ellipsis",

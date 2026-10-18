@@ -1,23 +1,39 @@
 import type { Metadata } from "next";
+import { Syne, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import { SiteShell } from "@/components/layout/SiteShell";
+import { SettingsProvider } from "@/context/SettingsContext";
+
+const syne = Syne({
+  subsets: ["latin"],
+  variable: "--font-syne",
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-dm-sans",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-
-  title: "Outsource Image Editing Services - SmartPHOTOeditors",
+  title: "Outsource Image Editing Services - LIRISHA",
   description:
-    "SmartPHOTOeditors provides bulk image editing services globally. We cater particularly to North America, Europe, and Australia.",
+    "LIRISHA provides bulk image editing services globally. We cater particularly to North America, Europe, and Australia.",
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
+    icon: [
+      { url: "/favicon.png", type: "image/png" },
+      { url: "/favicon.ico" },
+    ],
+    shortcut: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
-
-import { SettingsProvider } from "@/context/SettingsContext";
 
 export default function RootLayout({
   children,
@@ -25,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className={`${syne.variable} ${dmSans.variable}`} suppressHydrationWarning>
       <head>
         <link rel="stylesheet" href="/css/fonts.css" />
         <link rel="stylesheet" href="/css/bootstrap.min.css" />
@@ -47,12 +63,8 @@ export default function RootLayout({
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap"
-          rel="stylesheet"
-        />
       </head>
-      <body suppressHydrationWarning>
+      <body className="font-sans antialiased text-[var(--text-primary)] bg-[var(--background)]" suppressHydrationWarning>
         <AuthProvider>
           <SettingsProvider>
             <SiteShell>{children}</SiteShell>

@@ -1,5 +1,12 @@
-import { Loading as LoadingSpinner } from "@/components/ui/Loading";
+import { BrandLoader } from '@/components/ui/BrandLoader';
 
 export default function Loading() {
-  return <LoadingSpinner message="Loading application page..." />;
+  return (
+    <BrandLoader
+      fullScreen
+      size="lg"
+      message="Loading LIRISHA..."
+      // subMessage="Connecting to live database"
+    />
+  );
 }

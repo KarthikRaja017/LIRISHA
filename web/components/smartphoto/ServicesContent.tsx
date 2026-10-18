@@ -6,6 +6,7 @@ import Link from "next/link";
 import { ServiceCategory } from "@/types/content";
 import { getServices } from "@/lib/api/content";
 import { ImageComparisonSlider } from "./ImageComparisonSlider";
+import { BrandLoader } from "@/components/ui/BrandLoader";
 
 interface ServicesContentProps {
   initialServices?: ServiceCategory[];
@@ -13,14 +14,22 @@ interface ServicesContentProps {
 
 export const ServicesContent: React.FC<ServicesContentProps> = ({ initialServices }) => {
   const [services, setServices] = useState<ServiceCategory[]>(initialServices || []);
+  const [loading, setLoading] = useState(!initialServices || initialServices.length === 0);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   useEffect(() => {
     if (!initialServices || initialServices.length === 0) {
-      getServices().then((data) => {
-        if (data && data.length > 0) setServices(data);
-      });
+      setLoading(true);
+      getServices()
+        .then((data) => {
+          if (data && data.length > 0) setServices(data);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      setLoading(false);
     }
   }, [initialServices]);
 
@@ -66,6 +75,18 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
     },
   ];
 
+  if (loading && services.length === 0) {
+    return (
+      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+        <BrandLoader
+          size="lg"
+          message="Loading Services Catalog..."
+          subMessage="Fetching editing solutions from database"
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="services-page-inner">
       {/* 1. HERO BANNER */}
@@ -82,7 +103,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
           <div className="row">
             <div className="col-lg-8">
               <div className="mb-3">
-                <span className="inline-block bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   Outsource Image Editing Services
                 </span>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
@@ -112,28 +133,28 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
           <div className="row">
             <div className="col-md-12 stastic-counter-row pt-2 flex flex-wrap justify-between items-center text-center">
               <div className="stastic-counter mb-2 flex-1 min-w-[140px]">
-                <div className="stastic-head text-3xl font-bold text-[#ff5b0a]">13+</div>
+                <div className="stastic-head text-3xl font-bold text-[#1265E8]">13+</div>
                 <div className="stastic-desc text-xs uppercase tracking-wider font-semibold text-gray-600">Years Experience</div>
               </div>
               <div className="line-seperator hidden md:block">
                 <div className="line"></div>
               </div>
               <div className="stastic-counter mb-2 flex-1 min-w-[140px]">
-                <div className="stastic-head text-3xl font-bold text-[#1c2a5a]">5M+</div>
+                <div className="stastic-head text-3xl font-bold text-[#07152F]">5M+</div>
                 <div className="stastic-desc text-xs uppercase tracking-wider font-semibold text-gray-600">Images Edited</div>
               </div>
               <div className="line-seperator hidden md:block">
                 <div className="line"></div>
               </div>
               <div className="stastic-counter mb-2 flex-1 min-w-[140px]">
-                <div className="stastic-head text-3xl font-bold text-[#ff5b0a]">12-24h</div>
+                <div className="stastic-head text-3xl font-bold text-[#1265E8]">12-24h</div>
                 <div className="stastic-desc text-xs uppercase tracking-wider font-semibold text-gray-600">Average Turnaround</div>
               </div>
               <div className="line-seperator hidden md:block">
                 <div className="line"></div>
               </div>
               <div className="stastic-counter mb-2 flex-1 min-w-[140px]">
-                <div className="stastic-head text-3xl font-bold text-[#1c2a5a]">99.4%</div>
+                <div className="stastic-head text-3xl font-bold text-[#07152F]">99.4%</div>
                 <div className="stastic-desc text-xs uppercase tracking-wider font-semibold text-gray-600">Quality Satisfaction</div>
               </div>
             </div>
@@ -153,7 +174,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                   onClick={() => setSelectedCategory(cat.id)}
                   className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 focus:outline-none ${
                     isActive
-                      ? "bg-[#ff5b0a] text-white shadow-md shadow-orange-500/20"
+                      ? "bg-[#1265E8] text-white shadow-md shadow-blue-500/20"
                       : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
                   }`}
                 >
@@ -169,7 +190,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-14">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1c2a5a] mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#07152F] mb-4">
               Comprehensive Post-Production Capabilities
             </h2>
             <p className="text-base text-gray-600 leading-relaxed">
@@ -190,15 +211,15 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                     {/* Left/Right Text Column */}
                     <div className="col-lg-6 mb-8 lg:mb-0">
                       <div className="flex items-center gap-3 mb-3">
-                        <span className="w-10 h-10 rounded-xl bg-orange-100 text-[#ff5b0a] flex items-center justify-center text-lg">
+                        <span className="w-10 h-10 rounded-xl bg-blue-100 text-[#1265E8] flex items-center justify-center text-lg">
                           <i className={service.iconClass}></i>
                         </span>
-                        <span className="text-xs font-bold uppercase tracking-wider text-[#ff5b0a]">
+                        <span className="text-xs font-bold uppercase tracking-wider text-[#1265E8]">
                           {service.turnaroundTime} Delivery
                         </span>
                       </div>
 
-                      <h3 className="text-2xl md:text-3xl font-bold text-[#1c2a5a] mb-2">
+                      <h3 className="text-2xl md:text-3xl font-bold text-[#07152F] mb-2">
                         {service.name}
                       </h3>
                       <p className="text-sm font-semibold text-gray-500 mb-4">
@@ -233,7 +254,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                             <Link
                               key={sub.id}
                               href={sub.link}
-                              className="inline-block bg-white text-gray-700 hover:text-[#ff5b0a] border border-gray-200 text-xs px-2.5 py-1 rounded-md transition-colors"
+                              className="inline-block bg-white text-gray-700 hover:text-[#1265E8] border border-gray-200 text-xs px-2.5 py-1 rounded-md transition-colors"
                             >
                               {sub.name} &rarr;
                             </Link>
@@ -245,14 +266,14 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                       <div className="flex flex-wrap items-center gap-3">
                         <Link
                           href={`/${service.slug}`}
-                          className="btn btn-primary bg-[#ff5b0a] hover:bg-[#e04f05] text-white font-medium px-5 py-2.5 rounded-full text-sm inline-flex items-center gap-2 border-0 transition-colors"
+                          className="btn btn-primary bg-[#1265E8] hover:bg-[#00C8F8] text-white font-medium px-5 py-2.5 rounded-full text-sm inline-flex items-center gap-2 border-0 transition-colors"
                         >
                           Explore {service.name}
                           <i className="fa-solid fa-arrow-right text-xs"></i>
                         </Link>
                         <Link
                           href="/contact-us.php"
-                          className="btn bg-white hover:bg-gray-50 text-[#1c2a5a] border border-gray-300 font-medium px-5 py-2.5 rounded-full text-sm inline-flex items-center gap-2 transition-colors"
+                          className="btn bg-white hover:bg-gray-50 text-[#07152F] border border-gray-300 font-medium px-5 py-2.5 rounded-full text-sm inline-flex items-center gap-2 transition-colors"
                         >
                           Request Free Quote
                         </Link>
@@ -286,10 +307,10 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
       </section>
 
       {/* 5. 4-STEP WORKFLOW PROCESS */}
-      <section className="py-16 bg-[#162249] text-white">
+      <section className="py-16 bg-[#07152F] text-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-[#ff5b0a] text-sm font-bold uppercase tracking-widest">
+            <span className="text-[#1265E8] text-sm font-bold uppercase tracking-widest">
               Simple & Transparent
             </span>
             <h2 className="text-3xl md:text-4xl font-bold mt-2 text-white">
@@ -303,7 +324,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
           <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
             {/* Step 1 */}
             <div className="bg-white/5 border border-white/10 p-6 rounded-2xl relative">
-              <div className="text-4xl font-extrabold text-[#ff5b0a]/30 mb-2">01</div>
+              <div className="text-4xl font-extrabold text-[#1265E8]/30 mb-2">01</div>
               <h3 className="text-lg font-bold text-white mb-2">1. Send Files & Brief</h3>
               <p className="text-gray-300 text-xs leading-relaxed">
                 Upload your raw images and guidelines via our secure FTP, Dropbox, Drive, or API with your desired specifications.
@@ -312,7 +333,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
 
             {/* Step 2 */}
             <div className="bg-white/5 border border-white/10 p-6 rounded-2xl relative">
-              <div className="text-4xl font-extrabold text-[#ff5b0a]/30 mb-2">02</div>
+              <div className="text-4xl font-extrabold text-[#1265E8]/30 mb-2">02</div>
               <h3 className="text-lg font-bold text-white mb-2">2. Free Trial / Pilot</h3>
               <p className="text-gray-300 text-xs leading-relaxed">
                 We edit a sample batch to calibrate against your lighting, color palette, and styling preferences for approval.
@@ -321,7 +342,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
 
             {/* Step 3 */}
             <div className="bg-white/5 border border-white/10 p-6 rounded-2xl relative">
-              <div className="text-4xl font-extrabold text-[#ff5b0a]/30 mb-2">03</div>
+              <div className="text-4xl font-extrabold text-[#1265E8]/30 mb-2">03</div>
               <h3 className="text-lg font-bold text-white mb-2">3. Scaled Production</h3>
               <p className="text-gray-300 text-xs leading-relaxed">
                 Our Adobe specialists process your bulk orders in structured shifts, supported by automated workflow routing.
@@ -330,7 +351,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
 
             {/* Step 4 */}
             <div className="bg-white/5 border border-white/10 p-6 rounded-2xl relative">
-              <div className="text-4xl font-extrabold text-[#ff5b0a]/30 mb-2">04</div>
+              <div className="text-4xl font-extrabold text-[#1265E8]/30 mb-2">04</div>
               <h3 className="text-lg font-bold text-white mb-2">4. QA & Fast Delivery</h3>
               <p className="text-gray-300 text-xs leading-relaxed">
                 Senior QA controllers review all deliverables before dispatching web-ready and print-ready files within 12-24 hours.
@@ -344,7 +365,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
       <section className="sec-quality-process py-16 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1c2a5a] mb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#07152F] mb-2">
               The SmartPHOTOeditors Advantage
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
@@ -358,28 +379,28 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                 <li>
                   <Link href="/security.php" className="q-process-box">
                     <div className="counter">01</div>
-                    <i className="fa-solid fa-shield-halved text-4xl text-[#ff5b0a] mb-2"></i>
+                    <i className="fa-solid fa-shield-halved text-4xl text-[#1265E8] mb-2"></i>
                     <span>ISO Security & NDA Protection</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/quality.php" className="q-process-box">
                     <div className="counter">02</div>
-                    <i className="fa-solid fa-circle-check text-4xl text-[#ff5b0a] mb-2"></i>
+                    <i className="fa-solid fa-circle-check text-4xl text-[#1265E8] mb-2"></i>
                     <span>2-Tier Quality Control</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/pricing.php" className="q-process-box">
                     <div className="counter">03</div>
-                    <i className="fa-solid fa-tags text-4xl text-[#ff5b0a] mb-2"></i>
+                    <i className="fa-solid fa-tags text-4xl text-[#1265E8] mb-2"></i>
                     <span>Transparent Volume Pricing</span>
                   </Link>
                 </li>
                 <li>
                   <Link href="/benefits.php" className="q-process-box">
                     <div className="counter">04</div>
-                    <i className="fa-solid fa-bolt text-4xl text-[#ff5b0a] mb-2"></i>
+                    <i className="fa-solid fa-bolt text-4xl text-[#1265E8] mb-2"></i>
                     <span>24/7 Global Time-Zone Coverage</span>
                   </Link>
                 </li>
@@ -393,7 +414,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
       <section className="py-16 bg-[#f8f9fa] border-t border-gray-200">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1c2a5a] mb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#07152F] mb-2">
               Frequently Asked Questions
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
@@ -411,12 +432,12 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                 >
                   <button
                     onClick={() => setActiveFaq(isOpen ? null : idx)}
-                    className="w-full text-left p-5 font-semibold text-gray-900 flex justify-between items-center focus:outline-none hover:text-[#ff5b0a]"
+                    className="w-full text-left p-5 font-semibold text-gray-900 flex justify-between items-center focus:outline-none hover:text-[#1265E8]"
                   >
                     <span>{faq.q}</span>
                     <i
                       className={`fa-solid fa-chevron-down text-sm transition-transform duration-200 ${
-                        isOpen ? "rotate-180 text-[#ff5b0a]" : "text-gray-400"
+                        isOpen ? "rotate-180 text-[#1265E8]" : "text-gray-400"
                       }`}
                     ></i>
                   </button>
@@ -445,13 +466,13 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
             <div className="flex justify-center gap-4 flex-wrap">
               <Link
                 href="/contact-us.php"
-                className="btn round-button cta-btn inline-block bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-8 py-3.5 rounded-full font-semibold"
+                className="btn round-button cta-btn inline-block bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3.5 rounded-full font-semibold"
               >
                 Get a Free Quote & Trial
               </Link>
               <Link
                 href="/sample-images.php"
-                className="btn bg-white hover:bg-gray-100 text-[#1c2a5a] border border-gray-300 px-8 py-3.5 rounded-full font-semibold"
+                className="btn bg-white hover:bg-gray-100 text-[#07152F] border border-gray-300 px-8 py-3.5 rounded-full font-semibold"
               >
                 View Sample Gallery
               </Link>

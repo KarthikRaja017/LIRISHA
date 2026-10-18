@@ -68,7 +68,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
           <div className="row">
             <div className="col-lg-8">
               <div className="mb-3">
-                <span className="inline-block bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   Knowledge Hub & Case Studies
                 </span>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
@@ -102,7 +102,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 onClick={() => setActiveTab("all")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeTab === "all"
-                    ? "bg-[#ff5b0a] text-white shadow-sm"
+                    ? "bg-[#1265E8] text-white shadow-sm"
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
@@ -112,7 +112,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 onClick={() => setActiveTab("articles")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeTab === "articles"
-                    ? "bg-[#ff5b0a] text-white shadow-sm"
+                    ? "bg-[#1265E8] text-white shadow-sm"
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
@@ -122,7 +122,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 onClick={() => setActiveTab("case-study")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeTab === "case-study"
-                    ? "bg-[#ff5b0a] text-white shadow-sm"
+                    ? "bg-[#1265E8] text-white shadow-sm"
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
@@ -132,7 +132,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 onClick={() => setActiveTab("blog")}
                 className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                   activeTab === "blog"
-                    ? "bg-[#ff5b0a] text-white shadow-sm"
+                    ? "bg-[#1265E8] text-white shadow-sm"
                     : "bg-[#f8f9fa] text-gray-700 hover:bg-gray-200 border border-gray-200"
                 }`}
               >
@@ -140,7 +140,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
               </button>
               <Link
                 href="/testimonials.php"
-                className="px-4 py-2 rounded-full text-sm font-medium bg-[#f8f9fa] text-gray-700 hover:text-[#ff5b0a] hover:bg-gray-200 border border-gray-200 transition-all inline-flex items-center gap-1.5"
+                className="px-4 py-2 rounded-full text-sm font-medium bg-[#f8f9fa] text-gray-700 hover:text-[#1265E8] hover:bg-gray-200 border border-gray-200 transition-all inline-flex items-center gap-1.5"
               >
                 <span>Testimonials</span>
                 <i className="fa-solid fa-star text-yellow-500 text-xs"></i>
@@ -154,7 +154,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 placeholder="Search resources, topics, tags..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-9 pr-4 py-2 rounded-full border border-gray-300 text-sm focus:outline-none focus:border-[#ff5b0a] focus:ring-1 focus:ring-[#ff5b0a]"
+                className="w-full pl-9 pr-4 py-2 rounded-full border border-gray-300 text-sm focus:outline-none focus:border-[#1265E8] focus:ring-1 focus:ring-[#1265E8]"
               />
               <i className="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 text-xs"></i>
               {searchQuery && (
@@ -173,10 +173,10 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
       {/* 3. FEATURED SPOTLIGHT CARD */}
       <section className="py-12 bg-white">
         <div className="container mx-auto px-4">
-          <div className="bg-gradient-to-br from-[#162249] to-[#253670] rounded-3xl p-6 md:p-10 text-white shadow-lg overflow-hidden relative">
+          <div className="bg-gradient-to-br from-[#07152F] to-[#253670] rounded-3xl p-6 md:p-10 text-white shadow-lg overflow-hidden relative">
             <div className="row items-center">
               <div className="col-lg-7 mb-6 lg:mb-0">
-                <span className="inline-block bg-[#ff5b0a] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
+                <span className="inline-block bg-[#1265E8] text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
                   Featured Case Study
                 </span>
                 <h2 className="text-2xl md:text-4xl font-bold text-white mb-3 leading-tight">
@@ -208,7 +208,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
 
                 <Link
                   href="/case-study/automobile-image-clipping.php"
-                  className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 border-0 transition-all shadow-md"
+                  className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 border-0 transition-all shadow-md"
                 >
                   Read Full Case Study
                   <i className="fa-solid fa-arrow-right text-xs"></i>
@@ -236,7 +236,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#1c2a5a]">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#07152F]">
                 {activeTab === "all"
                   ? "All Resource Publications"
                   : activeTab === "articles"
@@ -263,7 +263,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                   setActiveTab("all");
                   setSearchQuery("");
                 }}
-                className="mt-4 px-4 py-2 bg-[#ff5b0a] text-white text-xs font-semibold rounded-full"
+                className="mt-4 px-4 py-2 bg-[#1265E8] text-white text-xs font-semibold rounded-full"
               >
                 Reset Filters
               </button>
@@ -308,7 +308,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                           <span>{resource.readTime}</span>
                         </div>
 
-                        <h3 className="text-base md:text-lg font-bold text-gray-900 hover:text-[#ff5b0a] transition-colors mb-2 line-clamp-2">
+                        <h3 className="text-base md:text-lg font-bold text-gray-900 hover:text-[#1265E8] transition-colors mb-2 line-clamp-2">
                           <Link href={resource.link}>{resource.title}</Link>
                         </h3>
 
@@ -334,7 +334,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                     <div className="p-5 pt-0 border-t border-gray-100 mt-auto">
                       <Link
                         href={resource.link}
-                        className="text-xs font-bold uppercase tracking-wider text-[#ff5b0a] hover:text-[#e04f05] inline-flex items-center gap-1.5 pt-3"
+                        className="text-xs font-bold uppercase tracking-wider text-[#1265E8] hover:text-[#00C8F8] inline-flex items-center gap-1.5 pt-3"
                       >
                         <span>{isCaseStudy ? "View Case Study" : "Read Article"}</span>
                         <i className="fa-solid fa-arrow-right text-[10px]"></i>
@@ -353,10 +353,10 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
         <div className="container mx-auto px-4">
           <div className="row items-center">
             <div className="col-lg-6 mb-8 lg:mb-0">
-              <span className="text-[#ff5b0a] text-xs font-bold uppercase tracking-widest">
+              <span className="text-[#1265E8] text-xs font-bold uppercase tracking-widest">
                 Free Downloads
               </span>
-              <h2 className="text-3xl font-bold text-[#1c2a5a] mt-1 mb-3">
+              <h2 className="text-3xl font-bold text-[#07152F] mt-1 mb-3">
                 Downloadable Image Editing Best Practice Cheatsheets
               </h2>
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
@@ -376,7 +376,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                   </div>
                   <Link
                     href="/contact-us.php"
-                    className="btn btn-sm bg-[#1c2a5a] hover:bg-[#253670] text-white text-xs px-3 py-1.5 rounded-lg"
+                    className="btn btn-sm bg-[#07152F] hover:bg-[#253670] text-white text-xs px-3 py-1.5 rounded-lg"
                   >
                     Download
                   </Link>
@@ -394,7 +394,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                   </div>
                   <Link
                     href="/contact-us.php"
-                    className="btn btn-sm bg-[#1c2a5a] hover:bg-[#253670] text-white text-xs px-3 py-1.5 rounded-lg"
+                    className="btn btn-sm bg-[#07152F] hover:bg-[#253670] text-white text-xs px-3 py-1.5 rounded-lg"
                   >
                     Download
                   </Link>
@@ -403,7 +403,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
             </div>
 
             <div className="col-lg-6">
-              <div className="bg-[#162249] text-white p-8 rounded-3xl relative overflow-hidden">
+              <div className="bg-[#07152F] text-white p-8 rounded-3xl relative overflow-hidden">
                 <h3 className="text-2xl font-bold mb-2">Subscribe to SPE Insights</h3>
                 <p className="text-gray-300 text-xs md:text-sm leading-relaxed mb-6">
                   Get monthly articles, Photoshop tutorials, and exclusive outsourcing discounts delivered straight to your inbox.
@@ -419,11 +419,11 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                     type="email"
                     required
                     placeholder="Enter your work email address"
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-[#ff5b0a]"
+                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 text-sm focus:outline-none focus:border-[#1265E8]"
                   />
                   <button
                     type="submit"
-                    className="w-full bg-[#ff5b0a] hover:bg-[#e04f05] text-white font-semibold py-3 rounded-xl text-sm transition-all"
+                    className="w-full bg-[#1265E8] hover:bg-[#00C8F8] text-white font-semibold py-3 rounded-xl text-sm transition-all"
                   >
                     Subscribe to Newsletter
                   </button>
@@ -439,7 +439,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
             <div>
-              <h2 className="text-2xl md:text-3xl font-bold text-[#1c2a5a]">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#07152F]">
                 Trusted by Global Photography Studios
               </h2>
               <p className="text-sm text-gray-600 mt-1">
@@ -448,7 +448,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
             </div>
             <Link
               href="/testimonials.php"
-              className="text-xs font-bold uppercase tracking-wider text-[#ff5b0a] hover:underline inline-flex items-center gap-1.5"
+              className="text-xs font-bold uppercase tracking-wider text-[#1265E8] hover:underline inline-flex items-center gap-1.5"
             >
               <span>View All 50+ Testimonials</span>
               <i className="fa-solid fa-arrow-right"></i>
@@ -502,7 +502,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
             </p>
             <Link
               href="/contact-us.php"
-              className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
+              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
             >
               Get in Touch with an Expert
             </Link>

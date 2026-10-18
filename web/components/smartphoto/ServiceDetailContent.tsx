@@ -28,7 +28,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
           <div className="row">
             <div className="col-lg-8">
               <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   <i className={service.iconClass}></i>
                   <span>Professional Image Editing</span>
                 </div>
@@ -64,10 +64,10 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
         <div className="container mx-auto px-4">
           <div className="row items-center">
             <div className="col-lg-6 mb-8 lg:mb-0">
-              <span className="text-[#ff5b0a] text-xs font-bold uppercase tracking-widest">
+              <span className="text-[#1265E8] text-xs font-bold uppercase tracking-widest">
                 Overview & Value
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#1c2a5a] mt-1 mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#07152F] mt-1 mb-4">
                 Scale Your Production Without Compromising on Quality
               </h2>
               <p className="text-gray-700 text-base leading-relaxed mb-4">
@@ -81,11 +81,11 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-6">
                 <div className="bg-[#f8f9fa] p-3 rounded-xl border border-gray-200 text-center">
                   <div className="text-xs text-gray-500 font-medium">Turnaround</div>
-                  <div className="text-base font-bold text-[#ff5b0a]">{service.turnaroundTime}</div>
+                  <div className="text-base font-bold text-[#1265E8]">{service.turnaroundTime}</div>
                 </div>
                 <div className="bg-[#f8f9fa] p-3 rounded-xl border border-gray-200 text-center">
                   <div className="text-xs text-gray-500 font-medium">Format</div>
-                  <div className="text-base font-bold text-[#1c2a5a]">PSD / TIFF / JPG</div>
+                  <div className="text-base font-bold text-[#07152F]">PSD / TIFF / JPG</div>
                 </div>
                 <div className="bg-[#f8f9fa] p-3 rounded-xl border border-gray-200 text-center col-span-2 sm:col-span-1">
                   <div className="text-xs text-gray-500 font-medium">Quality SLA</div>
@@ -96,7 +96,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
               <div className="flex flex-wrap gap-3">
                 <Link
                   href="/contact-us.php"
-                  className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 transition-colors"
+                  className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 transition-colors"
                 >
                   Request Free Pilot Trial
                   <i className="fa-solid fa-arrow-right text-xs"></i>
@@ -136,10 +136,10 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
       <section className="py-16 bg-[#f8f9fa]">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto mb-12">
-            <span className="text-[#ff5b0a] text-xs font-bold uppercase tracking-widest">
+            <span className="text-[#1265E8] text-xs font-bold uppercase tracking-widest">
               Specialized Sub-Services
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#1c2a5a] mt-1 mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#07152F] mt-1 mb-3">
               Included {service.name} Solutions
             </h2>
             <p className="text-gray-600 text-sm md:text-base">
@@ -154,7 +154,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
                 className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-orange-100 text-[#ff5b0a] flex items-center justify-center text-base mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#1265E8] flex items-center justify-center text-base mb-4">
                     <i className="fa-solid fa-check"></i>
                   </div>
                   <h3 className="text-lg font-bold text-gray-900 mb-2">
@@ -176,7 +176,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
                 </div>
                 <Link
                   href="/contact-us.php"
-                  className="text-xs font-semibold text-[#ff5b0a] hover:text-[#e04f05] inline-flex items-center gap-1.5"
+                  className="text-xs font-semibold text-[#1265E8] hover:text-[#00C8F8] inline-flex items-center gap-1.5"
                 >
                   Order This Service &rarr;
                 </Link>
@@ -191,7 +191,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
         <div className="container mx-auto px-4">
           <div className="row items-center">
             <div className="col-lg-6 mb-8 lg:mb-0">
-              <h2 className="text-2xl md:text-3xl font-bold text-[#1c2a5a] mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#07152F] mb-4">
                 Deliverables & Technical Standards
               </h2>
               <p className="text-gray-600 text-sm leading-relaxed mb-6">
@@ -201,7 +201,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
               <div className="space-y-3">
                 {service.deliverables.map((item, idx) => (
                   <div key={idx} className="flex items-center gap-3 p-3 rounded-xl bg-gray-50 border border-gray-100">
-                    <i className="fa-solid fa-file-image text-[#ff5b0a] text-lg"></i>
+                    <i className="fa-solid fa-file-image text-[#1265E8] text-lg"></i>
                     <span className="text-sm font-semibold text-gray-800">{item}</span>
                   </div>
                 ))}
@@ -209,7 +209,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
             </div>
 
             <div className="col-lg-6">
-              <div className="bg-[#162249] text-white p-8 rounded-3xl relative overflow-hidden">
+              <div className="bg-[#07152F] text-white p-8 rounded-3xl relative overflow-hidden">
                 <div className="relative z-10">
                   <h3 className="text-2xl font-bold mb-2">Need a Custom Specification?</h3>
                   <p className="text-gray-300 text-sm leading-relaxed mb-6">
@@ -217,7 +217,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
                   </p>
                   <Link
                     href="/contact-us.php"
-                    className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-6 py-3 rounded-full font-semibold text-sm inline-block"
+                    className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-3 rounded-full font-semibold text-sm inline-block"
                   >
                     Discuss Custom Workflow
                   </Link>
@@ -240,7 +240,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
             </p>
             <Link
               href="/contact-us.php"
-              className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
+              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
             >
               Get Free Quote & Sample
             </Link>

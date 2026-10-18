@@ -1,19 +1,301 @@
-/* SmartPHOTOeditors Homepage Globals */
+/* SmartPHOTOeditors / LIRISHA Globals */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-/* ===== CSS VARIABLES ===== */
+/* ===== LIRISHA BRAND CSS VARIABLES & THEME ===== */
 :root {
-  --primary-color: #404cd1;
-  --secondary-color: #fd5d0a;
-  --color-orange: #ff5b0a;
-  --dark-navy: #1c2a5a;
-  --green-start: #8dce3c;
-  --green-end: #49a800;
-  --navbar-bg-color: #fff;
-  --navbar-text-color: #171717;
+  /* Brand */
+  --brand-primary: #1265E8;
+  --brand-cyan: #00C8F8;
+  --brand-violet: #713CFF;
+  --brand-gradient: linear-gradient(
+    110deg,
+    #00C8F8 0%,
+    #1265E8 45%,
+    #713CFF 80%,
+    #FF4FA3 100%
+  );
+
+  /* Light theme */
+  --background: #F7F9FC;
+  --surface: #FFFFFF;
+  --text-primary: #07152F;
+  --text-secondary: #526079;
+  --border: #DCE3ED;
+
+  /* Dark theme */
+  --background-dark: #07152F;
+  --surface-dark: #102749;
+  --text-dark: #FFFFFF;
+  --text-secondary-dark: #C4D0E4;
+
+  /* UI */
+  --button-radius: 10px;
+  --card-radius: 16px;
+
+  /* Legacy & Framework Theme Variables */
+  color-scheme: light;
+  --primary-color: #1265E8;
+  --secondary-color: #00C8F8;
+  --color-orange: #1265E8;
+  --dark-navy: #07152F;
+  --navbar-bg-color: #FFFFFF;
+  --navbar-text-color: #07152F;
+}
+
+/* ===== UNIVERSAL TYPOGRAPHY: SYNE FOR HEADINGS & DM SANS FOR BODY/UI ===== */
+html,
+body,
+p,
+span,
+a,
+div,
+li,
+ul,
+ol,
+input,
+button,
+select,
+textarea,
+label,
+table,
+td,
+th {
+  font-family: var(--font-dm-sans), "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+.font-heading,
+.font-display,
+.banner-title,
+.hero-title,
+.section-title,
+.heading-title,
+.page-title,
+.stastic-head,
+.heading-h2 {
+  font-family: var(--font-syne), "Syne", sans-serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+}
+
+/* ===== BRAND GLOBAL UTILITIES & LEGACY OVERRIDES ===== */
+.btn-brand,
+.round-button,
+.banner-highlights,
+.read-more-button,
+.navbar-item.highlight-btn,
+.new-banner-section .owl-prev,
+.new-banner-section .owl-next {
+  background: var(--brand-gradient) !important;
+  border-radius: var(--button-radius) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.round-button:hover,
+.btn-brand:hover,
+.banner-highlights:hover {
+  background: linear-gradient(110deg, #1265E8 0%, #713CFF 100%) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(18, 101, 232, 0.35) !important;
+}
+
+.counter-section .box,
+.cta-section .cta-section-container {
+  background: linear-gradient(135deg, #102749 0%, #1265E8 100%) !important;
+  border-radius: var(--card-radius) !important;
+  border: 1px solid rgba(0, 200, 248, 0.2) !important;
+}
+
+.stastic-head,
+.count-per,
+.counter-count,
+.service-text a.service-btn,
+.view-more-btn,
+.cs-heading-inner-service .cs-button {
+  color: var(--brand-primary) !important;
+}
+
+footer {
+  background: var(--background-dark) !important;
+  color: var(--text-secondary-dark) !important;
+}
+
+.cursor-inner {
+  background-color: var(--brand-cyan) !important;
+}
+.cursor-outer {
+  border-color: var(--brand-cyan) !important;
+}
+
+/* ===== FORM CONTROLS VISIBILITY & HIGH CONTRAST (ADMIN & APP-WIDE) ===== */
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="file"]),
+textarea,
+select {
+  color: #07152F !important;
+  -webkit-text-fill-color: #07152F !important;
+  opacity: 1 !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #526079 !important;
+  -webkit-text-fill-color: #526079 !important;
+  opacity: 1 !important;
+}
+
+/* Chrome/Safari Autofill High-Contrast Protection */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 1000px #ffffff inset !important;
+  -webkit-text-fill-color: #07152F !important;
+  box-shadow: 0 0 0 1000px #ffffff inset !important;
+  color: #07152F !important;
+}
+
+/* Polished Admin Main Workspace Form Controls */
+.admin-main input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="file"]),
+.admin-main textarea,
+.admin-main select,
+.admin-input,
+.admin-textarea,
+.admin-select {
+  color: #07152F !important;
+  -webkit-text-fill-color: #07152F !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid #DCE3ED !important;
+  font-weight: 600 !important;
+  border-radius: var(--button-radius, 10px) !important;
+  box-shadow: 0 1px 2px 0 rgba(7, 21, 47, 0.05) !important;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.admin-main input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="file"]):hover,
+.admin-main textarea:hover,
+.admin-main select:hover,
+.admin-input:hover,
+.admin-textarea:hover,
+.admin-select:hover {
+  border-color: #1265E8 !important;
+}
+
+.admin-main input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="file"]):focus,
+.admin-main textarea:focus,
+.admin-main select:focus,
+.admin-input:focus,
+.admin-textarea:focus,
+.admin-select:focus {
+  border-color: #1265E8 !important;
+  box-shadow: 0 0 0 3.5px rgba(18, 101, 232, 0.22) !important;
+  outline: none !important;
+}
+
+/* Polished Card & Badges Styles for Admin Mode */
+.admin-card {
+  background-color: #ffffff;
+  border: 1px solid #DCE3ED;
+  border-radius: var(--card-radius, 16px);
+  box-shadow: 0 1px 3px 0 rgba(7, 21, 47, 0.05);
+  transition: all 0.2s ease-in-out;
+}
+.admin-card:hover {
+  box-shadow: 0 8px 16px -2px rgba(18, 101, 232, 0.1), 0 2px 4px -2px rgba(7, 21, 47, 0.05);
+  border-color: #1265E8;
+}
+
+/* ===== ZERO SCROLLBAR & PROFESSIONAL SCREEN-FITTING SYSTEM ===== */
+html.admin-mode-active,
+body.admin-mode-active {
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  width: 100vw !important;
+  max-width: 100vw !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+/* Universal scrollbar elimination across all browsers */
+html.admin-mode-active,
+body.admin-mode-active,
+.admin-scope,
+.admin-scope *,
+.admin-container,
+.admin-container *,
+.admin-sidebar,
+.admin-sidebar *,
+.admin-main,
+.admin-main *,
+.scrollbar-none,
+.scrollbar-none * {
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE 10+ and Edge */
+}
+
+html.admin-mode-active::-webkit-scrollbar,
+body.admin-mode-active::-webkit-scrollbar,
+.admin-scope::-webkit-scrollbar,
+.admin-scope *::-webkit-scrollbar,
+.admin-container::-webkit-scrollbar,
+.admin-container *::-webkit-scrollbar,
+.admin-sidebar::-webkit-scrollbar,
+.admin-sidebar *::-webkit-scrollbar,
+.admin-main::-webkit-scrollbar,
+.admin-main *::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar,
+.scrollbar-none *::-webkit-scrollbar {
+  display: none !important; /* Chrome, Safari, Edge, Opera */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* Fixed Width Professional Sidebar (Desktop) */
+@media (min-width: 1024px) {
+  .admin-sidebar {
+    width: 260px !important;
+    min-width: 260px !important;
+    max-width: 260px !important;
+    flex: 0 0 260px !important;
+  }
+}
+
+/* Dark Search Bar for Admin Sidebar */
+.admin-sidebar input {
+  background-color: #0b1120 !important;
+  color: #f8fafc !important;
+  -webkit-text-fill-color: #f8fafc !important;
+  border-color: #334155 !important;
+  font-weight: 500 !important;
+}
+
+.admin-sidebar input::placeholder {
+  color: #64748b !important;
+  -webkit-text-fill-color: #64748b !important;
+}
+
+.admin-sidebar input:focus {
+  border-color: #1265E8 !important;
+  box-shadow: 0 0 0 2px rgba(18, 101, 232, 0.25) !important;
 }
 
 /* ===== RESET ===== */
@@ -302,7 +584,7 @@ img { vertical-align: middle; border-style: none; }
     cursor: pointer !important;
   }
   #main_nav .nav-link:hover {
-    color: #ff5b0a !important;
+    color: #1265E8 !important;
   }
 }
 
@@ -364,7 +646,7 @@ img { vertical-align: middle; border-style: none; }
   list-style: none !important;
   background-color: #fff !important;
   border: 0 none !important;
-  border-top: 0.1875rem solid #ff5b0a !important;
+  border-top: 0.1875rem solid #1265E8 !important;
   border-bottom-right-radius: 0.3125rem !important;
   border-bottom-left-radius: 0.3125rem !important;
   box-shadow: 0 8px 20px rgba(55, 125, 255, 0.1) !important;
@@ -584,9 +866,9 @@ img { vertical-align: middle; border-style: none; }
   width: 12px !important;
   height: 28px !important;
   border-radius: 14px !important;
-  background: linear-gradient(180deg, #8DCE3C 0%, #49A800 100%) !important;
+  background: linear-gradient(180deg, #00C8F8 0%, #1265E8 100%) !important;
   border: 1.5px solid #ffffff !important;
-  box-shadow: 0 0 16px rgba(141, 206, 60, 0.95), 0 2px 6px rgba(0, 0, 0, 0.45) !important;
+  box-shadow: 0 0 16px rgba(0, 200, 248, 0.95), 0 2px 6px rgba(0, 0, 0, 0.45) !important;
   transform: scale(1.05) !important;
   position: relative !important;
 }
@@ -628,7 +910,7 @@ img { vertical-align: middle; border-style: none; }
   padding: 10px 10px 10px 20px; margin-bottom: 20px;
 }
 .homepage-counter .homepage-counter-box::after {
-  border: 2px solid #FBA119; content: ''; position: absolute;
+  border: 2px solid #00C8F8; content: ''; position: absolute;
   top: 10px; left: -2px; width: 2px; height: 40px;
 }
 .homepage-counter .homepage-counter-box span { font-size: 1.75rem; font-weight: 700; }
@@ -640,7 +922,7 @@ img { vertical-align: middle; border-style: none; }
 
 /* ===== ABOUT SECTION ===== */
 .page-intro-content { padding: 50px 0 20px; }
-.page-intro-content h1 { font-size: 2rem; margin-bottom: 1.5rem; color: #1c2a5a; font-weight: 700; }
+.page-intro-content h1 { font-size: 2rem; margin-bottom: 1.5rem; color: #07152F; font-weight: 700; }
 
 /* ===== VIDEO SECTION ===== */
 .homepage-video { position: relative; padding-top: 8px; padding-bottom: 40px; }
@@ -664,7 +946,7 @@ img { vertical-align: middle; border-style: none; }
   margin: 0; padding: 5px; display: flex; align-items: center;
   justify-content: space-between;
   border: 1px solid #cfcdcd; border-radius: 25px;
-  background-image: linear-gradient(90deg, #8DCE3C, #49A800);
+  background-image: var(--brand-gradient);
   list-style: none;
 }
 .get-start-now .contact-channels-cta li {
@@ -850,11 +1132,11 @@ footer a:hover { color: #8DCE3C; }
 }
 .contact-text p { margin-bottom: 2px; color: #adb5bd; font-size: 14px; }
 .contact-text a { color: #adb5bd; }
-.contact-text a:hover { color: #8DCE3C; }
+.contact-text a:hover { color: #00C8F8; }
 .contact-text span { font-weight: 600; color: #fff; font-size: 14px; }
 .copy-icon { padding-left: 5px; }
 
-.copyright { padding-top: 20px; border-top: 1px solid #1c2a5a; margin-top: 30px; }
+.copyright { padding-top: 20px; border-top: 1px solid #102749; margin-top: 30px; }
 .copyright p { color: #adb5bd; font-size: 14px; margin-bottom: 0; }
 
 .social-icons p { color: #adb5bd; font-size: 14px; margin-bottom: 0; }
@@ -864,7 +1146,7 @@ footer a:hover { color: #8DCE3C; }
   margin: 0px 3px; border: 1px solid #6f789b; border-radius: 1px;
   display: inline-block;
 }
-.social-icons i:hover { background-image: linear-gradient(90deg, #8DCE3C, #49A800); border-color: #8DCE3C; }
+.social-icons i:hover { background-image: var(--brand-gradient); border-color: #00C8F8; }
 
 /* ===== MAGIC CURSOR ===== */
 .mouse-cursor {
@@ -873,13 +1155,13 @@ footer a:hover { color: #8DCE3C; }
 }
 .cursor-inner {
   margin-left: -3px; margin-top: -3px; width: 6px; height: 6px; z-index: 100;
-  background-color: #ff451b;
+  background-color: #00C8F8;
   transition: width 0.3s ease-in-out, height 0.3s ease-in-out, margin 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
-.cursor-inner.cursor-hover { margin-left: -40px; margin-top: -40px; width: 80px; height: 80px; background-color: #ff451b; opacity: 0.3; }
+.cursor-inner.cursor-hover { margin-left: -40px; margin-top: -40px; width: 80px; height: 80px; background-color: #1265E8; opacity: 0.3; }
 .cursor-outer {
   margin-left: -15px; margin-top: -15px; width: 30px; height: 30px;
-  border: 2px solid #ff451b; box-sizing: border-box; z-index: 100; opacity: 0.5;
+  border: 2px solid #00C8F8; box-sizing: border-box; z-index: 100; opacity: 0.5;
   transition: all 0.08s ease-out;
 }
 .cursor-outer.cursor-hover { opacity: 0; }
@@ -948,3 +1230,80 @@ footer a:hover { color: #8DCE3C; }
   .container { max-width: 1320px; }
   .slide-content-title { left: 15%; }
 }
+
+/* ===== LIRISHA CAMERA LOADER ANIMATIONS ===== */
+@keyframes camera-pulse-glow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 14px rgba(0, 200, 248, 0.45)) drop-shadow(0 0 30px rgba(113, 60, 255, 0.3));
+  }
+  50% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 24px rgba(0, 200, 248, 0.75)) drop-shadow(0 0 50px rgba(255, 79, 163, 0.5));
+  }
+}
+
+@keyframes camera-radar {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@keyframes orbit-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-spin-reverse {
+  0% {
+    transform: rotate(360deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes progress-shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(40%);
+  }
+  100% {
+    transform: translateX(200%);
+  }
+}
+
+.animate-camera-breathe {
+  animation: camera-pulse-glow 2.4s ease-in-out infinite;
+}
+
+.animate-camera-radar {
+  animation: camera-radar 2.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-orbit-spin {
+  animation: orbit-spin 4s linear infinite;
+}
+
+.animate-orbit-spin-reverse {
+  animation: orbit-spin-reverse 6s linear infinite;
+}
+
+.animate-progress-shimmer {
+  animation: progress-shimmer 1.8s ease-in-out infinite;
+}
+

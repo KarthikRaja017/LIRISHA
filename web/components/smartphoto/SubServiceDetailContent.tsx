@@ -66,7 +66,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
           <div className="row">
             <div className="col-lg-8">
               <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-orange-50 text-[#ff5b0a] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-orange-200 mb-3">
+                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
                   <i className={parentIcon}></i>
                   <span>{parentName}</span>
                 </div>
@@ -109,10 +109,10 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
         <div className="container mx-auto px-4">
           <div className="row items-center">
             <div className="col-lg-6 mb-8 lg:mb-0">
-              <span className="text-[#ff5b0a] text-xs font-bold uppercase tracking-widest">
+              <span className="text-[#1265E8] text-xs font-bold uppercase tracking-widest">
                 Service Overview
               </span>
-              <h2 className="text-2xl md:text-4xl font-bold text-[#1c2a5a] mt-1 mb-4 leading-tight">
+              <h2 className="text-2xl md:text-4xl font-bold text-[#07152F] mt-1 mb-4 leading-tight">
                 High-Quality, Consistent {title} Solutions
               </h2>
               <p className="text-gray-700 text-base leading-relaxed mb-4">
@@ -143,7 +143,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
               <div className="flex flex-wrap gap-3 mt-6">
                 <Link
                   href="/contact-us.php"
-                  className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 shadow-md transition-colors"
+                  className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 shadow-md transition-colors"
                 >
                   Order Free Sample Edit
                   <i className="fa-solid fa-arrow-right text-xs"></i>
@@ -184,7 +184,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between mb-8 flex-wrap gap-3">
             <div>
-              <h3 className="text-xl md:text-2xl font-bold text-[#1c2a5a]">
+              <h3 className="text-xl md:text-2xl font-bold text-[#07152F]">
                 More in {parentName}
               </h3>
               <p className="text-xs md:text-sm text-gray-600 mt-1">
@@ -193,7 +193,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
             </div>
             <Link
               href={`/${parentSlug}`}
-              className="text-xs font-bold uppercase tracking-wider text-[#ff5b0a] hover:underline"
+              className="text-xs font-bold uppercase tracking-wider text-[#1265E8] hover:underline"
             >
               View All {parentName} Services &rarr;
             </Link>
@@ -211,7 +211,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
                 </div>
                 <Link
                   href={sub.link}
-                  className="text-xs font-bold text-[#ff5b0a] hover:underline inline-flex items-center gap-1"
+                  className="text-xs font-bold text-[#1265E8] hover:underline inline-flex items-center gap-1"
                 >
                   Learn More &rarr;
                 </Link>
@@ -233,7 +233,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
             </p>
             <Link
               href="/contact-us.php"
-              className="btn bg-[#ff5b0a] hover:bg-[#e04f05] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
+              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
             >
               Get Free Quote & Sample
             </Link>

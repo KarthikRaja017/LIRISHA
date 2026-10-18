@@ -2,15 +2,28 @@
 
 import React, { useState } from "react";
 
-export const GetStartedCTA: React.FC = () => {
+export interface GetStartedCTAProps {
+  initialData?: {
+    title?: string;
+    contactLink?: string;
+    email?: string;
+    phone?: string;
+  };
+}
+
+export const GetStartedCTA: React.FC<GetStartedCTAProps> = ({ initialData }) => {
   const [copied, setCopied] = useState(false);
+  const title = initialData?.title || "Get Start Now!";
+  const contactLink = initialData?.contactLink || "/contact-us.php";
+  const email = initialData?.email || "info@lirisha.com";
+  const phone = initialData?.phone || "18557291549";
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText("info@smartphotoeditors.com").then(() => {
+    navigator.clipboard.writeText(email).then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      alert("Email copied to clipboard: info@smartphotoeditors.com");
+      alert(`Email copied to clipboard: ${email}`);
     });
   };
 
@@ -22,11 +35,11 @@ export const GetStartedCTA: React.FC = () => {
             <ul className="contact-channels-cta">
               <li>
                 <h2 className="mb-0" style={{ fontSize: "20px" }}>
-                  Get Start Now!
+                  {title}
                 </h2>
               </li>
               <li>
-                <a href="/contact-us.php">Contact Us</a>
+                <a href={contactLink}>Contact Us</a>
               </li>
               <li>
                 <a
@@ -53,10 +66,10 @@ export const GetStartedCTA: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="tel:18557291549">Call Us</a>
+                <a href={`tel:${phone}`}>Call Us</a>
               </li>
               <li>
-                <a href="tel:18557291549">Book a Meeting</a>
+                <a href={`tel:${phone}`}>Book a Meeting</a>
               </li>
             </ul>
           </div>
