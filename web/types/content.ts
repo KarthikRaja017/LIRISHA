@@ -82,6 +82,8 @@ export interface PageHero {
   image?: string;
   ctaText?: string;
   ctaLink?: string;
+  badge?: string;
+  [key: string]: any;
 }
 
 export interface PageSection {

@@ -4,20 +4,23 @@ import React, { useState, useRef } from "react";
 import { uploadToSupabaseStorage } from "@/lib/supabase/client";
 
 interface ImageUploadButtonProps {
-  currentValue: string;
+  currentValue?: string;
   onUploadSuccess: (url: string) => void;
   folder?: string;
   label?: string;
+  buttonText?: string;
   className?: string;
 }
 
 export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
-  currentValue,
+  currentValue = "",
   onUploadSuccess,
   folder = "photos",
   label = "Upload to Supabase",
+  buttonText,
   className = "",
 }) => {
+  const displayLabel = buttonText || label;
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -60,7 +63,7 @@ export const ImageUploadButton: React.FC<ImageUploadButtonProps> = ({
           className="px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-indigo-700 text-xs font-semibold border border-indigo-200 inline-flex items-center gap-1.5 transition-colors disabled:opacity-50"
         >
           <i className={`fa-solid ${uploading ? "fa-spinner fa-spin" : "fa-cloud-arrow-up"}`}></i>
-          <span>{uploading ? "Uploading..." : label}</span>
+          <span>{uploading ? "Uploading..." : displayLabel}</span>
         </button>
         {currentValue && (
           <a

@@ -1,10 +1,150 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { getPageContent } from "@/lib/api/content";
+import { PageContent } from "@/types/content";
 
 export const AboutUsContent: React.FC = () => {
+  const [pageData, setPageData] = useState<PageContent | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    getPageContent("about-us")
+      .then((data) => {
+        if (isMounted && data) {
+          setPageData(data);
+        }
+      })
+      .catch((err) => {
+        console.warn("Could not fetch about-us dynamic page:", err);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // 1. Hero Banner Content
+  const heroTitle = pageData?.hero?.title || "About SPE Image Editing Specialists";
+  const heroTaglineRaw =
+    pageData?.hero?.tagline ||
+    "SmartPHOTOeditors (SPE) provides professional, AI-assisted image editing and post-production support to businesses that need high-quality work delivered consistently, efficiently, and at scale. We work as an extension of our clients' teams, helping them manage everything from day-to-day editing requirements to large-volume projects with demanding turnaround times.\n\nOur clients include real estate businesses, e-commerce companies, photography studios, marketing agencies, and other organizations that depend on high-quality visual content. Whether the requirement involves a few specialized edits or thousands of images, we provide the people, processes, and technology needed to keep projects moving without compromising on quality.";
+  const heroParagraphs = heroTaglineRaw
+    .split(/\n\s*\n|\n/)
+    .map((p) => p.trim())
+    .filter((p) => p.length > 0);
+  const heroImage =
+    pageData?.hero?.image || "/images/about/about-banner-540x671.webp";
+  const ctaText = pageData?.hero?.ctaText || "Get a free Quote Note";
+  const ctaLink = pageData?.hero?.ctaLink || "/contact-us.php";
+
+  // 2. Statistics Section Content
+  const defaultStats = [
+    { value: "05+", label: "AWARDS REWARDED" },
+    { value: "13+", label: "YEARS OF EXPERIENCE" },
+    { value: "1000+", label: "COMPLETED PROJECT" },
+    { value: "1300+", label: "HAPPY CLIENT" },
+  ];
+  const statsSection = pageData?.sections?.find(
+    (s: any) => s.type === "statistics"
+  );
+  const statsItems =
+    statsSection?.items && statsSection.items.length > 0
+      ? statsSection.items
+      : defaultStats;
+
+  // 3. Automation Section Content
+  const automationSection = pageData?.sections?.find(
+    (s: any) => s.type === "automation"
+  );
+  const automationTitle =
+    automationSection?.title ||
+    "Automation Helps Us Move Faster. Human Expertise Keeps Quality in Focus.";
+  const automationImage =
+    automationSection?.image || "/images/about/country-info-1000x250.webp";
+  const defaultAutomationParagraphs = [
+    "At SPE, technology is part of the workflow, but it does not replace human expertise.",
+    "We use AI-assisted tools to speed up repetitive and time-consuming tasks, improve workflow efficiency, and help our teams handle larger volumes of work. However, every project still benefits from the judgment and experience of skilled editors. Our editors review outputs, make refinements where required, and ensure the final images meet the client's specifications and quality expectations.",
+    "This Human-in-the-Loop approach gives our clients the benefits of faster processing without relying entirely on automated results. AI helps us work more efficiently; our people make sure the work is right.",
+  ];
+  const automationParagraphs =
+    automationSection?.paragraphs && automationSection.paragraphs.length > 0
+      ? automationSection.paragraphs
+      : defaultAutomationParagraphs;
+
+  // 4. Scale Section Content
+  const scaleSection = pageData?.sections?.find((s: any) => s.type === "scale");
+  const scaleTitle =
+    scaleSection?.title ||
+    "From One-Off Projects to High Volumes. We Scale with You";
+  const scaleDescription =
+    scaleSection?.description ||
+    "From real estate and eCommerce businesses to photography studios, marketing agencies, and other image-driven organizations, we provide flexible editing support built around each client's requirements. Our AI-assisted, Human-in-the-Loop workflow helps speed up repetitive tasks, while experienced editors review, refine, and verify the final output. Whether the requirement is a one-time project or ongoing support, clients receive consistent quality, reliable turnaround, and a workflow that can scale as volumes grow.";
+  const scaleImage =
+    scaleSection?.image || "/images/about/professionals-1.webp";
+
+  // 5. Why Businesses Choose SPE Content
+  const defaultWhyChooseItems = [
+    {
+      title: "Faster Project Turnaround",
+      description:
+        "AI-assisted workflows help reduce repetitive editing time, while human editors review and refine the final output.",
+    },
+    {
+      title: "Consistent Quality at Scale",
+      description:
+        "Defined workflows and human quality checks help maintain consistency across projects, batches, and growing image volumes.",
+    },
+    {
+      title: "Support Your Brand Standards",
+      description:
+        "Our editors work according to your specifications, helping ensure every image reflects your preferred style and brand requirements.",
+    },
+    {
+      title: "Overcome Resource Challenges",
+      description:
+        "Access dedicated editing capacity when workloads increase without the cost and complexity of expanding your in-house team.",
+    },
+    {
+      title: "Natural, Accurate Results",
+      description:
+        "Technology supports the workflow, while experienced editors apply the judgment needed to deliver realistic, polished results.",
+    },
+    {
+      title: "Reliable Human Verification",
+      description:
+        "Every project benefits from human review, helping identify issues, make refinements, and ensure the final output meets expectations.",
+    },
+  ];
+  const whyChooseSection = pageData?.sections?.find(
+    (s: any) => s.type === "why_choose"
+  );
+  const whyChooseTitle =
+    whyChooseSection?.title || "Why Businesses Choose SmartPHOTOeditors";
+  const whyChooseDescription =
+    whyChooseSection?.description ||
+    "Our approach combines experienced editors, AI-assisted workflows, and structured quality checks to help businesses manage image editing requirements more efficiently. Technology helps us reduce repetitive effort and improve turnaround times, while human expertise remains responsible for reviewing and refining every project. With scalable teams, secure processes, licensed software, and flexible support models, we help global clients maintain quality while controlling costs.";
+  const whyChooseItems =
+    whyChooseSection?.items && whyChooseSection.items.length > 0
+      ? whyChooseSection.items
+      : defaultWhyChooseItems;
+
+  const halfIndex = Math.ceil(whyChooseItems.length / 2);
+  const whyChooseCol1 = whyChooseItems.slice(0, halfIndex);
+  const whyChooseCol2 = whyChooseItems.slice(halfIndex);
+
+  // 6. Outsource CTA Content
+  const ctaSection = pageData?.sections?.find((s: any) => s.type === "cta");
+  const ctaTitle =
+    ctaSection?.title || "Outsource Image Editing Services to the Experts";
+  const ctaDescription =
+    ctaSection?.description ||
+    "World-class support helps you discover new ways to enhance your images to connect with your customers, showcase your brand, and fulfill your marketing strategies. Contact SmartPHOTOeditors to be your photo editing service partner.";
+  const ctaBtnText =
+    ctaSection?.buttonText || "Contact Us to Get Free Quote";
+  const ctaBtnLink = ctaSection?.buttonLink || "/contact-us.php";
+
   return (
     <div className="about-page-inner">
       {/* 1. BANNER SECTION */}
@@ -13,26 +153,13 @@ export const AboutUsContent: React.FC = () => {
           <div className="row align-items-center">
             <div className="col-md-6 d-flex align-items-center">
               <div className="banner-text">
-                <h1>About SPE Image Editing Specialists</h1>
-                <p>
-                  SmartPHOTOeditors (SPE) provides professional, AI-assisted image editing
-                  and post-production support to businesses that need high-quality work
-                  delivered consistently, efficiently, and at scale. We work as an extension
-                  of our clients&apos; teams, helping them manage everything from day-to-day
-                  editing requirements to large-volume projects with demanding turnaround
-                  times.
-                </p>
-                <p>
-                  Our clients include real estate businesses, e-commerce companies,
-                  photography studios, marketing agencies, and other organizations that
-                  depend on high-quality visual content. Whether the requirement involves
-                  a few specialized edits or thousands of images, we provide the people,
-                  processes, and technology needed to keep projects moving without
-                  compromising on quality.
-                </p>
+                <h1>{heroTitle}</h1>
+                {heroParagraphs.map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
                 <div className="cta-button-banner">
-                  <Link href="/contact-us.php" className="btn round-button cta-btn">
-                    Get a free Quote Note
+                  <Link href={ctaLink} className="btn round-button cta-btn">
+                    {ctaText}
                   </Link>
                 </div>
               </div>
@@ -40,13 +167,14 @@ export const AboutUsContent: React.FC = () => {
             <div className="col-md-6">
               <div className="banner-img">
                 <Image
-                  alt="SmartPHOTOeditors Intro"
-                  title="SmartPHOTOeditors Intro"
+                  alt={heroTitle}
+                  title={heroTitle}
                   width={540}
                   height={671}
                   className="img-fluid"
-                  src="/images/about/about-banner-540x671.webp"
+                  src={heroImage}
                   priority
+                  unoptimized={heroImage.startsWith("http")}
                 />
               </div>
             </div>
@@ -59,68 +187,35 @@ export const AboutUsContent: React.FC = () => {
         <div className="container">
           <div className="row">
             <div className="col-md-12 stastic-counter-row pt-3">
-              {/* Stat 1 */}
-              <div className="stastic-counter mb-2">
-                <div className="stastic-head">05+</div>
-                <div className="stastic-desc">AWARDS REWARDED</div>
-              </div>
+              {statsItems.map((stat: any, idx: number) => (
+                <React.Fragment key={idx}>
+                  <div className="stastic-counter mb-2">
+                    <div className="stastic-head">{stat.value}</div>
+                    <div className="stastic-desc">{stat.label}</div>
+                  </div>
 
-              <div className="line-seperator">
-                <div className="line"></div>
-              </div>
+                  {idx < statsItems.length - 1 && (
+                    <>
+                      <div className="line-seperator">
+                        <div className="line"></div>
+                      </div>
 
-              <div className="stastic-divider-img">
-                <Image
-                  alt="camera-stand-icon"
-                  width={40}
-                  height={48}
-                  src="/images/about/camera-stand-icon.webp"
-                />
-              </div>
-
-              {/* Stat 2 */}
-              <div className="stastic-counter mb-2">
-                <div className="stastic-head">13+</div>
-                <div className="stastic-desc">YEARS OF EXPERIENCE</div>
-              </div>
-
-              <div className="line-seperator">
-                <div className="line"></div>
-              </div>
-
-              <div className="stastic-divider-img">
-                <Image
-                  alt="flash-icon"
-                  width={38}
-                  height={53}
-                  src="/images/about/flash-icon-76x106.webp"
-                />
-              </div>
-
-              {/* Stat 3 */}
-              <div className="stastic-counter mb-2">
-                <div className="stastic-head">1000+</div>
-                <div className="stastic-desc">COMPLETED PROJECT</div>
-              </div>
-
-              <div className="line-seperator">
-                <div className="line"></div>
-              </div>
-
-              <div className="stastic-divider-img">
-                <Image
-                  alt="camera-stand-icon"
-                  width={40}
-                  height={48}
-                  src="/images/about/camera-stand-icon.webp"
-                />
-              </div>
-
-              {/* Stat 4 */}
-              <div className="stastic-counter mb-2">
-                <div className="stastic-head">1300+</div>
-                <div className="stastic-desc">HAPPY CLIENT</div>
-              </div>
+                      <div className="stastic-divider-img">
+                        <Image
+                          alt="camera-icon"
+                          width={idx % 2 === 0 ? 40 : 38}
+                          height={idx % 2 === 0 ? 48 : 53}
+                          src={
+                            idx % 2 === 0
+                              ? "/images/about/camera-stand-icon.webp"
+                              : "/images/about/flash-icon-76x106.webp"
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
+                </React.Fragment>
+              ))}
             </div>
           </div>
         </div>
@@ -135,7 +230,7 @@ export const AboutUsContent: React.FC = () => {
           <div className="row mb-3">
             <div className="col-md-12 mb-2 text-center mar-auto">
               <h2 className="heading-h2 w-60 element-center">
-                Automation Helps Us Move Faster. Human Expertise Keeps Quality in Focus.
+                {automationTitle}
               </h2>
             </div>
             <div className="col-md-12 mb-4 text-center">
@@ -145,27 +240,16 @@ export const AboutUsContent: React.FC = () => {
                 width={1000}
                 height={250}
                 className="img-fluid"
-                src="/images/about/country-info-1000x250.webp"
+                src={automationImage}
+                unoptimized={automationImage.startsWith("http")}
               />
             </div>
             <div className="col-md-12 text-center mar-auto w-95 mt-3 mb-4">
-              <p className="w-90 element-center">
-                At SPE, technology is part of the workflow, but it does not replace
-                human expertise.
-              </p>
-              <p className="w-90 element-center">
-                We use AI-assisted tools to speed up repetitive and time-consuming tasks,
-                improve workflow efficiency, and help our teams handle larger volumes of
-                work. However, every project still benefits from the judgment and experience
-                of skilled editors. Our editors review outputs, make refinements where
-                required, and ensure the final images meet the client&apos;s specifications and
-                quality expectations.
-              </p>
-              <p className="w-90 element-center">
-                This Human-in-the-Loop approach gives our clients the benefits of faster
-                processing without relying entirely on automated results. AI helps us work
-                more efficiently; our people make sure the work is right.
-              </p>
+              {automationParagraphs.map((para: string, i: number) => (
+                <p key={i} className="w-90 element-center">
+                  {para}
+                </p>
+              ))}
             </div>
           </div>
         </div>
@@ -177,21 +261,10 @@ export const AboutUsContent: React.FC = () => {
           <div className="row mb-3 align-items-center">
             <div className="col-md-6">
               <div className="service-div w-80">
-                <h2 className="heading-h2">
-                  From One-Off Projects to High Volumes. We Scale with You
-                </h2>
+                <h2 className="heading-h2">{scaleTitle}</h2>
               </div>
               <div>
-                <p>
-                  From real estate and eCommerce businesses to photography studios,
-                  marketing agencies, and other image-driven organizations, we provide
-                  flexible editing support built around each client&apos;s requirements. Our
-                  AI-assisted, Human-in-the-Loop workflow helps speed up repetitive tasks,
-                  while experienced editors review, refine, and verify the final output.
-                  Whether the requirement is a one-time project or ongoing support, clients
-                  receive consistent quality, reliable turnaround, and a workflow that can
-                  scale as volumes grow.
-                </p>
+                <p>{scaleDescription}</p>
               </div>
             </div>
             <div className="col-md-6 text-center">
@@ -201,7 +274,8 @@ export const AboutUsContent: React.FC = () => {
                 width={500}
                 height={350}
                 className="img-fluid"
-                src="/images/about/professionals-1.webp"
+                src={scaleImage}
+                unoptimized={scaleImage.startsWith("http")}
               />
             </div>
           </div>
@@ -214,68 +288,32 @@ export const AboutUsContent: React.FC = () => {
           <div className="row mb-5">
             <div className="col-md-12 text-center">
               <h2 className="w-90 element-center heading-h2">
-                Why Businesses Choose SmartPHOTOeditors
+                {whyChooseTitle}
               </h2>
               <p className="w-90 element-center">
-                Our approach combines experienced editors, AI-assisted workflows, and
-                structured quality checks to help businesses manage image editing
-                requirements more efficiently. Technology helps us reduce repetitive effort
-                and improve turnaround times, while human expertise remains responsible for
-                reviewing and refining every project. With scalable teams, secure processes,
-                licensed software, and flexible support models, we help global clients
-                maintain quality while controlling costs.
+                {whyChooseDescription}
               </p>
             </div>
           </div>
           <div className="row">
             <div className="col-md-6">
               <ul className="service-list">
-                <li className="service-list-item">
-                  <h3>Faster Project Turnaround</h3>
-                  <p className="m-0">
-                    AI-assisted workflows help reduce repetitive editing time, while human
-                    editors review and refine the final output.
-                  </p>
-                </li>
-                <li className="service-list-item">
-                  <h3>Consistent Quality at Scale</h3>
-                  <p className="m-0">
-                    Defined workflows and human quality checks help maintain consistency
-                    across projects, batches, and growing image volumes.
-                  </p>
-                </li>
-                <li className="service-list-item">
-                  <h3>Support Your Brand Standards</h3>
-                  <p className="m-0">
-                    Our editors work according to your specifications, helping ensure
-                    every image reflects your preferred style and brand requirements.
-                  </p>
-                </li>
+                {whyChooseCol1.map((item: any, idx: number) => (
+                  <li key={idx} className="service-list-item">
+                    <h3>{item.title}</h3>
+                    <p className="m-0">{item.description}</p>
+                  </li>
+                ))}
               </ul>
             </div>
             <div className="col-md-6">
               <ul className="service-list">
-                <li className="service-list-item">
-                  <h3>Overcome Resource Challenges</h3>
-                  <p className="m-0">
-                    Access dedicated editing capacity when workloads increase without the
-                    cost and complexity of expanding your in-house team.
-                  </p>
-                </li>
-                <li className="service-list-item">
-                  <h3>Natural, Accurate Results</h3>
-                  <p className="m-0">
-                    Technology supports the workflow, while experienced editors apply the
-                    judgment needed to deliver realistic, polished results.
-                  </p>
-                </li>
-                <li className="service-list-item">
-                  <h3>Reliable Human Verification</h3>
-                  <p className="m-0">
-                    Every project benefits from human review, helping identify issues,
-                    make refinements, and ensure the final output meets expectations.
-                  </p>
-                </li>
+                {whyChooseCol2.map((item: any, idx: number) => (
+                  <li key={idx} className="service-list-item">
+                    <h3>{item.title}</h3>
+                    <p className="m-0">{item.description}</p>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -448,21 +486,20 @@ export const AboutUsContent: React.FC = () => {
                 <p className="test-text">
                   I&apos;ve recently had the opportunity to review the edited photos from the
                   &quot;Millenium Towers&quot; project and I was profoundly impressed. The
-                  excellence of your work is truly commendable. Kindly convey my appreciation
-                  to your editing team for their outstanding job.
+                  team at SmartPHOTOeditors is top-notch!
                 </p>
                 <div className="test-meta">
                   <div className="test-img">
                     <Image
-                      alt="SPE testimonial 3"
+                      alt="SPE testimonial 4"
                       width={55}
                       height={55}
-                      src="/images/about/test3.webp"
+                      src="/images/about/test4.webp"
                     />
                   </div>
                   <div className="test-meta-text">
-                    <p className="tname">Director</p>
-                    <p className="tdesc">Real Estate Photography Company, USA</p>
+                    <p className="tname">Real Estate Agent</p>
+                    <p className="tdesc">Germany</p>
                   </div>
                 </div>
               </div>
@@ -472,64 +509,9 @@ export const AboutUsContent: React.FC = () => {
             <div className="col-md-4 last">
               <div className="testimonial-box third" id="testimonial3">
                 <p className="test-text">
-                  Collaborating with Prashanth Ashok was a remarkable, effortless process. I
-                  required immediate assistance with Photoshop services. Prashanth not only
-                  responded to my request promptly but also managed to deliver high-quality
-                  work within the same day.
-                </p>
-                <div className="test-meta">
-                  <div className="test-img">
-                    <Image
-                      alt="SPE testimonial 1"
-                      width={55}
-                      height={55}
-                      src="/images/about/test1.webp"
-                    />
-                  </div>
-                  <div className="test-meta-text">
-                    <p className="tname">Enterprise Software Manager</p>
-                    <p className="tdesc">USA</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Row 2 */}
-          <div className="row">
-            {/* Testimonial 4 */}
-            <div className="col-md-4">
-              <div className="testimonial-box first" id="testimonial4">
-                <p className="test-text">
-                  We were thoroughly impressed with the quality of our portraits. The
-                  service was quick, efficient, and did not put a strain on our budget.
-                  Continue the excellent work! We will definitely recommend your services
-                  to our friends and family.
-                </p>
-                <div className="test-meta">
-                  <div className="test-img">
-                    <Image
-                      alt="SPE testimonial 2"
-                      width={55}
-                      height={55}
-                      src="/images/about/test2.webp"
-                    />
-                  </div>
-                  <div className="test-meta-text">
-                    <p className="tname">Photo Editing Manager</p>
-                    <p className="tdesc">Real Estate Studio in Sweden</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial 5 */}
-            <div className="col-md-4">
-              <div className="testimonial-box second" id="testimonial5">
-                <p className="test-text">
-                  Great photos, thanks. We were impressed with our results from our
-                  portrait – a great service and high-quality results (and it didn’t break
-                  the bank). Keep up the good work. We are really impressed.
+                  Frederick was very helpful throughout the process and produced amazing
+                  results. The turnaround was super quick, and revisions were handled
+                  without any hesitation.
                 </p>
                 <div className="test-meta">
                   <div className="test-img">
@@ -541,34 +523,8 @@ export const AboutUsContent: React.FC = () => {
                     />
                   </div>
                   <div className="test-meta-text">
-                    <p className="tname">Managing Director</p>
-                    <p className="tdesc">Leading photography studio from Germany</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Testimonial 6 */}
-            <div className="col-md-4 last">
-              <div className="testimonial-box third" id="testimonial6">
-                <p className="test-text">
-                  We were extremely happy with the services provided by Real Estate
-                  property image enhancement works. The team was able to see us promptly
-                  and was very pleasant to deal with. We are delighted with such
-                  professional results.
-                </p>
-                <div className="test-meta">
-                  <div className="test-img">
-                    <Image
-                      alt="SPE testimonial 1"
-                      width={55}
-                      height={55}
-                      src="/images/about/test1.webp"
-                    />
-                  </div>
-                  <div className="test-meta-text">
-                    <p className="tname">Photo Editing Manager</p>
-                    <p className="tdesc">Real Estate Studio in Sweden</p>
+                    <p className="tname">E-Commerce Merchant</p>
+                    <p className="tdesc">United States</p>
                   </div>
                 </div>
               </div>
@@ -584,17 +540,14 @@ export const AboutUsContent: React.FC = () => {
             <div className="col-md-12 text-center">
               <div className="cta-section-container">
                 <h2 className="w-80 element-center heading-h2">
-                  Outsource Image Editing Services to the Experts
+                  {ctaTitle}
                 </h2>
                 <p className="w-80 element-center">
-                  World-class support helps you discover new ways to enhance your images to
-                  connect with your customers, showcase your brand, and fulfill your
-                  marketing strategies. Contact SmartPHOTOeditors to be your photo editing
-                  service partner.
+                  {ctaDescription}
                 </p>
                 <p className="mb-0">
-                  <Link href="/contact-us.php" className="btn round-button cta-btn">
-                    Contact Us to Get Free Quote
+                  <Link href={ctaBtnLink} className="btn round-button cta-btn">
+                    {ctaBtnText}
                   </Link>
                 </p>
               </div>

@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { getPageContent } from "@/lib/api/content";
+import { PageContent } from "@/types/content";
 
 export interface FeaturePageProps {
   pageType:
@@ -20,6 +22,24 @@ export interface FeaturePageProps {
 }
 
 export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => {
+  const [dynamicPage, setDynamicPage] = useState<PageContent | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    getPageContent(pageType)
+      .then((data) => {
+        if (isMounted && data) {
+          setDynamicPage(data);
+        }
+      })
+      .catch((err) => {
+        console.warn(`Could not load dynamic page for ${pageType}`, err);
+      });
+    return () => {
+      isMounted = false;
+    };
+  }, [pageType]);
+
   const contentConfig = {
     security: {
       badge: "Security & Data Protection",
@@ -259,7 +279,59 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
     },
   };
 
-  const current = contentConfig[pageType] || contentConfig.security;
+  const baseConfig = contentConfig[pageType] || contentConfig.security;
+
+  // Extract dynamic sections
+  const dynamicSectionsObj = dynamicPage?.sections?.find(
+    (s: any) =>
+      s.type === "qa_sections" ||
+      s.type === "policy_sections" ||
+      s.type === "sections"
+  );
+  const legacyPolicy = dynamicPage?.sections?.find(
+    (s: any) => s.type === "policy_text"
+  )?.content;
+
+  const resolvedSections =
+    dynamicSectionsObj?.items && dynamicSectionsObj.items.length > 0
+      ? dynamicSectionsObj.items
+      : legacyPolicy
+      ? [{ title: "Privacy Statement", content: legacyPolicy }]
+      : baseConfig.sections;
+
+  // Stages for Quality page
+  const stagesObj = dynamicPage?.sections?.find((s: any) => s.type === "stages");
+  const defaultStages = [
+    {
+      stage: "Stage 1",
+      title: "Precision Post-Production",
+      desc: "Primary edit by specialized Adobe certified artists.",
+    },
+    {
+      stage: "Stage 2",
+      title: "Peer Review Audit",
+      desc: "Senior supervisor checks color calibration and edge masking.",
+    },
+    {
+      stage: "Stage 3",
+      title: "Final QC Release",
+      desc: "Format, metadata, and pixel resolution verified before delivery.",
+    },
+  ];
+  const resolvedStages =
+    stagesObj?.items && stagesObj.items.length > 0
+      ? stagesObj.items
+      : pageType === "quality"
+      ? defaultStages
+      : null;
+
+  const current = {
+    ...baseConfig,
+    title: dynamicPage?.hero?.title || dynamicPage?.title || baseConfig.title,
+    description: dynamicPage?.hero?.tagline || baseConfig.description,
+    badge: dynamicPage?.hero?.badge || baseConfig.badge,
+    sections: resolvedSections,
+  };
 
   return (
     <div className="feature-page-inner">
@@ -302,7 +374,68 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
         </div>
       </section>
 
-      {/* 2. MAIN CONTENT BODY */}
+      {/* 2. QUALITY PROCESS STAGES (If Quality Page) */}
+      {resolvedStages && resolvedStages.length > 0 && (
+        <section className="pt-12 pb-6 bg-[#fbfcfd] border-b border-gray-200">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <span className="text-xs uppercase font-extrabold tracking-wider text-[#ff5b0a] bg-orange-50 px-3 py-1 rounded-full border border-orange-200">
+                  Verification Protocol
+                </span>
+                <h2 className="text-2xl font-black text-gray-900 mt-2">
+                  Our 3-Stage Inspection Pipeline
+                </h2>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {resolvedStages.map((stg: any, sIdx: number) => (
+                  <div
+                    key={sIdx}
+                    className={`p-6 rounded-3xl border shadow-sm transition-all hover:shadow-md ${
+                      sIdx === 0
+                        ? "bg-orange-50/60 border-orange-200"
+                        : sIdx === 1
+                        ? "bg-blue-50/60 border-blue-200"
+                        : "bg-emerald-50/60 border-emerald-200"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between mb-3">
+                      <span
+                        className={`text-xs font-black uppercase tracking-wider px-2.5 py-1 rounded-lg ${
+                          sIdx === 0
+                            ? "bg-[#ff5b0a] text-white"
+                            : sIdx === 1
+                            ? "bg-[#1265E8] text-white"
+                            : "bg-emerald-600 text-white"
+                        }`}
+                      >
+                        {stg.stage || `Stage 0${sIdx + 1}`}
+                      </span>
+                      <i
+                        className={`fa-solid ${
+                          sIdx === 0
+                            ? "fa-wand-magic-sparkles text-orange-400"
+                            : sIdx === 1
+                            ? "fa-magnifying-glass-chart text-blue-400"
+                            : "fa-certificate text-emerald-400"
+                        } text-lg`}
+                      ></i>
+                    </div>
+                    <h3 className="text-base font-black text-gray-900 mb-2">
+                      {stg.title}
+                    </h3>
+                    <p className="text-xs text-gray-600 leading-relaxed">
+                      {stg.desc}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* 3. MAIN CONTENT BODY */}
       <section className="py-16 bg-white border-b border-gray-200">
         <div className="container mx-auto px-4">
           {pageType === "sitemap" ? (
@@ -360,8 +493,8 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
             </div>
           ) : (
             <div className="max-w-4xl mx-auto space-y-10">
-              {current.sections.map((sec, idx) => (
-                <div key={idx} className="bg-[#f8f9fa] p-8 rounded-3xl border border-gray-200">
+              {current.sections.map((sec: any, idx: number) => (
+                <div key={idx} className="bg-[#f8f9fa] p-8 rounded-3xl border border-gray-200 shadow-xs hover:border-gray-300 transition-all">
                   <h3 className="text-xl md:text-2xl font-bold text-[#07152F] mb-3">
                     {sec.title}
                   </h3>
@@ -375,7 +508,7 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
         </div>
       </section>
 
-      {/* 3. CTA */}
+      {/* 4. CTA */}
       <div className="section cta-section py-14 bg-[#07152F] text-white text-center">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">

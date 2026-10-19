@@ -45,6 +45,7 @@ import { ContactUsPageEditor } from './pages/ContactUsPageEditor';
 import { SecurityPageEditor } from './pages/SecurityPageEditor';
 import { PrivacyPolicyPageEditor } from './pages/PrivacyPolicyPageEditor';
 import { BrandingEditor } from './pages/BrandingEditor';
+import { FooterEditor } from './pages/FooterEditor';
 import { AccountEditor } from './pages/AccountEditor';
 import { OverviewDashboard } from './pages/OverviewDashboard';
 
@@ -61,6 +62,7 @@ export type PageMenuId =
   | 'contact-us'
   | 'security'
   | 'privacy-policy'
+  | 'footer'
   | 'overview'
   | 'branding'
   | 'account';
@@ -287,10 +289,17 @@ export default function AdminDashboard() {
       route: '/privacy-policy',
       icon: 'fa-scale-balanced',
     },
+    {
+      id: 'footer',
+      label: 'Footer Settings',
+      route: 'Global',
+      icon: 'fa-shoe-prints',
+    },
   ];
 
   const systemMenuItems = [
     { id: 'overview', label: 'Dashboard Overview', icon: 'fa-chart-pie' },
+    { id: 'footer', label: 'Global Footer Settings', icon: 'fa-shoe-prints' },
     { id: 'branding', label: 'Website Branding & Logos', icon: 'fa-gear' },
     { id: 'account', label: 'Admin Credentials', icon: 'fa-user-shield' },
   ];
@@ -809,6 +818,14 @@ export default function AdminDashboard() {
                       onSelectMenu={(menuId) =>
                         setActiveMenu(menuId as PageMenuId)
                       }
+                    />
+                  )}
+
+                  {activeMenu === 'footer' && (
+                    <FooterEditor
+                      siteSettings={siteSettings}
+                      onSaveSettings={handleSaveSettings}
+                      showToast={showToast}
                     />
                   )}
 

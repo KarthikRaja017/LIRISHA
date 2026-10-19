@@ -9,16 +9,65 @@ export const SiteFooter: React.FC = () => {
   const currentYear = new Date().getFullYear();
   const [copied, setCopied] = useState(false);
 
+  const siteName = getSettingValue('site_name', 'LIRISHA');
   const footerLogo = getSettingValue(
     'site_footer_logo',
     getSettingValue('site_logo', '/images/lirisha-camera-logo.png'),
   );
-  const siteName = getSettingValue('site_name', 'LIRISHA');
+  const brandDesc = getSettingValue(
+    'footer_brand_desc',
+    `${siteName} is a team of skilled photo editing specialists with a commitment to providing quality, excellence, and satisfaction.`,
+  );
+
+  const usaTitle = getSettingValue('footer_address_usa_title', 'USA');
+  const usaAddr = getSettingValue(
+    'footer_address_usa',
+    '116 Village Blvd, Suite 220, Princeton, NJ 08540',
+  );
+
+  const indiaTitle = getSettingValue('footer_address_india_title', 'India');
+  const indiaAddr = getSettingValue(
+    'footer_address_india',
+    'No.6, Banaswadi Main Road, Dodda Banaswadi, Bangalore - 560 043',
+  );
+
+  const philTitle = getSettingValue(
+    'footer_address_philippines_title',
+    'Philippines',
+  );
+  const philAddr = getSettingValue(
+    'footer_address_philippines',
+    'Aeon Towers, J.P. Laurel Avenue, Bajada, Davao 8000',
+  );
+
   const contactEmail = getSettingValue(
     'contact_email',
     'info@smartphotoeditors.com',
   );
   const contactPhone = getSettingValue('contact_phone', '1-855-924-0830');
+  const chatText = getSettingValue('footer_chat_text', 'Live Chat');
+
+  const copyrightText = getSettingValue(
+    'footer_copyright',
+    `© ${currentYear} www.smartphotoeditors.com | Web Property of Flatworld Solutions Inc.`,
+  );
+
+  const fbLink = getSettingValue(
+    'footer_social_facebook',
+    'https://www.facebook.com/SmartPHOTOeditors/',
+  );
+  const twitterLink = getSettingValue(
+    'footer_social_twitter',
+    'https://twitter.com/smartphotoedits',
+  );
+  const linkedinLink = getSettingValue(
+    'footer_social_linkedin',
+    'https://www.linkedin.com/company/smart-photo-editors/',
+  );
+  const pinterestLink = getSettingValue(
+    'footer_social_pinterest',
+    '//pinterest.com/smartphotoedits/',
+  );
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -52,9 +101,7 @@ export const SiteFooter: React.FC = () => {
             />
           </div>
           <p style={{ color: 'var(--text-secondary-dark)' }}>
-            {siteName} is a team of skilled photo editing specialists with a{' '}
-            <br />
-            commitment to providing quality, excellence, and satisfaction.
+            {brandDesc}
           </p>
         </div>
 
@@ -157,19 +204,16 @@ export const SiteFooter: React.FC = () => {
             <div className="widget address">
               <p className="footer-menu-heading">Address</p>
               <div className="add-1">
-                <p className="country-name">USA</p>
-                <p>116 Village Blvd, Suite 220, Princeton, NJ 08540</p>
+                <p className="country-name">{usaTitle}</p>
+                <p>{usaAddr}</p>
               </div>
               <div className="add-1">
-                <p className="country-name">India</p>
-                <p>
-                  No.6, Banaswadi Main Road, Dodda Banaswadi, Bangalore - 560
-                  043
-                </p>
+                <p className="country-name">{indiaTitle}</p>
+                <p>{indiaAddr}</p>
               </div>
               <div className="add-1">
-                <p className="country-name">Philippines</p>
-                <p>Aeon Towers, J.P. Laurel Avenue, Bajada, Davao 8000</p>
+                <p className="country-name">{philTitle}</p>
+                <p>{philAddr}</p>
               </div>
             </div>
           </div>
@@ -189,7 +233,7 @@ export const SiteFooter: React.FC = () => {
                       onClick={handleCopyEmail}
                       className="click2copy"
                       id="footerEmail">
-                      info***@smartphotoeditors.com{' '}
+                      {contactEmail}{' '}
                       <i
                         className={`far ${
                           copied ? 'fa-check-circle text-green-400' : 'fa-copy'
@@ -213,7 +257,7 @@ export const SiteFooter: React.FC = () => {
                             'Live Chat will connect you with a representative.',
                           );
                         }}>
-                        Live Chat
+                        {chatText}
                       </a>
                     </span>
                   </p>
@@ -243,8 +287,7 @@ export const SiteFooter: React.FC = () => {
           <div className="row align-items-center">
             <div className="col-xl-8 col-lg-8 col-xxl-8 col-sm-12 col-md-6">
               <p>
-                © <span>{currentYear}</span> www.smartphotoeditors.com | Web
-                Property of Flatworld Solutions Inc.{' '}
+                {copyrightText}{' '}
                 <span className="mx-2 opacity-30">|</span>
                 <Link
                   href="/admin"
@@ -265,7 +308,7 @@ export const SiteFooter: React.FC = () => {
                 <p>
                   Social connect :{' '}
                   <a
-                    href="https://www.facebook.com/SmartPHOTOeditors/"
+                    href={fbLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Facebook">
@@ -274,7 +317,7 @@ export const SiteFooter: React.FC = () => {
                       aria-hidden="true"></i>
                   </a>
                   <a
-                    href="https://twitter.com/smartphotoedits"
+                    href={twitterLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Twitter">
@@ -283,7 +326,7 @@ export const SiteFooter: React.FC = () => {
                       aria-hidden="true"></i>
                   </a>
                   <a
-                    href="https://www.linkedin.com/company/smart-photo-editors/"
+                    href={linkedinLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Linkedin">
@@ -292,7 +335,7 @@ export const SiteFooter: React.FC = () => {
                       aria-hidden="true"></i>
                   </a>
                   <a
-                    href="//pinterest.com/smartphotoedits/"
+                    href={pinterestLink}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Pinterest">
