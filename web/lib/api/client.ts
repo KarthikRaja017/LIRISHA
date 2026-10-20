@@ -40,18 +40,23 @@ class ApiClient {
     const timeoutId = setTimeout(() => controller.abort(), timeoutMs);
 
     const token = getToken();
+    const isFormData = typeof FormData !== "undefined" && body instanceof FormData;
+
     const headers: Record<string, string> = {
-      "Content-Type": "application/json",
       Accept: "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(customHeaders as Record<string, string>),
     };
 
+    if (!isFormData) {
+      headers["Content-Type"] = "application/json";
+    }
+
     try {
       const response = await fetch(url, {
         method,
         headers,
-        body: body ? JSON.stringify(body) : undefined,
+        body: isFormData ? (body as any) : (body ? JSON.stringify(body) : undefined),
         signal: controller.signal,
         ...rest,
       });

@@ -30,5 +30,16 @@ export const ENDPOINTS = {
     BASE: "/settings",
     BY_KEY: (key: string) => `/settings/${key}`,
   },
+  DROPBOX: {
+    BROWSE: "/dropbox/browse",
+    FOLDERS: "/dropbox/folders",
+    SUBFOLDERS: "/dropbox/subfolders",
+    LINK: "/dropbox/link",
+    UPLOAD: "/dropbox/upload",
+    CREATE_FOLDER: "/dropbox/folders/create",
+    DELETE_ITEM: "/dropbox/items",
+    INVALIDATE_CACHE: "/dropbox/cache/invalidate",
+    INVALIDATE_ALL_CACHE: "/dropbox/cache/invalidate-all",
+    CACHE_STATUS: "/dropbox/cache/status",
+  },
 } as const;
-

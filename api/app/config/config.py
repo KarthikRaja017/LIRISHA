@@ -17,7 +17,7 @@ class Config:
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/project_db")
     DB_MIN_CONN: int = int(os.getenv("DB_MIN_CONN", "2"))
     DB_MAX_CONN: int = int(os.getenv("DB_MAX_CONN", "10"))
-    DB_TIMEOUT: int = int(os.getenv("DB_TIMEOUT", "30"))
+    DB_TIMEOUT: int = int(os.getenv("DB_TIMEOUT", "2"))
 
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "jwt-secret-key-change-in-production")
     JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")

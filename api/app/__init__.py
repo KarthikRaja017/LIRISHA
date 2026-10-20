@@ -49,6 +49,7 @@ def create_app(config_object=None) -> Flask:
     from app.routes.gallery import gallery_bp
     from app.routes.pages import pages_bp
     from app.routes.settings import settings_bp
+    from app.routes.dropbox import dropbox_bp
 
     app.register_blueprint(health_bp, url_prefix="/api/v1/health")
     app.register_blueprint(auth_bp, url_prefix="/api/v1/auth")
@@ -58,6 +59,7 @@ def create_app(config_object=None) -> Flask:
     app.register_blueprint(gallery_bp, url_prefix="/api/v1/gallery")
     app.register_blueprint(pages_bp, url_prefix="/api/v1/pages")
     app.register_blueprint(settings_bp, url_prefix="/api/v1/settings")
+    app.register_blueprint(dropbox_bp, url_prefix="/api/v1/dropbox")
 
 
     # Teardown database connection pool on app context teardown

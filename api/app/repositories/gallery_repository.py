@@ -1,10 +1,14 @@
 """
 Gallery Repository.
 Handles all raw SQL database operations for gallery tabs and image comparisons.
+Provides clean fallback when PostgreSQL is offline.
 NO ORM - Uses parameterized SQL queries (%s).
 """
+import logging
 from typing import Any, Dict, List, Optional
 from app.repositories.base_repository import BaseRepository
+
+logger = logging.getLogger("app.repository.gallery")
 
 
 class GalleryRepository(BaseRepository):
@@ -20,18 +24,26 @@ class GalleryRepository(BaseRepository):
 
     def find_all_tabs(self, active_only: bool = True) -> List[Dict[str, Any]]:
         """Fetches all gallery tabs ordered by display_order."""
-        query = "SELECT id, name, items FROM gallery_tabs"
-        if active_only:
-            query += " WHERE is_active = TRUE"
-        query += " ORDER BY display_order ASC, id ASC"
+        try:
+            query = "SELECT id, name, items FROM gallery_tabs"
+            if active_only:
+                query += " WHERE is_active = TRUE"
+            query += " ORDER BY display_order ASC, id ASC"
 
-        rows = self.fetch_all(query)
-        return [self.to_camel_case(row) for row in rows]
+            rows = self.fetch_all(query)
+            return [self.to_camel_case(row) for row in rows]
+        except Exception as e:
+            logger.debug(f"Database offline or unseeded for gallery_tabs: {e}")
+            return []
 
     def find_tab_by_id(self, tab_id: str) -> Optional[Dict[str, Any]]:
         """Fetches a single gallery tab by id."""
-        row = self.fetch_one(query, (tab_id,))
-        return self.to_camel_case(row) if row else None
+        try:
+            query = "SELECT id, name, items FROM gallery_tabs WHERE id = %s"
+            row = self.fetch_one(query, (tab_id,))
+            return self.to_camel_case(row) if row else None
+        except Exception:
+            return None
 
     def upsert(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Creates or updates a gallery tab and its items."""
@@ -60,6 +72,8 @@ class GalleryRepository(BaseRepository):
 
     def delete(self, tab_id: str) -> bool:
         """Deletes a gallery tab by id."""
-        query = "DELETE FROM gallery_tabs WHERE id = %s"
-        return self.execute(query, (tab_id,)) > 0
-
+        try:
+            query = "DELETE FROM gallery_tabs WHERE id = %s"
+            return self.execute(query, (tab_id,)) > 0
+        except Exception:
+            return False
