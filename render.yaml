@@ -1,0 +1,65 @@
+services:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # 1. Backend Service: Flask REST API (Python 3)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - type: web
+    name: lirisha-api
+    runtime: python
+    rootDir: api
+    plan: free
+    buildCommand: pip install -r requirements.txt && python scripts/migrate.py
+    startCommand: gunicorn main:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "false"
+      - key: LOG_LEVEL
+        value: INFO
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        generateValue: true
+      - key: JWT_SECRET_KEY
+        generateValue: true
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: JWT_ACCESS_TOKEN_EXPIRES_MINUTES
+        value: "1440"
+      - key: CORS_ORIGINS
+        value: "*"
+      - key: DROPBOX_APP_KEY
+        sync: false
+      - key: DROPBOX_APP_SECRET
+        sync: false
+      - key: DROPBOX_REFRESH_TOKEN
+        sync: false
+      - key: DROPBOX_ACCESS_TOKEN
+        sync: false
+      - key: DROPBOX_CACHE_TTL_SECONDS
+        value: "3600"
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # 2. Frontend Service: Next.js 15 App Router (Node.js 20)
+  # ─────────────────────────────────────────────────────────────────────────────
+  - type: web
+    name: lirisha-web
+    runtime: node
+    rootDir: web
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: NEXT_PUBLIC_APP_NAME
+        value: LIRISHA
+      - key: NEXT_PUBLIC_API_URL
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_URL
+        value: https://xznlbaqqxmmglaidridj.supabase.co
+      - key: NEXT_PUBLIC_SUPABASE_ANON_KEY
+        sync: false
+      - key: NEXT_PUBLIC_SUPABASE_STORAGE_BUCKET
+        value: lirisha-assets
