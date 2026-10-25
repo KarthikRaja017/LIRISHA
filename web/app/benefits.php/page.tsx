@@ -1,4 +1,4 @@
-import BenefitsPage, { metadata } from "../benefits/page";
+import BenefitsPage, { generateMetadata } from "../benefits/page";
 
-export { metadata };
+export { generateMetadata };
 export default BenefitsPage;

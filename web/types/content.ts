@@ -4,6 +4,9 @@ export interface SubServiceItem {
   description: string;
   link: string;
   features?: string[];
+  tagline?: string;
+  beforeSrc?: string;
+  afterSrc?: string;
 }
 
 export interface ServiceCategory {

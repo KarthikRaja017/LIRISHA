@@ -36,7 +36,7 @@ export const PricingPageEditor: React.FC<PricingPageEditorProps> = ({
       "Pay per image or choose volume-based dedicated artist retainers."
   );
   const [ctaText, setCtaText] = useState(page?.hero?.ctaText || "Request a Custom Quote");
-  const [ctaLink, setCtaLink] = useState(page?.hero?.ctaLink || "/contact-us.php");
+  const [ctaLink, setCtaLink] = useState(page?.hero?.ctaLink || "/contact-us");
 
   // Pricing Tiers
   const defaultTiers = [

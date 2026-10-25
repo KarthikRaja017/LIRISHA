@@ -1,4 +1,4 @@
-import FashionPage, { metadata } from "../fashion/page";
+import FashionPage, { generateMetadata } from "../fashion/page";
 
-export { metadata };
+export { generateMetadata };
 export default FashionPage;

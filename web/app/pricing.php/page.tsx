@@ -1,4 +1,4 @@
-import PricingPage, { metadata } from "../pricing/page";
+import PricingPage, { generateMetadata } from "../pricing/page";
 
-export { metadata };
+export { generateMetadata };
 export default PricingPage;

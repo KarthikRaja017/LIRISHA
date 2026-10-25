@@ -21,7 +21,7 @@ class UserRepository(BaseRepository):
                 ORDER BY id DESC
                 OFFSET %s LIMIT %s
             """
-            search_param = f"%{search}%"
+            search_param = f"%{search.strip()}%"
             rows = self.fetch_all(query, (search_param, search_param, search_param, offset, limit))
         else:
             query = """
@@ -42,7 +42,7 @@ class UserRepository(BaseRepository):
                 FROM users
                 WHERE email ILIKE %s OR first_name ILIKE %s OR last_name ILIKE %s
             """
-            search_param = f"%{search}%"
+            search_param = f"%{search.strip()}%"
             return self.count(query, (search_param, search_param, search_param))
         else:
             query = "SELECT COUNT(*) as count FROM users"
@@ -59,13 +59,16 @@ class UserRepository(BaseRepository):
         return User.from_row(row) if row else None
 
     def find_by_email(self, email: str) -> Optional[User]:
-        """Fetches a single user by email address."""
+        """Fetches a single user by email address (case-insensitive & trimmed)."""
+        clean_email = (email or "").strip().lower()
+        if not clean_email:
+            return None
         query = """
             SELECT id, email, password_hash, first_name, last_name, role, is_active, created_at, updated_at
             FROM users
-            WHERE email = %s
+            WHERE LOWER(TRIM(email)) = %s
         """
-        row = self.fetch_one(query, (email.lower(),))
+        row = self.fetch_one(query, (clean_email,))
         return User.from_row(row) if row else None
 
     def create(
@@ -77,6 +80,11 @@ class UserRepository(BaseRepository):
         role: str = "user"
     ) -> User:
         """Inserts a new user record into PostgreSQL and returns the created User model."""
+        clean_email = (email or "").strip().lower()
+        clean_first = (first_name or "").strip()
+        clean_last = (last_name or "").strip()
+        clean_role = (role or "user").strip().lower()
+
         query = """
             INSERT INTO users (email, password_hash, first_name, last_name, role, is_active, created_at, updated_at)
             VALUES (%s, %s, %s, %s, %s, true, NOW(), NOW())
@@ -84,7 +92,7 @@ class UserRepository(BaseRepository):
         """
         row = self.execute_returning(
             query,
-            (email.lower(), password_hash, first_name, last_name, role)
+            (clean_email, password_hash, clean_first, clean_last, clean_role)
         )
         return User.from_row(row)
 
@@ -95,11 +103,18 @@ class UserRepository(BaseRepository):
 
         set_clauses = []
         params = []
-        
+
         for key, value in updates.items():
             if key in ("email", "first_name", "last_name", "role", "is_active", "password_hash"):
                 set_clauses.append(f"{key} = %s")
-                params.append(value.lower() if key == "email" and isinstance(value, str) else value)
+                if key == "email" and isinstance(value, str):
+                    params.append(value.strip().lower())
+                elif key in ("first_name", "last_name") and isinstance(value, str):
+                    params.append(value.strip())
+                elif key == "role" and isinstance(value, str):
+                    params.append(value.strip().lower())
+                else:
+                    params.append(value)
 
         if not set_clauses:
             return self.find_by_id(user_id)

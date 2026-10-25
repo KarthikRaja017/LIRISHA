@@ -1,4 +1,4 @@
-import ImageClippingPage, { metadata } from "../image-clipping/page";
+import ImageClippingPage, { generateMetadata } from "../image-clipping/page";
 
-export { metadata };
+export { generateMetadata };
 export default ImageClippingPage;

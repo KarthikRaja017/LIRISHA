@@ -1,4 +1,4 @@
-import TestimonialsPage, { metadata } from "../testimonials/page";
+import TestimonialsPage, { generateMetadata } from "../testimonials/page";
 
-export { metadata };
+export { generateMetadata };
 export default TestimonialsPage;

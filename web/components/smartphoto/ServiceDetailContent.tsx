@@ -27,8 +27,9 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
         <div className="container mx-auto px-4">
           <div className="row">
             <div className="col-lg-8">
-              <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
+              <div className="banner-title-block mb-3">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
                   <i className={service.iconClass}></i>
                   <span>Professional Image Editing</span>
                 </div>
@@ -89,21 +90,21 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
                 </div>
                 <div className="bg-[#f8f9fa] p-3 rounded-xl border border-gray-200 text-center col-span-2 sm:col-span-1">
                   <div className="text-xs text-gray-500 font-medium">Quality SLA</div>
-                  <div className="text-base font-bold text-green-600">99.4% Pass</div>
+                  <div className="text-base font-bold text-[#1265E8]">99.4% Pass</div>
                 </div>
               </div>
 
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="/contact-us.php"
-                  className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 transition-colors"
+                  href="/contact-us"
+                  className="btn-brand-primary px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 shadow-md"
                 >
                   Request Free Pilot Trial
                   <i className="fa-solid fa-arrow-right text-xs"></i>
                 </Link>
                 <Link
-                  href="/sample-images.php"
-                  className="btn bg-white hover:bg-gray-50 text-gray-800 border border-gray-300 px-6 py-3 rounded-full font-semibold text-sm"
+                  href="/sample-images"
+                  className="btn-brand-secondary px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2"
                 >
                   View Sample Images
                 </Link>
@@ -148,40 +149,55 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {service.subServices.map((sub) => (
-              <div
-                key={sub.id}
-                className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#1265E8] flex items-center justify-center text-base mb-4">
-                    <i className="fa-solid fa-check"></i>
-                  </div>
-                  <h3 className="text-lg font-bold text-gray-900 mb-2">
-                    {sub.name}
-                  </h3>
-                  <p className="text-gray-600 text-sm leading-relaxed mb-4">
-                    {sub.description}
-                  </p>
-                  {sub.features && sub.features.length > 0 && (
-                    <ul className="space-y-1.5 mb-6 text-xs text-gray-700">
-                      {sub.features.map((feat, fi) => (
-                        <li key={fi} className="flex items-center gap-2">
-                          <i className="fa-solid fa-circle-check text-[#8dce3c] text-[10px]"></i>
-                          <span>{feat}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </div>
-                <Link
-                  href="/contact-us.php"
-                  className="text-xs font-semibold text-[#1265E8] hover:text-[#00C8F8] inline-flex items-center gap-1.5"
+            {service.subServices.map((sub) => {
+              const subUrl = sub.link
+                ? sub.link.replace(/\.php$/, '')
+                : `/${service.slug}/${sub.id}`;
+              return (
+                <div
+                  key={sub.id || sub.name}
+                  className="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
                 >
-                  Order This Service &rarr;
-                </Link>
-              </div>
-            ))}
+                  <div>
+                    <div className="w-10 h-10 rounded-xl bg-blue-100 text-[#1265E8] flex items-center justify-center text-base mb-4">
+                      <i className="fa-solid fa-wand-magic-sparkles"></i>
+                    </div>
+                    <h3 className="text-lg font-bold text-gray-900 mb-2">
+                      <Link href={subUrl} className="hover:text-[#1265E8] transition-colors">
+                        {sub.name}
+                      </Link>
+                    </h3>
+                    <p className="text-gray-600 text-sm leading-relaxed mb-4">
+                      {sub.description}
+                    </p>
+                    {sub.features && sub.features.length > 0 && (
+                      <ul className="space-y-1.5 mb-6 text-xs text-gray-700">
+                        {sub.features.map((feat, fi) => (
+                          <li key={fi} className="flex items-center gap-2">
+                            <i className="fa-solid fa-circle-check text-[#1265E8] text-[10px]"></i>
+                            <span>{feat}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-2">
+                    <Link
+                      href={subUrl}
+                      className="text-xs font-bold text-[#1265E8] hover:text-[#00C8F8] inline-flex items-center gap-1.5"
+                    >
+                      View Details &rarr;
+                    </Link>
+                    <Link
+                      href="/contact-us"
+                      className="text-xs font-semibold text-gray-500 hover:text-gray-900"
+                    >
+                      Get Quote
+                    </Link>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -216,8 +232,8 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
                     We routinely build customized batch actions, specific naming conventions, and layer structures tailored to our clients&apos; automated publishing pipelines.
                   </p>
                   <Link
-                    href="/contact-us.php"
-                    className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-3 rounded-full font-semibold text-sm inline-block"
+                    href="/contact-us"
+                    className="btn-brand-primary px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 shadow-md"
                   >
                     Discuss Custom Workflow
                   </Link>
@@ -229,24 +245,40 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
       </section>
 
       {/* 5. BOTTOM CTA */}
-      <div className="section cta-section py-14 bg-[#f8f9fa] border-t border-gray-200 text-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              Ready to Outsource {service.name}?
-            </h2>
-            <p className="text-gray-600 text-sm mb-6">
-              Get started with a free sample test edit and dedicated account manager support.
-            </p>
-            <Link
-              href="/contact-us.php"
-              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
-            >
-              Get Free Quote & Sample
-            </Link>
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Dedicated Studio Team
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                Ready to Outsource {service.name}?
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                Get started with a free sample test edit and dedicated account manager support within 12 hours.
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href="/contact-us"
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  Get Free Quote & Sample
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/sample-images"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  View Sample Gallery
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

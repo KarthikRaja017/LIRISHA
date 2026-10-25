@@ -2,18 +2,22 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
 import { getServiceBySlug } from "@/lib/api/content";
+import { getDynamicServiceMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Professional Photo Retouching Services | SmartPHOTOeditors",
-  description:
-    "High-end photo retouching for portrait photographers, commercial studios, e-commerce brands, and fashion houses.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return await getDynamicServiceMetadata(
+    "photo-retouching",
+    "High-End Commercial Photo Retouching | LIRISHA",
+    "Editorial fashion retouching, beauty color grading, and commercial magazine-quality post-production."
+  );
+}
 
 export default async function PhotoRetouchingServicePage() {
-  const service = await getServiceBySlug("portrait");
+  const service = await getServiceBySlug("photo-retouching");
   if (!service) {
     notFound();
   }
   return <ServiceDetailContent service={service} />;
 }
-

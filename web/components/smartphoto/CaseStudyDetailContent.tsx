@@ -62,8 +62,9 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
         <div className="container mx-auto px-4">
           <div className="row">
             <div className="col-lg-10">
-              <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
+              <div className="banner-title-block mb-3">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
                   <i className="fa-solid fa-briefcase"></i>
                   <span>Case Study #{study.id.toUpperCase()}</span>
                 </div>
@@ -173,7 +174,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                   {/* The Results */}
                   <div className="bg-[#f8f9fa] p-8 rounded-3xl border border-gray-200">
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold">
+                      <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#1265E8] font-bold">
                         <i className="fa-solid fa-circle-check"></i>
                       </div>
                       <h3 className="text-xl md:text-2xl font-bold text-[#07152F]">
@@ -183,7 +184,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                     <ul className="space-y-3">
                       {study.clientDetails.results.map((res, i) => (
                         <li key={i} className="flex items-start gap-3 text-gray-800 text-base">
-                          <i className="fa-solid fa-check text-green-600 font-bold mt-1 shrink-0"></i>
+                          <i className="fa-solid fa-check text-[#1265E8] font-bold mt-1 shrink-0"></i>
                           <span>{res}</span>
                         </li>
                       ))}
@@ -244,7 +245,7 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                     Request a free trial pilot with your sample images and get a customized SLA proposal within 24 hours.
                   </p>
                   <Link
-                    href="/contact-us.php"
+                    href="/contact-us"
                     className="block text-center bg-[#1265E8] hover:bg-[#00C8F8] text-white py-3 rounded-full font-bold text-sm shadow-md transition-colors"
                   >
                     Request Free Sample Pilot
@@ -296,6 +297,42 @@ export const CaseStudyDetailContent: React.FC<CaseStudyDetailProps> = ({
                   </Link>
                 </div>
               ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BOTTOM CTA */}
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Enterprise Case Studies
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                Scale Your Project with Dedicated LIRISHA Editors
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                Request a free pilot with your sample batch and discover our seamless turnarounds and competitive volume tiers.
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href="/contact-us"
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  Request Free Pilot
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/sample-images"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  View Sample Gallery
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>

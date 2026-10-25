@@ -8,6 +8,7 @@ from app.services.auth_service import AuthService
 from app.services.user_service import UserService
 from app.utils.response import success_response, created_response
 from app.middleware.auth_middleware import jwt_required
+from app.errors.exceptions import AuthorizationError
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -26,14 +27,8 @@ def login():
 
 @auth_bp.route("/register", methods=["POST"])
 def register():
-    """Registers a new user and returns JWT token."""
-    raw_json = request.get_json() or {}
-    validated = RegisterSchema(**raw_json)
-
-    service = AuthService()
-    result = service.register_user(data=validated.model_dump())
-
-    return created_response(data=result, message="User registered successfully")
+    """Public registration is disabled. Only administrators can create user accounts."""
+    raise AuthorizationError("User registration is disabled. Only administrators can create accounts.")
 
 
 @auth_bp.route("/me", methods=["GET"])

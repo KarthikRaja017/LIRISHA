@@ -57,10 +57,11 @@ export const BlogContent: React.FC<BlogContentProps> = ({ initialPosts }) => {
         <div className="container mx-auto px-4">
           <div className="row">
             <div className="col-lg-8">
-              <div className="mb-3">
-                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
-                  Industry News & Opinions
-                </span>
+              <div className="banner-title-block mb-3">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
+                  <span>Industry News &amp; Updates</span>
+                </div>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
                   SmartPHOTOeditors Blog
                 </h1>
@@ -92,7 +93,9 @@ export const BlogContent: React.FC<BlogContentProps> = ({ initialPosts }) => {
       <section className="py-14 bg-[#f8f9fa]">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {posts.map((post) => (
+            {posts.map((post) => {
+              const postLink = post.link && post.link.startsWith('/blog') ? post.link : `/blog/${post.slug}`;
+              return (
               <div
                 key={post.id}
                 className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
@@ -105,7 +108,7 @@ export const BlogContent: React.FC<BlogContentProps> = ({ initialPosts }) => {
                       fill
                       className="object-cover transition-transform duration-300 hover:scale-105"
                     />
-                    <span className="absolute top-3 left-3 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-700 shadow-sm">
+                    <span className="absolute top-3 left-3 text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-100 text-[#1265E8] shadow-sm">
                       {post.category}
                     </span>
                   </div>
@@ -118,7 +121,7 @@ export const BlogContent: React.FC<BlogContentProps> = ({ initialPosts }) => {
                     </div>
 
                     <h3 className="text-base md:text-lg font-bold text-gray-900 hover:text-[#1265E8] transition-colors mb-2 line-clamp-2">
-                      <Link href={post.link}>{post.title}</Link>
+                      <Link href={postLink}>{post.title}</Link>
                     </h3>
 
                     <p className="text-xs md:text-sm text-gray-600 leading-relaxed line-clamp-3 mb-4">
@@ -140,7 +143,7 @@ export const BlogContent: React.FC<BlogContentProps> = ({ initialPosts }) => {
 
                 <div className="p-5 pt-0 border-t border-gray-100 mt-auto">
                   <Link
-                    href={post.link}
+                    href={postLink}
                     className="text-xs font-bold uppercase tracking-wider text-[#1265E8] hover:text-[#00C8F8] inline-flex items-center gap-1.5 pt-3"
                   >
                     <span>Read Full Post</span>
@@ -148,30 +151,47 @@ export const BlogContent: React.FC<BlogContentProps> = ({ initialPosts }) => {
                   </Link>
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <div className="section cta-section py-14 bg-white border-t border-gray-200 text-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              Want to Outsource Your Studio Editing?
-            </h2>
-            <p className="text-gray-600 text-sm mb-6">
-              Focus on shooting while our team handles the post-production heavy lifting.
-            </p>
-            <Link
-              href="/contact-us.php"
-              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
-            >
-              Get a Free Quote
-            </Link>
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Scale Your Creative Business
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                Want to Outsource Your Studio Editing?
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                Focus on shooting and growing your business while our team handles the post-production heavy lifting.
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href="/contact-us"
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  Get a Free Quote
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/sample-images"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  View Sample Gallery
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

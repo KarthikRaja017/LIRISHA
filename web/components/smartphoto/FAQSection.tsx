@@ -79,7 +79,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ initialFaqs, heading }) 
                   <span className="text-base md:text-lg">{faq.question}</span>
                   <i
                     className={`fa ${
-                      isOpen ? "fa-minus text-green-600" : "fa-plus text-gray-400"
+                      isOpen ? "fa-minus text-[#1265E8]" : "fa-plus text-gray-400"
                     } transition-transform ml-4 flex-shrink-0`}
                   ></i>
                 </button>

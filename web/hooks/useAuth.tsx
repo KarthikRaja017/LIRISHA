@@ -7,7 +7,7 @@ import { authService } from "@/lib/auth/auth";
 import { getToken } from "@/lib/auth/token";
 
 interface AuthContextType extends AuthState {
-  login: (credentials: LoginCredentials) => Promise<void>;
+  login: (credentials: LoginCredentials) => Promise<User>;
   register: (payload: RegisterPayload) => Promise<void>;
   updateUser: (payload: { email?: string; password?: string; first_name?: string; last_name?: string }) => Promise<void>;
   logout: () => void;
@@ -44,7 +44,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     refreshUser();
   }, [refreshUser]);
 
-  const login = async (credentials: LoginCredentials) => {
+  const login = async (credentials: LoginCredentials): Promise<User> => {
     setState((prev) => ({ ...prev, isLoading: true }));
     try {
       const authData = await authService.login(credentials);
@@ -54,6 +54,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         isAuthenticated: true,
         isLoading: false,
       });
+      return authData.user;
     } catch (error) {
       setState((prev) => ({ ...prev, isLoading: false }));
       throw error;

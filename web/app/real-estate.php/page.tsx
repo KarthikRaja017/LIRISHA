@@ -1,4 +1,4 @@
-import RealEstatePage, { metadata } from "../real-estate/page";
+import RealEstatePage, { generateMetadata } from "../real-estate/page";
 
-export { metadata };
+export { generateMetadata };
 export default RealEstatePage;

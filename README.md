@@ -106,6 +106,22 @@ project-root/
 
 ---
 
+## Default Demo Credentials & Unified Login
+
+The platform provides a single dedicated **Sign In** page at [`/login`](http://localhost:3000/login):
+
+| Role | Email | Password | Access Level & Destination |
+| :--- | :--- | :--- | :--- |
+| **Administrator (CMS)** | `admin@lirisha.com` | `Lirisha#Adm!n2026$Vault!` | Routes to `/admin` — Full CMS access to edit pages, contact information, office locations, blogs, footer settings, branding, Dropbox Cloud Studio, and User Account management. |
+| **Client (Customer)** | `user@example.com` | `Password123!` | Routes to `/portal` — Private client portal to review retouched deliverable batches (sets of photos), inspect high-resolution images in the lightbox, download individual or all photos, and approve work. |
+
+### Authentication & Account Features
+- **Dedicated Sign-In**: Enter credentials on a single screen without manual role switches. The system automatically inspects your role and directs administrators to `/admin` and clients to `/portal`.
+- **Admin User Provisioning Only**: User self-registration is completely disabled. Only administrators can create new client accounts and manage credentials in `/admin` under **Security, Credentials & User Accounts**.
+- **Deliverables as Sets of Files (Batches)**: Deliverables are structured as project sets/batches containing multiple photos. Clients can inspect each photo in the interactive lightbox and download individual photos or download the entire batch.
+
+---
+
 ## Quick Setup Guide
 
 ### Prerequisites

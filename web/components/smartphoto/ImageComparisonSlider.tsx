@@ -117,7 +117,7 @@ export const ImageComparisonSlider: React.FC<ImageComparisonSliderProps> = ({
           className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_10px_rgba(0,0,0,0.5)] z-20 pointer-events-none"
           style={{ left: `${sliderPosition}%` }}
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-[#8DCE3C] text-gray-700">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-9 h-9 bg-white rounded-full shadow-lg flex items-center justify-center border-2 border-[#1265E8] text-gray-700">
             <svg
               className="w-4 h-4 text-gray-800"
               fill="none"

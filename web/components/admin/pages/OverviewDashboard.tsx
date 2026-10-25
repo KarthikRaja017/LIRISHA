@@ -142,6 +142,16 @@ export const OverviewDashboard: React.FC<OverviewDashboardProps> = ({
       countLabel: "Status",
       count: "Live",
     },
+    {
+      id: "features",
+      title: "Feature & Secondary Pages",
+      route: "/benefits etc.",
+      icon: "fa-file-lines",
+      color: "from-cyan-600 to-indigo-700",
+      description: "Benefits, 24/7 Coverage, Compliant Software, Adobe Specialized Artists, Glossary, Accessories, and Sitemap.",
+      countLabel: "Pages",
+      count: "7 Pages",
+    },
   ];
 
   return (

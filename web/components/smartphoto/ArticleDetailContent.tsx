@@ -71,8 +71,9 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
         <div className="container mx-auto px-4">
           <div className="row">
             <div className="col-lg-10">
-              <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
+              <div className="banner-title-block mb-3">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
                   <i className="fa-solid fa-newspaper"></i>
                   <span>{item.category}</span>
                 </div>
@@ -145,46 +146,91 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                 {item.excerpt}
               </div>
 
-              {/* Rich Formatted Article Content */}
-              <div className="prose prose-lg max-w-none text-gray-700 space-y-6 leading-relaxed">
-                <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
-                  1. The Strategic Importance of Post-Production Excellence
-                </h2>
-                <p>
-                  In the visual-first digital economy, images are often the very first touchpoint between a potential buyer and a brand or real estate property. Whether browsing an e-commerce catalog, researching an architectural listing, or viewing a luxury headshot, image clarity, lighting balance, and color fidelity directly dictate customer confidence and purchasing intent.
-                </p>
-                <p>
-                  High-caliber editing bridges the gap between raw camera capture and polished, publication-ready perfection. Professional post-production eliminates distractions, balances complex multi-source lighting, and standardizes color calibration across thousands of assets.
-                </p>
+              {/* Formatted Article / Blog Content */}
+              {item.content ? (
+                <div className="prose prose-lg max-w-none text-gray-700 space-y-6 leading-relaxed">
+                  {item.content.split(/\n\s*\n/).map((para, pIdx) => {
+                    const trimmed = para.trim();
+                    if (!trimmed) return null;
+                    if (trimmed.startsWith('# ')) {
+                      return (
+                        <h1 key={pIdx} className="text-3xl font-extrabold text-[#07152F] mt-8 mb-4">
+                          {trimmed.replace(/^#\s*/, '')}
+                        </h1>
+                      );
+                    }
+                    if (trimmed.startsWith('## ')) {
+                      return (
+                        <h2 key={pIdx} className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
+                          {trimmed.replace(/^##\s*/, '')}
+                        </h2>
+                      );
+                    }
+                    if (trimmed.startsWith('### ')) {
+                      return (
+                        <h3 key={pIdx} className="text-xl font-bold text-[#07152F] mt-6 mb-3">
+                          {trimmed.replace(/^###\s*/, '')}
+                        </h3>
+                      );
+                    }
+                    if (trimmed.startsWith('- ') || trimmed.startsWith('* ')) {
+                      const listItems = trimmed.split('\n').filter(Boolean);
+                      return (
+                        <ul key={pIdx} className="list-disc pl-6 space-y-2 text-gray-700">
+                          {listItems.map((li, lIdx) => (
+                            <li key={lIdx}>{li.replace(/^[-*]\s*/, '')}</li>
+                          ))}
+                        </ul>
+                      );
+                    }
+                    return (
+                      <p key={pIdx} className="text-gray-700 leading-relaxed text-base md:text-lg whitespace-pre-line">
+                        {trimmed}
+                      </p>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div className="prose prose-lg max-w-none text-gray-700 space-y-6 leading-relaxed">
+                  <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
+                    1. The Strategic Importance of Post-Production Excellence
+                  </h2>
+                  <p>
+                    In the visual-first digital economy, images are often the very first touchpoint between a potential buyer and a brand or real estate property. Whether browsing an e-commerce catalog, researching an architectural listing, or viewing a luxury headshot, image clarity, lighting balance, and color fidelity directly dictate customer confidence and purchasing intent.
+                  </p>
+                  <p>
+                    High-caliber editing bridges the gap between raw camera capture and polished, publication-ready perfection. Professional post-production eliminates distractions, balances complex multi-source lighting, and standardizes color calibration across thousands of assets.
+                  </p>
 
-                <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
-                  2. Core Best Practices & Technical Execution
-                </h2>
-                <p>
-                  Achieving repeatable, high-volume consistency requires a disciplined non-destructive workflow utilizing industry-standard software like Adobe Photoshop CC and Adobe Lightroom Classic:
-                </p>
-                <ul className="list-disc pl-6 space-y-2 text-gray-700">
-                  <li>
-                    <strong>Non-Destructive Layer Stacking:</strong> Keeping frequency separation, Dodge & Burn, and color grading on isolated adjustment layers ensures infinite revision capability.
-                  </li>
-                  <li>
-                    <strong>Strict Color Management:</strong> Calibrating workflows against sRGB for web performance and AdobeRGB/CMYK for luxury print catalogs to guarantee true-to-life color consistency.
-                  </li>
-                  <li>
-                    <strong>Handcrafted Pen Tool Precision:</strong> Hand-drawing vector clipping paths zooming up to 300% to avoid jagged pixel fringing and harsh artificial halos.
-                  </li>
-                  <li>
-                    <strong>Multi-Exposure High Dynamic Range:</strong> Blending bracketed exposures naturally to preserve both delicate window views and subtle indoor ambient lighting.
-                  </li>
-                </ul>
+                  <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
+                    2. Core Best Practices & Technical Execution
+                  </h2>
+                  <p>
+                    Achieving repeatable, high-volume consistency requires a disciplined non-destructive workflow utilizing industry-standard software like Adobe Photoshop CC and Adobe Lightroom Classic:
+                  </p>
+                  <ul className="list-disc pl-6 space-y-2 text-gray-700">
+                    <li>
+                      <strong>Non-Destructive Layer Stacking:</strong> Keeping frequency separation, Dodge & Burn, and color grading on isolated adjustment layers ensures infinite revision capability.
+                    </li>
+                    <li>
+                      <strong>Strict Color Management:</strong> Calibrating workflows against sRGB for web performance and AdobeRGB/CMYK for luxury print catalogs to guarantee true-to-life color consistency.
+                    </li>
+                    <li>
+                      <strong>Handcrafted Pen Tool Precision:</strong> Hand-drawing vector clipping paths zooming up to 300% to avoid jagged pixel fringing and harsh artificial halos.
+                    </li>
+                    <li>
+                      <strong>Multi-Exposure High Dynamic Range:</strong> Blending bracketed exposures naturally to preserve both delicate window views and subtle indoor ambient lighting.
+                    </li>
+                  </ul>
 
-                <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
-                  3. Key Takeaways & Operational Efficiency
-                </h2>
-                <p>
-                  By partnering with a dedicated back-office editing partner like SmartPHOTOeditors, photography studios and enterprises eliminate production bottlenecks, reduce fixed overhead, and guarantee strict 12-to-24-hour turnaround times for peak seasonal demand.
-                </p>
-              </div>
+                  <h2 className="text-2xl font-bold text-[#07152F] mt-8 mb-4">
+                    3. Key Takeaways & Operational Efficiency
+                  </h2>
+                  <p>
+                    By partnering with a dedicated back-office editing partner like SmartPHOTOeditors, photography studios and enterprises eliminate production bottlenecks, reduce fixed overhead, and guarantee strict 12-to-24-hour turnaround times for peak seasonal demand.
+                  </p>
+                </div>
+              )}
 
               {/* Tags & Social Share */}
               <div className="mt-12 pt-6 border-t border-gray-200 flex items-center justify-between flex-wrap gap-4">
@@ -249,7 +295,7 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                     Upload your sample files today and experience our 12-24h turnaround, color fidelity, and handcrafted precision.
                   </p>
                   <Link
-                    href="/contact-us.php"
+                    href="/contact-us"
                     className="block text-center bg-[#1265E8] hover:bg-[#00C8F8] text-white py-3 rounded-full font-bold text-sm shadow-md transition-colors"
                   >
                     Get Free Sample Edit
@@ -279,6 +325,42 @@ export const ArticleDetailContent: React.FC<ArticleDetailProps> = ({
                       ))}
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BOTTOM CTA */}
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Dedicated Production Support
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                Ready to Upgrade Your Studio Workflow?
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                Submit a free sample edit today and see why leading photographers and agencies partner with LIRISHA.
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href="/contact-us"
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  Get Free Sample Edit
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/sample-images"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  View Sample Gallery
+                </Link>
               </div>
             </div>
           </div>

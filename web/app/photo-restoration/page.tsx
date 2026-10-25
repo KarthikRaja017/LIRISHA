@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
 import { getServiceBySlug } from "@/lib/api/content";
+import { getDynamicServiceMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Antique & Damaged Photo Restoration Services | SmartPHOTOeditors",
-  description:
-    "Digital restoration for damaged, torn, faded vintage photographs and authentic period-accurate black and white colorization.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return await getDynamicServiceMetadata(
+    "photo-restoration",
+    "Old Photo Restoration & Colorization | LIRISHA",
+    "Restoration of damaged, torn, faded vintage photographs with scratch repair, tear blending, and realistic digital colorization."
+  );
+}
 
 export default async function PhotoRestorationServicePage() {
   const service = await getServiceBySlug("photo-restoration");
@@ -16,4 +21,3 @@ export default async function PhotoRestorationServicePage() {
   }
   return <ServiceDetailContent service={service} />;
 }
-

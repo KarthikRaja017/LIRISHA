@@ -469,11 +469,12 @@ export const ServicesPageEditor: React.FC<ServicesPageEditorProps> = ({
               <button
                 type="button"
                 onClick={() => {
+                  const newSlug = `sub-${Date.now()}`;
                   const newItem: SubServiceItem = {
-                    id: `sub-${Date.now()}`,
+                    id: newSlug,
                     name: "New Sub-Service",
                     description: "Specific task description and editing techniques...",
-                    link: `/${serviceForm.slug}`,
+                    link: `/${serviceForm.slug}/${newSlug}`,
                   };
                   setServiceForm({
                     ...serviceForm,
@@ -490,19 +491,33 @@ export const ServicesPageEditor: React.FC<ServicesPageEditorProps> = ({
               {serviceForm.subServices?.map((sub, idx) => (
                 <div key={sub.id || idx} className="p-5 border border-slate-200 rounded-2xl bg-slate-50/70 hover:border-orange-300 hover:bg-slate-50 transition-all space-y-3.5 shadow-sm">
                   <div className="flex items-center justify-between border-b border-slate-200/80 pb-2.5">
-                    <span className="font-extrabold text-slate-900">#{idx + 1} {sub.name}</span>
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setServiceForm({
-                          ...serviceForm,
-                          subServices: serviceForm.subServices.filter((_, i) => i !== idx),
-                        })
-                      }
-                      className="text-red-500 hover:text-red-700 font-bold flex items-center gap-1"
-                    >
-                      <i className="fa-solid fa-trash-can"></i>
-                    </button>
+                    <span className="font-extrabold text-slate-900 truncate pr-2">#{idx + 1} {sub.name}</span>
+                    <div className="flex items-center gap-2 shrink-0">
+                      {sub.link && (
+                        <Link
+                          href={sub.link.replace(/\.php$/, "")}
+                          target="_blank"
+                          className="text-xs px-2.5 py-1 bg-blue-50 text-blue-700 hover:bg-blue-100 rounded-lg font-bold flex items-center gap-1.5 transition-colors border border-blue-200/60"
+                          title="Open live sub-service page in new tab"
+                        >
+                          <i className="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                          <span>View</span>
+                        </Link>
+                      )}
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setServiceForm({
+                            ...serviceForm,
+                            subServices: serviceForm.subServices.filter((_, i) => i !== idx),
+                          })
+                        }
+                        className="text-red-500 hover:text-red-700 font-bold p-1 rounded transition-colors"
+                        title="Delete Sub-Service"
+                      >
+                        <i className="fa-solid fa-trash-can"></i>
+                      </button>
+                    </div>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-slate-800 mb-1.5">Name</label>

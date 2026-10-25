@@ -1,4 +1,4 @@
-import SecurityPage, { metadata } from "../security/page";
+import SecurityPage, { generateMetadata } from "../security/page";
 
-export { metadata };
+export { generateMetadata };
 export default SecurityPage;

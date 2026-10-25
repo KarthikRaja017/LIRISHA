@@ -1,4 +1,4 @@
-import TurnaroundTimePage, { metadata } from "../turnaround-time/page";
+import TurnaroundTimePage, { generateMetadata } from "../turnaround-time/page";
 
-export { metadata };
+export { generateMetadata };
 export default TurnaroundTimePage;

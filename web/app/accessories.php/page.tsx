@@ -1,4 +1,4 @@
-import AccessoriesPage, { metadata } from "../accessories/page";
+import AccessoriesPage, { generateMetadata } from "../accessories/page";
 
-export { metadata };
+export { generateMetadata };
 export default AccessoriesPage;

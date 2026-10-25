@@ -1,4 +1,4 @@
-import BlogPage, { metadata } from "../blog/page";
+import BlogPage, { generateMetadata } from "../blog/page";
 
-export { metadata };
+export { generateMetadata };
 export default BlogPage;

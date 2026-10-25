@@ -1,4 +1,4 @@
-import PortraitPage, { metadata } from "../portrait/page";
+import PortraitPage, { generateMetadata } from "../portrait/page";
 
-export { metadata };
+export { generateMetadata };
 export default PortraitPage;

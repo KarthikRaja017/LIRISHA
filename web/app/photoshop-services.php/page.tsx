@@ -1,4 +1,4 @@
-import PhotoshopServicesPage, { metadata } from "../photoshop-services/page";
+import PhotoshopServicesPage, { generateMetadata } from "../photoshop-services/page";
 
-export { metadata };
+export { generateMetadata };
 export default PhotoshopServicesPage;

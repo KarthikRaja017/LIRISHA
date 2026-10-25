@@ -1,4 +1,4 @@
-import Panorama360Page, { metadata } from "../panorama360/page";
+import Panorama360Page, { generateMetadata } from "../panorama360/page";
 
-export { metadata };
+export { generateMetadata };
 export default Panorama360Page;

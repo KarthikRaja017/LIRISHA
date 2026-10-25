@@ -1,4 +1,4 @@
-import LightroomServicesPage, { metadata } from "../lightroom-services/page";
+import LightroomServicesPage, { generateMetadata } from "../lightroom-services/page";
 
-export { metadata };
+export { generateMetadata };
 export default LightroomServicesPage;

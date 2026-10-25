@@ -328,8 +328,9 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
   const current = {
     ...baseConfig,
     title: dynamicPage?.hero?.title || dynamicPage?.title || baseConfig.title,
-    description: dynamicPage?.hero?.tagline || baseConfig.description,
+    description: dynamicPage?.hero?.tagline || dynamicPage?.hero?.subtitle || baseConfig.description,
     badge: dynamicPage?.hero?.badge || baseConfig.badge,
+    icon: (dynamicPage?.hero?.image && dynamicPage.hero.image.includes('fa-')) ? dynamicPage.hero.image : baseConfig.icon,
     sections: resolvedSections,
   };
 
@@ -348,8 +349,9 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
         <div className="container mx-auto px-4">
           <div className="row">
             <div className="col-lg-8">
-              <div className="mb-3">
-                <div className="inline-flex items-center gap-2 bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
+              <div className="banner-title-block mb-3">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
                   <i className={current.icon}></i>
                   <span>{current.badge}</span>
                 </div>
@@ -396,7 +398,7 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
                         ? "bg-orange-50/60 border-orange-200"
                         : sIdx === 1
                         ? "bg-blue-50/60 border-blue-200"
-                        : "bg-emerald-50/60 border-emerald-200"
+                        : "bg-purple-50/60 border-purple-200"
                     }`}
                   >
                     <div className="flex items-center justify-between mb-3">
@@ -406,7 +408,7 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
                             ? "bg-[#ff5b0a] text-white"
                             : sIdx === 1
                             ? "bg-[#1265E8] text-white"
-                            : "bg-emerald-600 text-white"
+                            : "bg-[#713CFF] text-white"
                         }`}
                       >
                         {stg.stage || `Stage 0${sIdx + 1}`}
@@ -417,7 +419,7 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
                             ? "fa-wand-magic-sparkles text-orange-400"
                             : sIdx === 1
                             ? "fa-magnifying-glass-chart text-blue-400"
-                            : "fa-certificate text-emerald-400"
+                            : "fa-certificate text-[#713CFF]"
                         } text-lg`}
                       ></i>
                     </div>
@@ -455,7 +457,7 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
                   <li><Link href="/photoshop-services" className="hover:text-[#1265E8]">Photoshop Creative Services</Link></li>
                   <li><Link href="/lightroom-services" className="hover:text-[#1265E8]">Lightroom Batch Processing</Link></li>
                   <li><Link href="/photo-restoration" className="hover:text-[#1265E8]">Photo Restoration & Repair</Link></li>
-                  <li><Link href="/image-manipulation/ecommerce-image-editing.php" className="hover:text-[#1265E8]">E-Commerce Image Editing</Link></li>
+                  <li><Link href="/image-manipulation/ecommerce-image-editing" className="hover:text-[#1265E8]">E-Commerce Image Editing</Link></li>
                 </ul>
               </div>
 
@@ -466,11 +468,11 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li><Link href="/resources" className="hover:text-[#1265E8]">Resources Hub</Link></li>
-                  <li><Link href="/sample-images.php" className="hover:text-[#1265E8]">Sample Images Gallery</Link></li>
+                  <li><Link href="/sample-images" className="hover:text-[#1265E8]">Sample Images Gallery</Link></li>
                   <li><Link href="/articles" className="hover:text-[#1265E8]">Articles & Guides</Link></li>
                   <li><Link href="/case-study" className="hover:text-[#1265E8]">Client Case Studies</Link></li>
                   <li><Link href="/blog" className="hover:text-[#1265E8]">SmartPHOTOeditors Blog</Link></li>
-                  <li><Link href="/testimonials.php" className="hover:text-[#1265E8]">Customer Testimonials</Link></li>
+                  <li><Link href="/testimonials" className="hover:text-[#1265E8]">Customer Testimonials</Link></li>
                 </ul>
               </div>
 
@@ -480,14 +482,14 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
                   Company & Security
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  <li><Link href="/about-us.php" className="hover:text-[#1265E8]">About SmartPHOTOeditors</Link></li>
-                  <li><Link href="/contact-us.php" className="hover:text-[#1265E8]">Contact Us</Link></li>
-                  <li><Link href="/security.php" className="hover:text-[#1265E8]">Security & NDA Policy</Link></li>
-                  <li><Link href="/quality.php" className="hover:text-[#1265E8]">Quality Assurance</Link></li>
-                  <li><Link href="/pricing.php" className="hover:text-[#1265E8]">Pricing Overview</Link></li>
-                  <li><Link href="/benefits.php" className="hover:text-[#1265E8]">Outsourcing Benefits</Link></li>
-                  <li><Link href="/privacy-policy.php" className="hover:text-[#1265E8]">Privacy Policy</Link></li>
-                  <li><Link href="/glossary.php" className="hover:text-[#1265E8]">Editing Glossary</Link></li>
+                  <li><Link href="/about-us" className="hover:text-[#1265E8]">About SmartPHOTOeditors</Link></li>
+                  <li><Link href="/contact-us" className="hover:text-[#1265E8]">Contact Us</Link></li>
+                  <li><Link href="/security" className="hover:text-[#1265E8]">Security & NDA Policy</Link></li>
+                  <li><Link href="/quality" className="hover:text-[#1265E8]">Quality Assurance</Link></li>
+                  <li><Link href="/pricing" className="hover:text-[#1265E8]">Pricing Overview</Link></li>
+                  <li><Link href="/benefits" className="hover:text-[#1265E8]">Outsourcing Benefits</Link></li>
+                  <li><Link href="/privacy-policy" className="hover:text-[#1265E8]">Privacy Policy</Link></li>
+                  <li><Link href="/glossary" className="hover:text-[#1265E8]">Editing Glossary</Link></li>
                 </ul>
               </div>
             </div>
@@ -509,24 +511,40 @@ export const FeaturePageContent: React.FC<FeaturePageProps> = ({ pageType }) => 
       </section>
 
       {/* 4. CTA */}
-      <div className="section cta-section py-14 bg-[#07152F] text-white text-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-              Experience the SmartPHOTOeditors Standard
-            </h2>
-            <p className="text-gray-300 text-sm mb-6">
-              Send us your trial test images today for an obligation-free pilot.
-            </p>
-            <Link
-              href="/contact-us.php"
-              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
-            >
-              Get Started with Free Sample
-            </Link>
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Enterprise Standards
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                Experience the LIRISHA Standard of Excellence
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                Send us your trial test images today for an obligation-free pilot and custom quote.
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href="/contact-us"
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  Get Started with Free Sample
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/sample-images"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  View Sample Gallery
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

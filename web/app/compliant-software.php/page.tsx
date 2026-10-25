@@ -1,4 +1,4 @@
-import CompliantSoftwarePage, { metadata } from "../compliant-software/page";
+import CompliantSoftwarePage, { generateMetadata } from "../compliant-software/page";
 
-export { metadata };
+export { generateMetadata };
 export default CompliantSoftwarePage;

@@ -67,10 +67,11 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
         <div className="container mx-auto px-4">
           <div className="row">
             <div className="col-lg-8">
-              <div className="mb-3">
-                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
-                  Knowledge Hub & Case Studies
-                </span>
+              <div className="banner-title-block mb-3">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
+                  <span>Knowledge Hub &amp; Resources</span>
+                </div>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
                   Resources & Insights
                 </h1>
@@ -139,7 +140,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 Blog Posts ({resources.filter((r) => r.category === "Blog").length})
               </button>
               <Link
-                href="/testimonials.php"
+                href="/testimonials"
                 className="px-4 py-2 rounded-full text-sm font-medium bg-[#f8f9fa] text-gray-700 hover:text-[#1265E8] hover:bg-gray-200 border border-gray-200 transition-all inline-flex items-center gap-1.5"
               >
                 <span>Testimonials</span>
@@ -189,7 +190,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 {/* Metrics */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                   <div className="bg-white/10 p-3 rounded-xl backdrop-blur-sm border border-white/10">
-                    <div className="text-xl font-bold text-[#8dce3c]">5,000+</div>
+                    <div className="text-xl font-bold text-[#00C8F8]">5,000+</div>
                     <div className="text-xs text-gray-300">Images Clipped</div>
                   </div>
                   <div className="bg-white/10 p-3 rounded-xl backdrop-blur-sm border border-white/10">
@@ -197,7 +198,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                     <div className="text-xs text-gray-300">Total Delivery</div>
                   </div>
                   <div className="bg-white/10 p-3 rounded-xl backdrop-blur-sm border border-white/10">
-                    <div className="text-xl font-bold text-[#8dce3c]">45%</div>
+                    <div className="text-xl font-bold text-[#00C8F8]">45%</div>
                     <div className="text-xs text-gray-300">Cost Saved</div>
                   </div>
                   <div className="bg-white/10 p-3 rounded-xl backdrop-blur-sm border border-white/10">
@@ -207,8 +208,8 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                 </div>
 
                 <Link
-                  href="/case-study/automobile-image-clipping.php"
-                  className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 border-0 transition-all shadow-md"
+                  href="/case-study/automobile-image-clipping"
+                  className="btn-brand-primary px-6 py-3 rounded-full font-semibold text-sm inline-flex items-center gap-2 shadow-md"
                 >
                   Read Full Case Study
                   <i className="fa-solid fa-arrow-right text-xs"></i>
@@ -277,7 +278,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                   ? "bg-purple-100 text-purple-700"
                   : isArticle
                   ? "bg-blue-100 text-blue-700"
-                  : "bg-emerald-100 text-emerald-700";
+                  : "bg-blue-100 text-[#1265E8]";
 
                 return (
                   <div
@@ -375,7 +376,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                     </div>
                   </div>
                   <Link
-                    href="/contact-us.php"
+                    href="/contact-us"
                     className="btn btn-sm bg-[#07152F] hover:bg-[#253670] text-white text-xs px-3 py-1.5 rounded-lg"
                   >
                     Download
@@ -393,7 +394,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
                     </div>
                   </div>
                   <Link
-                    href="/contact-us.php"
+                    href="/contact-us"
                     className="btn btn-sm bg-[#07152F] hover:bg-[#253670] text-white text-xs px-3 py-1.5 rounded-lg"
                   >
                     Download
@@ -447,7 +448,7 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
               </p>
             </div>
             <Link
-              href="/testimonials.php"
+              href="/testimonials"
               className="text-xs font-bold uppercase tracking-wider text-[#1265E8] hover:underline inline-flex items-center gap-1.5"
             >
               <span>View All 50+ Testimonials</span>
@@ -491,24 +492,40 @@ export const ResourcesContent: React.FC<ResourcesContentProps> = ({
       </section>
 
       {/* 7. HIGH CONVERTING CTA */}
-      <div className="section cta-section py-14 bg-white border-t border-gray-200 text-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
-              Need a Custom Solution for Your Business?
-            </h2>
-            <p className="text-gray-600 text-sm mb-6">
-              Connect with our editing directors to discuss project SLAs, dedicated editor staffing, and custom volume pricing.
-            </p>
-            <Link
-              href="/contact-us.php"
-              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
-            >
-              Get in Touch with an Expert
-            </Link>
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Enterprise Solutions
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                Need a Custom Solution for Your Business?
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                Connect with our editing directors to discuss project SLAs, dedicated editor staffing, and custom volume pricing.
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href="/contact-us"
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  Get in Touch with an Expert
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/sample-images"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  View Sample Gallery
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

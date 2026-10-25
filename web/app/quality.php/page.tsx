@@ -1,4 +1,4 @@
-import QualityPage, { metadata } from "../quality/page";
+import QualityPage, { generateMetadata } from "../quality/page";
 
-export { metadata };
+export { generateMetadata };
 export default QualityPage;

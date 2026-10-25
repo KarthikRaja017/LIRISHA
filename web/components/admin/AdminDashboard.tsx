@@ -41,6 +41,8 @@ import { QualityPageEditor } from './pages/QualityPageEditor';
 import { GalleryPageEditor } from './pages/GalleryPageEditor';
 import { TestimonialsPageEditor } from './pages/TestimonialsPageEditor';
 import { ResourcesPageEditor } from './pages/ResourcesPageEditor';
+import { BlogPageEditor } from './pages/BlogPageEditor';
+import { DropboxPageEditor } from './pages/DropboxPageEditor';
 import { ContactUsPageEditor } from './pages/ContactUsPageEditor';
 import { SecurityPageEditor } from './pages/SecurityPageEditor';
 import { PrivacyPolicyPageEditor } from './pages/PrivacyPolicyPageEditor';
@@ -48,6 +50,7 @@ import { BrandingEditor } from './pages/BrandingEditor';
 import { FooterEditor } from './pages/FooterEditor';
 import { AccountEditor } from './pages/AccountEditor';
 import { OverviewDashboard } from './pages/OverviewDashboard';
+import { FeaturePagesEditor } from './pages/FeaturePagesEditor';
 
 export type PageMenuId =
   | 'home'
@@ -59,9 +62,12 @@ export type PageMenuId =
   | 'sample-images'
   | 'testimonials'
   | 'resources'
+  | 'blog'
   | 'contact-us'
   | 'security'
   | 'privacy-policy'
+  | 'features'
+  | 'dropbox'
   | 'footer'
   | 'overview'
   | 'branding'
@@ -86,8 +92,8 @@ export default function AdminDashboard() {
   } | null>(null);
 
   // Inline Login form states
-  const [loginEmail, setLoginEmail] = useState('admin@example.com');
-  const [loginPassword, setLoginPassword] = useState('Password123!');
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loggingIn, setLoggingIn] = useState(false);
 
@@ -269,7 +275,21 @@ export default function AdminDashboard() {
       label: 'Case Studies & Articles',
       route: '/case-study',
       icon: 'fa-newspaper',
-      badge: `${resources.length}`,
+      badge: `${resources.filter((r) => r.category !== 'Blog').length}`,
+    },
+    {
+      id: 'blog',
+      label: 'Blog Management',
+      route: '/blog',
+      icon: 'fa-blog',
+      badge: `${resources.filter((r) => r.category === 'Blog' || r.category === 'blog').length} Posts`,
+    },
+    {
+      id: 'dropbox',
+      label: 'Dropbox Cloud Studio',
+      route: 'Cloud Media',
+      icon: 'fa-cloud',
+      badge: 'Client Portal',
     },
     {
       id: 'contact-us',
@@ -290,6 +310,13 @@ export default function AdminDashboard() {
       icon: 'fa-scale-balanced',
     },
     {
+      id: 'features',
+      label: 'Feature & Info Pages',
+      route: '/benefits etc.',
+      icon: 'fa-file-lines',
+      badge: '7 Pages',
+    },
+    {
       id: 'footer',
       label: 'Footer Settings',
       route: 'Global',
@@ -299,6 +326,7 @@ export default function AdminDashboard() {
 
   const systemMenuItems = [
     { id: 'overview', label: 'Dashboard Overview', icon: 'fa-chart-pie' },
+    { id: 'dropbox', label: 'Dropbox Cloud Studio', icon: 'fa-cloud' },
     { id: 'footer', label: 'Global Footer Settings', icon: 'fa-shoe-prints' },
     { id: 'branding', label: 'Website Branding & Logos', icon: 'fa-gear' },
     { id: 'account', label: 'Admin Credentials', icon: 'fa-user-shield' },
@@ -367,34 +395,6 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Quick-fill Banner */}
-          <div className="p-3.5 bg-blue-50/80 border border-blue-200 rounded-2xl text-xs text-blue-950 space-y-2">
-            <div className="flex items-center justify-between">
-              <span className="font-bold flex items-center gap-1.5 text-blue-900">
-                <i className="fa-solid fa-key text-[#1265E8]"></i> Admin
-                Credentials:
-              </span>
-              <button
-                type="button"
-                onClick={() => {
-                  setLoginEmail('admin@example.com');
-                  setLoginPassword('Password123!');
-                }}
-                className="px-2.5 py-1 bg-gradient-to-r from-[#00C8F8] to-[#1265E8] hover:from-[#1265E8] hover:to-[#713CFF] text-white rounded-lg font-bold text-[11px] shadow-sm transition-all">
-                Auto-fill
-              </button>
-            </div>
-            <div className="font-mono text-[11px] text-slate-800 bg-white p-2.5 rounded-xl border border-blue-200">
-              <div>
-                <strong className="text-slate-900">Username:</strong>{' '}
-                admin@example.com
-              </div>
-              <div>
-                <strong className="text-slate-900">Password:</strong>{' '}
-                Password123!
-              </div>
-            </div>
-          </div>
 
           {loginError && (
             <div className="p-3.5 text-xs bg-red-50 border border-red-200 text-red-700 rounded-xl flex items-center gap-2">
@@ -413,7 +413,7 @@ export default function AdminDashboard() {
                 value={loginEmail}
                 onChange={(e) => setLoginEmail(e.target.value)}
                 className="w-full px-3.5 py-3 border border-slate-300 rounded-xl bg-white text-slate-900 font-semibold focus:border-[#1265E8] focus:ring-4 focus:ring-blue-500/15 outline-none transition-all text-xs shadow-sm"
-                placeholder="admin@example.com"
+                placeholder="admin@lirisha.com"
                 required
               />
             </div>
@@ -668,7 +668,7 @@ export default function AdminDashboard() {
                   {user?.first_name || 'Administrator'}
                 </p>
                 <p className="text-[10px] text-slate-400 truncate leading-tight mt-0.5">
-                  {user?.email || 'admin@example.com'}
+                  {user?.email || 'admin@lirisha.com'}
                 </p>
               </div>
             </div>
@@ -783,10 +783,29 @@ export default function AdminDashboard() {
                     />
                   )}
 
+                  {activeMenu === 'blog' && (
+                    <BlogPageEditor
+                      resources={resources}
+                      onSaveResource={handleSaveResource}
+                      onDeleteResource={handleDeleteResource}
+                      showToast={showToast}
+                    />
+                  )}
+
+                  {activeMenu === 'dropbox' && (
+                    <DropboxPageEditor
+                      siteSettings={siteSettings}
+                      onSaveSettings={handleSaveSettings}
+                      showToast={showToast}
+                    />
+                  )}
+
                   {activeMenu === 'contact-us' && (
                     <ContactUsPageEditor
                       page={pages.find((p) => p.slug === 'contact-us')}
+                      siteSettings={siteSettings}
                       onSave={handleSavePageContent}
+                      onSaveSettings={handleSaveSettings}
                       showToast={showToast}
                     />
                   )}
@@ -802,6 +821,14 @@ export default function AdminDashboard() {
                   {activeMenu === 'privacy-policy' && (
                     <PrivacyPolicyPageEditor
                       page={pages.find((p) => p.slug === 'privacy-policy')}
+                      onSave={handleSavePageContent}
+                      showToast={showToast}
+                    />
+                  )}
+
+                  {activeMenu === 'features' && (
+                    <FeaturePagesEditor
+                      pages={pages}
                       onSave={handleSavePageContent}
                       showToast={showToast}
                     />

@@ -1,10 +1,17 @@
 import React from "react";
+import type { Metadata } from "next";
 import { FeaturePageContent } from "@/components/smartphoto/FeaturePageContent";
+import { getDynamicPageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "100% Genuine Licensed Software Compliance | SmartPHOTOeditors",
-  description: "Enterprise software licensing compliance with genuine Adobe Creative Cloud suites and zero third-party copyright risk.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return await getDynamicPageMetadata(
+    "compliant-software",
+    "100% Compliant Software & Licensing | LIRISHA",
+    "We operate exclusively with genuine, certified Adobe Creative Cloud enterprise software licenses."
+  );
+}
 
 export default function CompliantSoftwarePage() {
   return <FeaturePageContent pageType="compliant-software" />;

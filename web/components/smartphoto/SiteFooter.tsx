@@ -4,6 +4,47 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSettings } from '@/context/SettingsContext';
 
+interface FooterLocation {
+  id: string;
+  title: string;
+  address: string;
+}
+
+interface FooterLinkItem {
+  id: string;
+  label: string;
+  url: string;
+}
+
+const defaultQuickLinks: FooterLinkItem[] = [
+  { id: 'ql-1', label: 'Services', url: '/services' },
+  { id: 'ql-2', label: 'Resources', url: '/resources' },
+  { id: 'ql-3', label: 'About Us', url: '/about-us' },
+  { id: 'ql-4', label: 'Contact Us', url: '/contact-us' },
+  { id: 'ql-5', label: 'Portfolio', url: '/sample-images' },
+  { id: 'ql-login', label: 'Login', url: '/login' },
+  { id: 'ql-6', label: 'Blog', url: '/blog' },
+  { id: 'ql-7', label: 'Sitemap', url: '/sitemap' },
+  { id: 'ql-8', label: 'Case Studies', url: '/case-study' },
+  { id: 'ql-9', label: 'Resource Articles', url: '/articles' },
+  { id: 'ql-10', label: 'Accessories', url: '/accessories' },
+  { id: 'ql-11', label: 'Testimonials', url: '/testimonials' },
+  { id: 'ql-12', label: 'Privacy Policy', url: '/privacy-policy' },
+];
+
+const defaultFeatureLinks: FooterLinkItem[] = [
+  { id: 'fl-1', label: 'Security', url: '/security' },
+  { id: 'fl-2', label: 'Quality', url: '/quality' },
+  { id: 'fl-3', label: '24/7 Coverage', url: '/247-coverage' },
+  { id: 'fl-4', label: 'Pricing', url: '/pricing' },
+  { id: 'fl-5', label: 'Benefits', url: '/benefits' },
+  { id: 'fl-6', label: 'Quick Delivery', url: '/turnaround-time' },
+  { id: 'fl-7', label: '100% Compliance Software', url: '/compliant-software' },
+  { id: 'fl-8', label: 'Adobe specialized artists', url: '/adobe-specialized-artists' },
+  { id: 'fl-9', label: 'Sitemap', url: '/sitemap' },
+  { id: 'fl-10', label: 'Glossary', url: '/glossary' },
+];
+
 export const SiteFooter: React.FC = () => {
   const { getSettingValue } = useSettings();
   const currentYear = new Date().getFullYear();
@@ -19,26 +60,57 @@ export const SiteFooter: React.FC = () => {
     `${siteName} is a team of skilled photo editing specialists with a commitment to providing quality, excellence, and satisfaction.`,
   );
 
-  const usaTitle = getSettingValue('footer_address_usa_title', 'USA');
-  const usaAddr = getSettingValue(
-    'footer_address_usa',
-    '116 Village Blvd, Suite 220, Princeton, NJ 08540',
-  );
+  // Dynamic Locations parsing
+  const locationsJson = getSettingValue('footer_locations_json', '');
+  let locations: FooterLocation[] = [];
 
-  const indiaTitle = getSettingValue('footer_address_india_title', 'India');
-  const indiaAddr = getSettingValue(
-    'footer_address_india',
-    'No.6, Banaswadi Main Road, Dodda Banaswadi, Bangalore - 560 043',
-  );
+  if (locationsJson) {
+    try {
+      const parsed = JSON.parse(locationsJson);
+      if (Array.isArray(parsed)) {
+        locations = parsed;
+      }
+    } catch {
+      locations = [];
+    }
+  }
 
-  const philTitle = getSettingValue(
-    'footer_address_philippines_title',
-    'Philippines',
-  );
-  const philAddr = getSettingValue(
-    'footer_address_philippines',
-    'Aeon Towers, J.P. Laurel Avenue, Bajada, Davao 8000',
-  );
+  // Fallback to legacy individual location settings if footer_locations_json was never initialized
+  if (!locationsJson) {
+    const locs: FooterLocation[] = [];
+    const usaAddr = getSettingValue('footer_address_usa', '116 Village Blvd, Suite 220, Princeton, NJ 08540');
+    const usaTitle = getSettingValue('footer_address_usa_title', 'USA');
+    if (usaAddr) locs.push({ id: 'loc-usa', title: usaTitle, address: usaAddr });
+
+    const indiaAddr = getSettingValue('footer_address_india', 'No.6, Banaswadi Main Road, Dodda Banaswadi, Bangalore - 560 043');
+    const indiaTitle = getSettingValue('footer_address_india_title', 'India');
+    if (indiaAddr) locs.push({ id: 'loc-india', title: indiaTitle, address: indiaAddr });
+
+    const philAddr = getSettingValue('footer_address_philippines', 'Aeon Towers, J.P. Laurel Avenue, Bajada, Davao 8000');
+    const philTitle = getSettingValue('footer_address_philippines_title', 'Philippines');
+    if (philAddr) locs.push({ id: 'loc-phil', title: philTitle, address: philAddr });
+
+    locations = locs;
+  }
+
+  // Dynamic Navigation Links
+  const quickLinksJson = getSettingValue('footer_quick_links_json', '');
+  let quickLinks: FooterLinkItem[] = defaultQuickLinks;
+  if (quickLinksJson) {
+    try {
+      const parsed = JSON.parse(quickLinksJson);
+      if (Array.isArray(parsed)) quickLinks = parsed;
+    } catch {}
+  }
+
+  const featureLinksJson = getSettingValue('footer_feature_links_json', '');
+  let featureLinks: FooterLinkItem[] = defaultFeatureLinks;
+  if (featureLinksJson) {
+    try {
+      const parsed = JSON.parse(featureLinksJson);
+      if (Array.isArray(parsed)) featureLinks = parsed;
+    } catch {}
+  }
 
   const contactEmail = getSettingValue(
     'contact_email',
@@ -114,42 +186,11 @@ export const SiteFooter: React.FC = () => {
             <div className="widget quick-links">
               <p className="footer-menu-heading">Quick Links</p>
               <ul>
-                <li>
-                  <a href="/services"> Services</a>
-                </li>
-                <li>
-                  <a href="/resources"> Resources</a>
-                </li>
-                <li>
-                  <a href="/about-us.php"> About Us</a>
-                </li>
-                <li>
-                  <a href="/contact-us.php"> Contact Us</a>
-                </li>
-                <li>
-                  <a href="/sample-images.php"> Portfolio</a>
-                </li>
-                <li>
-                  <a href="/blog/"> Blog</a>
-                </li>
-                <li>
-                  <a href="/sitemap.php"> Sitemap</a>
-                </li>
-                <li>
-                  <a href="/case-study/"> Case Studies</a>
-                </li>
-                <li>
-                  <a href="/articles/"> Resource Articles</a>
-                </li>
-                <li>
-                  <a href="/accessories/"> Accessories</a>
-                </li>
-                <li>
-                  <a href="/testimonials.php"> Testimonials</a>
-                </li>
-                <li>
-                  <a href="/privacy-policy.php"> Privacy Policy</a>
-                </li>
+                {quickLinks.map((item) => (
+                  <li key={item.id}>
+                    <Link href={item.url}> {item.label}</Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -159,62 +200,29 @@ export const SiteFooter: React.FC = () => {
             <div className="widget quick-links">
               <p className="footer-menu-heading">Features</p>
               <ul>
-                <li>
-                  <a href="/security.php"> Security</a>
-                </li>
-                <li>
-                  <a href="/quality.php"> Quality</a>
-                </li>
-                <li>
-                  <a href="/247-coverage.php"> 24/7 Coverage</a>
-                </li>
-                <li>
-                  <a href="/pricing.php"> Pricing</a>
-                </li>
-                <li>
-                  <a href="/benefits.php"> Benefits</a>
-                </li>
-                <li>
-                  <a href="/turnaround-time.php"> Quick Delivery</a>
-                </li>
-                <li>
-                  <a href="/compliant-software.php">
-                    {' '}
-                    100% Compliance Software
-                  </a>
-                </li>
-                <li>
-                  <a href="/adobe-specialized-artists.php">
-                    {' '}
-                    Adobe specialized artists
-                  </a>
-                </li>
-                <li>
-                  <a href="/sitemap.php"> Sitemap</a>
-                </li>
-                <li>
-                  <a href="/glossary.php"> Glossary</a>
-                </li>
+                {featureLinks.map((item) => (
+                  <li key={item.id}>
+                    <Link href={item.url}> {item.label}</Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
 
-          {/* Addresses */}
+          {/* Addresses - FULLY DYNAMIC WITH SINGLE OR MULTIPLE LOCATIONS */}
           <div className="col-12 col-md-3 mb-4 mb-md-0">
             <div className="widget address">
               <p className="footer-menu-heading">Address</p>
-              <div className="add-1">
-                <p className="country-name">{usaTitle}</p>
-                <p>{usaAddr}</p>
-              </div>
-              <div className="add-1">
-                <p className="country-name">{indiaTitle}</p>
-                <p>{indiaAddr}</p>
-              </div>
-              <div className="add-1">
-                <p className="country-name">{philTitle}</p>
-                <p>{philAddr}</p>
-              </div>
+              {locations.length === 0 ? (
+                <p className="text-gray-400 text-xs">No address locations specified.</p>
+              ) : (
+                locations.map((loc) => (
+                  <div key={loc.id} className="add-1 mb-3">
+                    <p className="country-name font-bold text-white text-sm mb-1">{loc.title}</p>
+                    <p className="text-gray-400 text-xs leading-relaxed">{loc.address}</p>
+                  </div>
+                ))
+              )}
             </div>
           </div>
 
@@ -236,7 +244,7 @@ export const SiteFooter: React.FC = () => {
                       {contactEmail}{' '}
                       <i
                         className={`far ${
-                          copied ? 'fa-check-circle text-green-400' : 'fa-copy'
+                          copied ? 'fa-check-circle text-[#00C8F8]' : 'fa-copy'
                         } copy-icon`}></i>
                     </a>
                   </p>
@@ -290,16 +298,9 @@ export const SiteFooter: React.FC = () => {
                 {copyrightText}{' '}
                 <span className="mx-2 opacity-30">|</span>
                 <Link
-                  href="/admin"
-                  className="text-gray-400 hover:text-white transition-colors underline decoration-dotted text-xs inline-flex items-center gap-1">
-                  <i className="fa-solid fa-gear text-[10px]"></i> Admin CMS
-                </Link>
-                <span className="mx-2 opacity-30">|</span>
-                <Link
                   href="/login"
                   className="text-gray-400 hover:text-white transition-colors underline decoration-dotted text-xs inline-flex items-center gap-1">
-                  <i className="fa-solid fa-arrow-right-to-bracket text-[10px]"></i>{' '}
-                  Admin Login
+                  <i className="fa-solid fa-arrow-right-to-bracket text-[10px]"></i> Login
                 </Link>
               </p>
             </div>

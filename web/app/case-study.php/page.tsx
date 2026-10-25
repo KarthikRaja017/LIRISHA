@@ -1,4 +1,4 @@
-import CaseStudyPage, { metadata } from "../case-study/page";
+import CaseStudyPage, { generateMetadata } from "../case-study/page";
 
-export { metadata };
+export { generateMetadata };
 export default CaseStudyPage;

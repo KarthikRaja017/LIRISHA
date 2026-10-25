@@ -3,21 +3,25 @@ Application Configuration Classes.
 Loads setting values from environment variables with sensible defaults.
 """
 import os
+from pathlib import Path
 from typing import List, Type
 from dotenv import load_dotenv
 
-# Ensure .env is loaded
+# Ensure api/.env is always loaded regardless of current working directory
+_API_DIR = Path(__file__).resolve().parent.parent.parent
+_ENV_FILE = _API_DIR / ".env"
+if _ENV_FILE.exists():
+    load_dotenv(_ENV_FILE)
 load_dotenv()
 
 
 class Config:
-
     """Base Configuration."""
     SECRET_KEY: str = os.getenv("SECRET_KEY", "dev-secret-key-change-in-production")
     DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/project_db")
-    DB_MIN_CONN: int = int(os.getenv("DB_MIN_CONN", "2"))
+    DB_MIN_CONN: int = int(os.getenv("DB_MIN_CONN", "1"))
     DB_MAX_CONN: int = int(os.getenv("DB_MAX_CONN", "10"))
-    DB_TIMEOUT: int = int(os.getenv("DB_TIMEOUT", "2"))
+    DB_TIMEOUT: int = int(os.getenv("DB_TIMEOUT", "15"))
 
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "jwt-secret-key-change-in-production")
     JWT_ALGORITHM: str = os.getenv("JWT_ALGORITHM", "HS256")
@@ -51,7 +55,6 @@ class TestingConfig(Config):
     DEBUG: bool = True
     DATABASE_URL: str = os.getenv("TEST_DATABASE_URL", Config.DATABASE_URL)
     LOG_LEVEL: str = "ERROR"
-
 
 
 def get_config() -> Type[Config]:

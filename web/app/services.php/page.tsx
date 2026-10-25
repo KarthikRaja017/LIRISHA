@@ -1,4 +1,4 @@
-import ServicesPage, { metadata } from "../services/page";
+import ServicesPage, { generateMetadata } from "../services/page";
 
-export { metadata };
+export { generateMetadata };
 export default ServicesPage;

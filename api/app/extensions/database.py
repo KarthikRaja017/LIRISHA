@@ -10,7 +10,7 @@ import socket
 from contextlib import contextmanager
 from typing import Generator
 from urllib.parse import urlparse
-from flask import Flask
+from flask import Flask, current_app
 
 import psycopg
 from psycopg.rows import dict_row
@@ -26,7 +26,7 @@ _pool: ConnectionPool | None = None
 _db_online: bool = False
 
 
-def _is_server_reachable(conn_url: str, timeout: float = 0.3) -> bool:
+def _is_server_reachable(conn_url: str, timeout: float = 4.0) -> bool:
     """Quick non-blocking check to see if the database host:port is listening."""
     try:
         parsed = urlparse(conn_url)
@@ -39,14 +39,14 @@ def _is_server_reachable(conn_url: str, timeout: float = 0.3) -> bool:
 
 
 def init_db(app: Flask) -> None:
-    """Initializes the PostgreSQL connection pool only if the server is reachable."""
+    """Initializes the PostgreSQL connection pool."""
     global _pool, _db_online
     db_url = app.config.get("DATABASE_URL", "")
-    timeout = app.config.get("DB_TIMEOUT", 2)
+    timeout = app.config.get("DB_TIMEOUT", 15)
 
     # Check if PostgreSQL server is listening
-    if not _is_server_reachable(db_url):
-        logger.info("PostgreSQL server (port 5432) is offline. App will run in standalone mode without database.")
+    if not _is_server_reachable(db_url, timeout=4.0):
+        logger.info("PostgreSQL server is unreachable. App will run in standalone mode without database.")
         _pool = None
         _db_online = False
         return
@@ -55,15 +55,14 @@ def init_db(app: Flask) -> None:
         _pool = ConnectionPool(
             conninfo=db_url,
             min_size=0,
-            max_size=10,
+            max_size=app.config.get("DB_MAX_CONN", 10),
             timeout=timeout,
             kwargs={"row_factory": dict_row},
-            check=ConnectionPool.check_connection,
             max_idle=45.0,
-            open=False
+            open=True,
         )
         _db_online = True
-        logger.info("PostgreSQL connection pool configured successfully.")
+        logger.info("PostgreSQL connection pool configured and opened successfully.")
     except Exception as e:
         logger.warning(f"Could not initialize PostgreSQL pool: {e}")
         _pool = None
@@ -99,18 +98,18 @@ def get_db_connection() -> Generator[psycopg.Connection, None, None]:
     Context manager yielding a PostgreSQL connection from the pool.
     Handles commit on success and rollback on exception.
     """
-    global _pool
+    global _pool, _db_online
     if not _pool or not _db_online:
-        raise RuntimeError("PostgreSQL database is offline or not installed.")
+        raise RuntimeError("PostgreSQL database is offline or unreachable.")
 
     if _pool.closed:
         try:
-            _pool.open(wait=False)
+            _pool.open(wait=True, timeout=10.0)
         except Exception as e:
             raise RuntimeError(f"Database pool could not be opened: {e}")
 
     try:
-        with _pool.connection(timeout=1.0) as conn:
+        with _pool.connection(timeout=10.0) as conn:
             try:
                 yield conn
                 conn.commit()

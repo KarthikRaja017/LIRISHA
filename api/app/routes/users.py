@@ -2,12 +2,13 @@
 User Management Routes (Sample Feature).
 Demonstrates end-to-end CRUD using Route -> Service -> Repository -> Raw SQL.
 """
-from flask import Blueprint, request
+from flask import Blueprint, request, g
 from app.schemas.user import UserCreateSchema, UserUpdateSchema
 from app.schemas.pagination import PaginationQuerySchema
 from app.services.user_service import UserService
 from app.utils.response import success_response, created_response, no_content_response
 from app.middleware.auth_middleware import jwt_required
+from app.errors.exceptions import AuthorizationError
 
 users_bp = Blueprint("users", __name__)
 
@@ -44,7 +45,9 @@ def get_user(user_id: int):
 @users_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_user():
-    """Creates a new user."""
+    """Creates a new user. Only administrators can create users."""
+    if not g.current_user or g.current_user.get("role") != "admin":
+        raise AuthorizationError("Only administrators can create user accounts.")
     raw_json = request.get_json() or {}
     validated = UserCreateSchema(**raw_json)
 
@@ -58,6 +61,9 @@ def create_user():
 @jwt_required()
 def update_user(user_id: int):
     """Updates user information."""
+    if not g.current_user or (g.current_user.get("role") != "admin" and int(g.current_user.get("sub", 0)) != user_id):
+        raise AuthorizationError("You are not authorized to update this user account.")
+
     raw_json = request.get_json() or {}
     validated = UserUpdateSchema(**raw_json)
 
@@ -74,6 +80,11 @@ def update_user(user_id: int):
 @jwt_required()
 def delete_user(user_id: int):
     """Deletes user by ID."""
+    if not g.current_user or g.current_user.get("role") != "admin":
+        raise AuthorizationError("Only administrators can delete user accounts.")
+    if int(g.current_user.get("sub", 0)) == user_id:
+        raise AuthorizationError("You cannot delete your own active administrator account.")
+
     service = UserService()
     service.delete_user(user_id)
 

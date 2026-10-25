@@ -1,4 +1,4 @@
-import PhotoRetouchingPage, { metadata } from "../photo-retouching/page";
+import PhotoRetouchingPage, { generateMetadata } from "../photo-retouching/page";
 
-export { metadata };
+export { generateMetadata };
 export default PhotoRetouchingPage;

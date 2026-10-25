@@ -1,4 +1,5 @@
 import { apiClient } from "./client";
+import { FALLBACK_SERVICES } from "./fallbackServices";
 import { ENDPOINTS } from "./endpoints";
 import {
   ServiceCategory,
@@ -14,18 +15,22 @@ import {
  */
 export async function getServices(): Promise<ServiceCategory[]> {
   try {
-    return await apiClient.get<ServiceCategory[]>(ENDPOINTS.SERVICES.BASE);
+    const data = await apiClient.get<ServiceCategory[]>(ENDPOINTS.SERVICES.BASE);
+    if (data && Array.isArray(data) && data.length > 0) return data;
+    return FALLBACK_SERVICES;
   } catch {
-    return [];
+    return FALLBACK_SERVICES;
   }
 }
 
 export async function getServiceBySlug(slug: string): Promise<ServiceCategory | null> {
   try {
-    return await apiClient.get<ServiceCategory>(ENDPOINTS.SERVICES.BY_SLUG(slug));
+    const data = await apiClient.get<ServiceCategory>(ENDPOINTS.SERVICES.BY_SLUG(slug));
+    if (data && data.name) return data;
   } catch {
-    return null;
+    // continue to fallback
   }
+  return FALLBACK_SERVICES.find((s) => s.slug === slug || s.id === slug) || null;
 }
 
 export async function saveService(service: ServiceCategory): Promise<ServiceCategory> {

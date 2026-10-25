@@ -1,4 +1,4 @@
-import JewelryPage, { metadata } from "../jewelry/page";
+import JewelryPage, { generateMetadata } from "../jewelry/page";
 
-export { metadata };
+export { generateMetadata };
 export default JewelryPage;

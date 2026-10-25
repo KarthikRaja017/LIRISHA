@@ -57,10 +57,11 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
         <div className="container mx-auto px-4">
           <div className="row">
             <div className="col-lg-8">
-              <div className="mb-3">
-                <span className="inline-block bg-blue-50 text-[#1265E8] font-bold text-xs uppercase tracking-wider px-3 py-1 rounded-full border border-blue-200 mb-3">
-                  Proven Client Results
-                </span>
+              <div className="banner-title-block mb-3">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
+                  <span>Client Case Studies</span>
+                </div>
                 <h1 className="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-2">
                   Client Case Studies
                 </h1>
@@ -142,14 +143,14 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
                     <div className="flex items-center gap-3">
                       <Link
                         href={study.link}
-                        className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-6 py-2.5 rounded-full font-semibold text-xs inline-flex items-center gap-2 transition-colors"
+                        className="btn-brand-primary px-6 py-2.5 rounded-full font-semibold text-xs inline-flex items-center gap-2"
                       >
                         Read Full Story
                         <i className="fa-solid fa-arrow-right text-[10px]"></i>
                       </Link>
                       <Link
-                        href="/contact-us.php"
-                        className="btn bg-white hover:bg-gray-100 text-gray-800 border border-gray-300 px-5 py-2.5 rounded-full font-semibold text-xs transition-colors"
+                        href="/contact-us"
+                        className="btn-brand-secondary px-5 py-2.5 rounded-full font-semibold text-xs inline-flex items-center gap-2"
                       >
                         Get Similar Results
                       </Link>
@@ -175,24 +176,40 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
       </section>
 
       {/* CTA */}
-      <div className="section cta-section py-14 bg-[#07152F] text-white text-center">
-        <div className="container mx-auto px-4">
-          <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
-              Ready to Achieve Similar Results for Your Business?
-            </h2>
-            <p className="text-gray-300 text-sm mb-6">
-              Our enterprise photo editing services are structured to handle high volumes with fast turnaround and dedicated SLAs.
-            </p>
-            <Link
-              href="/contact-us.php"
-              className="btn bg-[#1265E8] hover:bg-[#00C8F8] text-white px-8 py-3 rounded-full font-semibold text-sm inline-block shadow-md"
-            >
-              Request a Pilot Project
-            </Link>
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Proven Enterprise Track Record
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                Ready to Achieve Similar Results for Your Business?
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                Our enterprise photo editing services are structured to handle high volumes with fast turnaround and dedicated SLAs.
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href="/contact-us"
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  Request a Pilot Project
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/sample-images"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  View Sample Gallery
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

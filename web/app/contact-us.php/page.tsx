@@ -1,4 +1,4 @@
-import ContactUsPage, { metadata } from "../contact-us/page";
+import ContactUsPage, { generateMetadata } from "../contact-us/page";
 
-export { metadata };
+export { generateMetadata };
 export default ContactUsPage;

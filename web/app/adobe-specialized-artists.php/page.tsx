@@ -1,4 +1,4 @@
-import AdobeArtistsPage, { metadata } from "../adobe-specialized-artists/page";
+import AdobeArtistsPage, { generateMetadata } from "../adobe-specialized-artists/page";
 
-export { metadata };
+export { generateMetadata };
 export default AdobeArtistsPage;

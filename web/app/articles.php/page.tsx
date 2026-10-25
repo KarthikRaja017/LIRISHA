@@ -1,4 +1,4 @@
-import ArticlesPage, { metadata } from "../articles/page";
+import ArticlesPage, { generateMetadata } from "../articles/page";
 
-export { metadata };
+export { generateMetadata };
 export default ArticlesPage;

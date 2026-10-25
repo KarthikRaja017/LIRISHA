@@ -1,4 +1,4 @@
-import SampleImagesPage, { metadata } from "../sample-images/page";
+import SampleImagesPage, { generateMetadata } from "../sample-images/page";
 
-export { metadata };
+export { generateMetadata };
 export default SampleImagesPage;

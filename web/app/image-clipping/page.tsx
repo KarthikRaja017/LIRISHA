@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
 import { getServiceBySlug } from "@/lib/api/content";
+import { getDynamicServiceMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Image Clipping & Masking Services | SmartPHOTOeditors",
-  description:
-    "Handcrafted Photoshop Pen Tool clipping path, alpha channel hair masking, transparent background cutouts, and multi-path layer isolation.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return await getDynamicServiceMetadata(
+    "image-clipping",
+    "Image Clipping Path & Masking Services | LIRISHA",
+    "Handcrafted vector clipping path, multi-path isolation, alpha channel hair masking, and automated shadow creation."
+  );
+}
 
 export default async function ImageClippingServicePage() {
   const service = await getServiceBySlug("image-clipping");
@@ -16,4 +21,3 @@ export default async function ImageClippingServicePage() {
   }
   return <ServiceDetailContent service={service} />;
 }
-

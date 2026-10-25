@@ -1,4 +1,4 @@
-import GlossaryPage, { metadata } from "../glossary/page";
+import GlossaryPage, { generateMetadata } from "../glossary/page";
 
-export { metadata };
+export { generateMetadata };
 export default GlossaryPage;

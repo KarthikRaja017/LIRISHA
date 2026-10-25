@@ -1,4 +1,4 @@
-import ResourcesPage, { metadata } from "../resources/page";
+import ResourcesPage, { generateMetadata } from "../resources/page";
 
-export { metadata };
+export { generateMetadata };
 export default ResourcesPage;

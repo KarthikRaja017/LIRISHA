@@ -2,7 +2,23 @@
 
 import React, { useState } from "react";
 
-export const EnquiryForm: React.FC = () => {
+export interface EnquiryFormProps {
+  initialData?: {
+    heading?: string;
+    subtitle?: string;
+    buttonText?: string;
+    successHeading?: string;
+    successMessage?: string;
+  };
+}
+
+export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialData }) => {
+  const heading = initialData?.heading || "Enquiry Now";
+  const buttonText = initialData?.buttonText || "Submit";
+  const successHeading = initialData?.successHeading || "Thank You!";
+  const successMessage =
+    initialData?.successMessage ||
+    "Your enquiry has been received. Our photo editing specialists will get back to you within 12 hours.";
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -47,18 +63,17 @@ export const EnquiryForm: React.FC = () => {
           <div className="row">
             <div className="col-md-10 col-lg-6 col-xl-6 col-xxl-4 offset-xxl-4 offset-md-1 offset-xl-3 offset-lg-3">
               <h2 className="text-3xl font-bold text-gray-900 text-center mb-6">
-                Enquiry Now
+                {heading}
               </h2>
 
               {submitted ? (
                 <div className="home-page-form bg-white/90 p-8 rounded-xl shadow-lg text-center">
-                  <i className="fa fa-check-circle text-5xl text-green-500 mb-4 block"></i>
+                  <i className="fa fa-check-circle text-5xl text-[#1265E8] mb-4 block"></i>
                   <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                    Thank You!
+                    {successHeading}
                   </h3>
                   <p className="text-gray-600">
-                    Your enquiry has been received. Our photo editing specialists
-                    will get back to you within 12 hours.
+                    {successMessage}
                   </p>
                   <button
                     onClick={() => {
@@ -206,7 +221,7 @@ export const EnquiryForm: React.FC = () => {
                     </div>
 
                     <div className="col-md-12 text-center mt-3">
-                      <a className="pp text-xs text-gray-500" href="/privacy-policy.php">
+                      <a className="pp text-xs text-gray-500" href="/privacy-policy">
                         Privacy Policy
                       </a>
                     </div>

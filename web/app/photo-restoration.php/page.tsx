@@ -1,4 +1,4 @@
-import PhotoRestorationPage, { metadata } from "../photo-restoration/page";
+import PhotoRestorationPage, { generateMetadata } from "../photo-restoration/page";
 
-export { metadata };
+export { generateMetadata };
 export default PhotoRestorationPage;

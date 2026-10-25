@@ -45,7 +45,7 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
     page?.hero?.ctaText || "Get a free Quote Note"
   );
   const [ctaLink, setCtaLink] = useState(
-    page?.hero?.ctaLink || "/contact-us.php"
+    page?.hero?.ctaLink || "/contact-us"
   );
 
   // Statistics Section
@@ -156,7 +156,7 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
     ctaSection?.buttonText || "Contact Us to Get Free Quote"
   );
   const [ctaBtnLink, setCtaBtnLink] = useState(
-    ctaSection?.buttonLink || "/contact-us.php"
+    ctaSection?.buttonLink || "/contact-us"
   );
 
   // Populate from prop whenever it arrives
@@ -319,7 +319,7 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
                 About Us Page Studio
               </h2>
               <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-blue-100 text-blue-700 font-bold whitespace-nowrap shrink-0">
-                Route: /about-us &amp; /about-us.php
+                Route: /about-us 
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5 truncate sm:whitespace-normal">
@@ -330,7 +330,7 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
 
         <div className="flex items-center gap-2.5 shrink-0 flex-wrap sm:flex-nowrap">
           <Link
-            href="/about-us.php"
+            href="/about-us"
             target="_blank"
             className="px-4 py-2.5 rounded-xl border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 text-xs font-bold text-gray-700 flex items-center gap-2 transition-all shadow-sm whitespace-nowrap shrink-0"
           >
@@ -441,7 +441,7 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
                 value={ctaLink}
                 onChange={(e) => setCtaLink(e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-white text-gray-900 font-semibold border border-gray-300 rounded-xl focus:border-[#1265E8] outline-none shadow-sm"
-                placeholder="/contact-us.php"
+                placeholder="/contact-us"
               />
             </div>
           </div>
@@ -941,7 +941,7 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
                 value={ctaBtnLink}
                 onChange={(e) => setCtaBtnLink(e.target.value)}
                 className="w-full px-3.5 py-2.5 bg-white text-gray-900 font-semibold border border-gray-300 rounded-xl focus:border-[#1265E8] outline-none shadow-sm"
-                placeholder="/contact-us.php"
+                placeholder="/contact-us"
               />
             </div>
           </div>
@@ -996,7 +996,7 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
         <div className="flex items-center gap-2 text-xs text-gray-600">
           <i className="fa-solid fa-circle-info text-[#1265E8]"></i>
           <span>
-            Changes saved here update immediately on /about-us and /about-us.php.
+            Changes saved here update immediately on /about-us and /about-us.
           </span>
         </div>
         <button

@@ -1,4 +1,4 @@
-import PrivacyPolicyPage, { metadata } from "../privacy-policy/page";
+import PrivacyPolicyPage, { generateMetadata } from "../privacy-policy/page";
 
-export { metadata };
+export { generateMetadata };
 export default PrivacyPolicyPage;

@@ -1,4 +1,4 @@
-import SitemapPage, { metadata } from "../sitemap/page";
+import SitemapPage, { generateMetadata } from "../sitemap/page";
 
-export { metadata };
+export { generateMetadata };
 export default SitemapPage;

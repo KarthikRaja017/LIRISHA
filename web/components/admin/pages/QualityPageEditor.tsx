@@ -184,7 +184,7 @@ export const QualityPageEditor: React.FC<QualityPageEditorProps> = ({
                 Quality Assurance Studio
               </h2>
               <span className="font-mono text-xs px-2.5 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold whitespace-nowrap shrink-0">
-                Route: /quality &amp; /quality.php
+                Route: /quality 
               </span>
             </div>
             <p className="text-xs text-gray-500 mt-0.5 truncate sm:whitespace-normal">
@@ -195,7 +195,7 @@ export const QualityPageEditor: React.FC<QualityPageEditorProps> = ({
 
         <div className="flex items-center gap-2.5 shrink-0 flex-wrap sm:flex-nowrap">
           <Link
-            href="/quality.php"
+            href="/quality"
             target="_blank"
             className="px-4 py-2.5 rounded-xl border border-gray-300 hover:border-gray-400 bg-white hover:bg-gray-50 text-xs font-bold text-gray-700 flex items-center gap-2 transition-all shadow-sm whitespace-nowrap shrink-0"
           >
@@ -461,7 +461,7 @@ export const QualityPageEditor: React.FC<QualityPageEditorProps> = ({
               SEO &amp; Metadata
             </h3>
             <p className="text-xs text-slate-500 mt-1">
-              Search engine tags for /quality and /quality.php
+              Search engine tags for /quality and /quality
             </p>
           </div>
 

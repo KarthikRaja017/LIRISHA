@@ -20,7 +20,7 @@ class UserService:
         offset = (page - 1) * page_size
         users = self.user_repo.find_all(offset=offset, limit=page_size, search=search)
         total = self.user_repo.count_all(search=search)
-        
+
         user_dicts = [u.to_dict(exclude_password=True) for u in users]
         return format_paginated_response(
             items=user_dicts,
@@ -38,17 +38,23 @@ class UserService:
 
     def create_user(self, data: Dict[str, Any]) -> Dict[str, Any]:
         """Creates a new user."""
-        existing = self.user_repo.find_by_email(data["email"])
-        if existing:
-            raise ConflictError(message=f"User with email '{data['email']}' already exists")
+        clean_email = (data.get("email") or "").strip().lower()
+        clean_password = (data.get("password") or "").strip()
+        clean_first = (data.get("first_name") or "").strip()
+        clean_last = (data.get("last_name") or "").strip()
+        clean_role = (data.get("role") or "user").strip().lower()
 
-        pw_hash = hash_password(data["password"])
+        existing = self.user_repo.find_by_email(clean_email)
+        if existing:
+            raise ConflictError(message=f"User with email '{clean_email}' already exists")
+
+        pw_hash = hash_password(clean_password)
         created = self.user_repo.create(
-            email=data["email"],
+            email=clean_email,
             password_hash=pw_hash,
-            first_name=data["first_name"],
-            last_name=data["last_name"],
-            role=data.get("role", "user")
+            first_name=clean_first or "Client",
+            last_name=clean_last or "User",
+            role=clean_role
         )
         return created.to_dict(exclude_password=True)
 
@@ -58,13 +64,22 @@ class UserService:
         if not existing:
             raise NotFoundError(message=f"User with ID {user_id} not found")
 
-        if "email" in data and data["email"] != existing.email:
-            email_conflict = self.user_repo.find_by_email(data["email"])
-            if email_conflict:
-                raise ConflictError(message=f"Email '{data['email']}' is already taken")
+        if "email" in data and data["email"]:
+            clean_email = data["email"].strip().lower()
+            data["email"] = clean_email
+            if clean_email != existing.email.lower():
+                email_conflict = self.user_repo.find_by_email(clean_email)
+                if email_conflict:
+                    raise ConflictError(message=f"Email '{clean_email}' is already taken")
+
+        if "first_name" in data and isinstance(data["first_name"], str):
+            data["first_name"] = data["first_name"].strip()
+        if "last_name" in data and isinstance(data["last_name"], str):
+            data["last_name"] = data["last_name"].strip()
 
         if "password" in data and data["password"]:
-            data["password_hash"] = hash_password(data.pop("password"))
+            clean_pw = data.pop("password").strip()
+            data["password_hash"] = hash_password(clean_pw)
 
         updated = self.user_repo.update(user_id, data)
         return updated.to_dict(exclude_password=True) if updated else existing.to_dict(exclude_password=True)

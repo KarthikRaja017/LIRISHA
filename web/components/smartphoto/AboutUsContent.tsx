@@ -37,7 +37,7 @@ export const AboutUsContent: React.FC = () => {
   const heroImage =
     pageData?.hero?.image || "/images/about/about-banner-540x671.webp";
   const ctaText = pageData?.hero?.ctaText || "Get a free Quote Note";
-  const ctaLink = pageData?.hero?.ctaLink || "/contact-us.php";
+  const ctaLink = pageData?.hero?.ctaLink || "/contact-us";
 
   // 2. Statistics Section Content
   const defaultStats = [
@@ -143,7 +143,7 @@ export const AboutUsContent: React.FC = () => {
     "World-class support helps you discover new ways to enhance your images to connect with your customers, showcase your brand, and fulfill your marketing strategies. Contact SmartPHOTOeditors to be your photo editing service partner.";
   const ctaBtnText =
     ctaSection?.buttonText || "Contact Us to Get Free Quote";
-  const ctaBtnLink = ctaSection?.buttonLink || "/contact-us.php";
+  const ctaBtnLink = ctaSection?.buttonLink || "/contact-us";
 
   return (
     <div className="about-page-inner">
@@ -153,6 +153,10 @@ export const AboutUsContent: React.FC = () => {
           <div className="row align-items-center">
             <div className="col-md-6 d-flex align-items-center">
               <div className="banner-text">
+                <div className="banner-badge-attractive">
+                  <span className="banner-badge-dot"></span>
+                  <span>About Our Specialists</span>
+                </div>
                 <h1>{heroTitle}</h1>
                 {heroParagraphs.map((para, i) => (
                   <p key={i}>{para}</p>
@@ -328,7 +332,7 @@ export const AboutUsContent: React.FC = () => {
               <ul className="quality-process-list mb-4">
                 {/* 01 Security */}
                 <li>
-                  <Link href="/security.php" className="q-process-box">
+                  <Link href="/security" className="q-process-box">
                     <div className="counter">01</div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -366,7 +370,7 @@ export const AboutUsContent: React.FC = () => {
 
                 {/* 02 Quality */}
                 <li>
-                  <Link href="/quality.php" className="q-process-box">
+                  <Link href="/quality" className="q-process-box">
                     <div className="counter">02</div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -387,7 +391,7 @@ export const AboutUsContent: React.FC = () => {
 
                 {/* 03 Pricing */}
                 <li>
-                  <Link href="/pricing.php" className="q-process-box">
+                  <Link href="/pricing" className="q-process-box">
                     <div className="counter">03</div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -414,7 +418,7 @@ export const AboutUsContent: React.FC = () => {
 
                 {/* 04 Benefits */}
                 <li>
-                  <Link href="/benefits.php" className="q-process-box">
+                  <Link href="/benefits" className="q-process-box">
                     <div className="counter">04</div>
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -445,7 +449,7 @@ export const AboutUsContent: React.FC = () => {
             Listen to What <span className="hover">Our <br />Clients</span> Have to Say About Us.
           </h2>
           <Link
-            href="/testimonials.php"
+            href="/testimonials"
             className="btn round-button read-more-button"
             title="See More Reviews"
           >
@@ -534,27 +538,40 @@ export const AboutUsContent: React.FC = () => {
       </div>
 
       {/* 8. CTA SECTION */}
-      <div className="section cta-section pt-1">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12 text-center">
-              <div className="cta-section-container">
-                <h2 className="w-80 element-center heading-h2">
-                  {ctaTitle}
-                </h2>
-                <p className="w-80 element-center">
-                  {ctaDescription}
-                </p>
-                <p className="mb-0">
-                  <Link href={ctaBtnLink} className="btn round-button cta-btn">
-                    {ctaBtnText}
-                  </Link>
-                </p>
+      <section className="section cta-section py-16 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <div className="max-w-3xl mx-auto cta-card-attractive p-8 md:p-12 rounded-3xl relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-[#00C8F8]/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#1265E8]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="relative z-10">
+              <span className="inline-block text-[#00C8F8] text-xs font-bold uppercase tracking-widest px-3 py-1 bg-[rgba(0,200,248,0.1)] rounded-full border border-[rgba(0,200,248,0.2)] mb-4">
+                Global Creative Support
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 leading-tight">
+                {ctaTitle}
+              </h2>
+              <p className="text-gray-300 text-base md:text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+                {ctaDescription}
+              </p>
+              <div className="flex justify-center items-center gap-4 flex-wrap">
+                <Link
+                  href={ctaBtnLink}
+                  className="btn-brand-primary px-8 py-3.5 rounded-full font-semibold text-base shadow-xl inline-flex items-center gap-2"
+                >
+                  {ctaBtnText}
+                  <i className="fa-solid fa-arrow-right text-xs"></i>
+                </Link>
+                <Link
+                  href="/contact-us"
+                  className="btn bg-white/10 hover:bg-white/20 text-white border border-white/30 px-8 py-3.5 rounded-full font-semibold text-base transition-all inline-flex items-center gap-2"
+                >
+                  Contact Our Team
+                </Link>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* 9. PORTRAIT CASE STUDIES SECTION */}
       <div className="section portrait-cs-section">
@@ -581,12 +598,12 @@ export const AboutUsContent: React.FC = () => {
                 <div className="cs-heading-inner-service">
                   <span className="cs-tab1">Image Clipping</span>
                   <h3 className="cs-title-inner-service">
-                    <Link href="/image-clipping/image-clipping-for-design-agency.php">
+                    <Link href="/image-clipping/image-clipping-for-design-agency">
                       Time-critical Image Clipping Project for Atlanta-based Design Agency
                     </Link>
                   </h3>
                   <Link
-                    href="/image-clipping/image-clipping-for-design-agency.php"
+                    href="/image-clipping/image-clipping-for-design-agency"
                     className="cs-button"
                   >
                     VIEW NOW &#129030;
@@ -601,7 +618,7 @@ export const AboutUsContent: React.FC = () => {
                 <div className="cs-heading-inner-service">
                   <span className="cs-tab2">Image Editing</span>
                   <h3 className="cs-title-inner-service">
-                    <Link href="/case-study/automobile-image-clipping.php">
+                    <Link href="/case-study/automobile-image-clipping">
                       UK&apos;s Largest Automotive Seller Clips 5000 Images with SPE&apos;s Image
                       Clipping Support
                     </Link>
@@ -610,7 +627,7 @@ export const AboutUsContent: React.FC = () => {
                     The Client: An Enduring Symbol of Successful Car Sales
                   </p>
                   <Link
-                    href="/case-study/automobile-image-clipping.php"
+                    href="/case-study/automobile-image-clipping"
                     className="cs-button"
                   >
                     VIEW NOW &#129030;

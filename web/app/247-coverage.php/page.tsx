@@ -1,4 +1,4 @@
-import CoveragePage, { metadata } from "../247-coverage/page";
+import CoveragePage, { generateMetadata } from "../247-coverage/page";
 
-export { metadata };
+export { generateMetadata };
 export default CoveragePage;

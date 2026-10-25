@@ -23,9 +23,9 @@ def seed_data():
         print("ERROR: DATABASE_URL environment variable is not set.")
         sys.exit(1)
 
-    admin_email = "admin@example.com"
+    admin_email = "admin@lirisha.com"
     user_email = "user@example.com"
-    default_password = generate_password_hash("Password123!")
+    default_password = generate_password_hash("Lirisha#Adm!n2026$Vault!", method="scrypt")
 
     try:
         with psycopg.connect(db_url, row_factory=dict_row) as conn:

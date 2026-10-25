@@ -42,6 +42,20 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     );
   }
 
+  // Client Login and Client Portal: No public header or footer, full light theme shell
+  const isAuthPage = pathname === '/login' || pathname.startsWith('/login');
+  const isPortal = pathname.startsWith('/portal');
+
+  if (isAuthPage || isPortal) {
+    return (
+      <div
+        key={isAuthPage ? 'auth-shell' : 'portal-shell'}
+        className="min-h-screen min-h-[100dvh] w-full bg-slate-50 text-slate-900 flex flex-col font-sans">
+        {children}
+      </div>
+    );
+  }
+
   // Show camera favicon loader before backend data / settings arrive
   if (!mounted || settingsLoading) {
     return (

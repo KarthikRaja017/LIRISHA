@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ServiceDetailContent } from "@/components/smartphoto/ServiceDetailContent";
 import { getServiceBySlug } from "@/lib/api/content";
+import { getDynamicServiceMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Jewelry Photo Retouching Services | SmartPHOTOeditors",
-  description:
-    "Extreme macro retouching for diamonds, gemstones, precious metals, watches, rings, and necklaces.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return await getDynamicServiceMetadata(
+    "jewelry",
+    "Jewelry Photo Retouching Services | LIRISHA",
+    "Macro metal polish, gemstone sparkle enhancement, diamond color correction, and shadow creation for fine jewelry sellers."
+  );
+}
 
 export default async function JewelryServicePage() {
   const service = await getServiceBySlug("jewelry");
@@ -16,4 +21,3 @@ export default async function JewelryServicePage() {
   }
   return <ServiceDetailContent service={service} />;
 }
-

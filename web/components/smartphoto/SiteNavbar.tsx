@@ -1,14 +1,18 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSettings } from '@/context/SettingsContext';
+import { ServiceCategory } from '@/types/content';
+import { getServices } from '@/lib/api/content';
+import { FALLBACK_SERVICES } from '@/lib/api/fallbackServices';
 
 export const SiteNavbar: React.FC = () => {
   const { getSettingValue } = useSettings();
   const [isOpen, setIsOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [services, setServices] = useState<ServiceCategory[]>(FALLBACK_SERVICES);
 
   const logoUrl = getSettingValue(
     'site_logo',
@@ -17,8 +21,28 @@ export const SiteNavbar: React.FC = () => {
   const siteName = getSettingValue('site_name', 'LIRISHA');
   const contactPhone = getSettingValue('contact_phone', '1-855-695-6028');
 
+  useEffect(() => {
+    let isMounted = true;
+    getServices()
+      .then((data) => {
+        if (isMounted && data && Array.isArray(data) && data.length > 0) {
+          setServices(data);
+        }
+      })
+      .catch(() => {});
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   const toggleDropdown = (name: string) => {
     setActiveDropdown((prev) => (prev === name ? null : name));
+  };
+
+  const closeMobileMenu = () => {
+    setIsOpen(false);
+    setActiveDropdown(null);
+    setActiveSubmenu(null);
   };
 
   return (
@@ -27,7 +51,10 @@ export const SiteNavbar: React.FC = () => {
         <div className="row">
           <div className="col-md-12">
             <nav className="navbar navbar-expand-md">
-              <Link className="navbar-brand flex items-center gap-2.5" href="/">
+              <Link
+                className="navbar-brand flex items-center gap-2.5"
+                href="/"
+                onClick={closeMobileMenu}>
                 <img
                   src={logoUrl}
                   alt={`${siteName} logo`}
@@ -55,7 +82,7 @@ export const SiteNavbar: React.FC = () => {
                 className={`navbar-collapse ${isOpen ? 'show' : ''}`}
                 id="main_nav">
                 <ul className="navbar-nav ml-auto navbar-dark align-items-md-center">
-                  {/* Services Dropdown */}
+                  {/* Services Dynamic Dropdown */}
                   <li
                     className={`nav-item dropdown ${
                       activeDropdown === 'services' ? 'show' : ''
@@ -69,10 +96,11 @@ export const SiteNavbar: React.FC = () => {
                       className="nav-link cursor-pointer inline-flex items-center gap-1"
                       href="/services"
                       onClick={(e) => {
-                        // On small screens, toggle dropdown if clicked
-                        if (window.innerWidth < 768) {
+                        if (typeof window !== 'undefined' && window.innerWidth < 992) {
                           e.preventDefault();
                           toggleDropdown('services');
+                        } else {
+                          closeMobileMenu();
                         }
                       }}>
                       <span>Services</span>
@@ -82,347 +110,76 @@ export const SiteNavbar: React.FC = () => {
                       className={`dropdown-menu ${
                         activeDropdown === 'services' ? 'show' : ''
                       }`}>
-                      {/* Real Estate */}
-                      <li
-                        className="relative"
-                        onMouseEnter={() => setActiveSubmenu('real-estate')}
-                        onMouseLeave={() => setActiveSubmenu(null)}>
-                        <a
-                          className="dropdown-item has-submenu"
-                          href="/real-estate/">
-                          Real Estate
-                        </a>
-                        <ul
-                          className={`submenu dropdown-menu ${
-                            activeSubmenu === 'real-estate' ? 'show' : ''
-                          }`}>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/image-enhancement.php">
-                              Image Enhancements
-                            </a>
+                      {services.map((cat) => {
+                        const hasSubs = cat.subServices && cat.subServices.length > 0;
+                        const catKey = cat.slug || cat.id;
+                        const catUrl = `/${catKey}`;
+                        return (
+                          <li
+                            key={catKey}
+                            className={`service-cat-item ${hasSubs ? 'relative has-children' : ''}`}
+                            onMouseEnter={() => hasSubs && setActiveSubmenu(catKey)}
+                            onMouseLeave={() => hasSubs && setActiveSubmenu(null)}>
+                            <div className="flex items-center justify-between w-full">
+                              <Link
+                                className={`dropdown-item flex-1 ${hasSubs ? 'has-submenu' : ''}`}
+                                href={catUrl}
+                                onClick={closeMobileMenu}>
+                                {cat.name}
+                              </Link>
+                              {hasSubs && (
+                                <button
+                                  type="button"
+                                  className="px-3 py-1.5 text-gray-500 hover:text-blue-600 md:hidden"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    e.stopPropagation();
+                                    setActiveSubmenu(activeSubmenu === catKey ? null : catKey);
+                                  }}
+                                  aria-label={`Toggle ${cat.name} submenu`}>
+                                  <i
+                                    className={`fa-solid ${
+                                      activeSubmenu === catKey ? 'fa-chevron-down' : 'fa-chevron-right'
+                                    } text-xs`}></i>
+                                </button>
+                              )}
+                            </div>
+                            {hasSubs && (
+                              <ul
+                                className={`submenu dropdown-menu ${
+                                  activeSubmenu === catKey ? 'show' : ''
+                                }`}>
+                                {cat.subServices.map((sub) => {
+                                  const subUrl = sub.link
+                                    ? sub.link.replace(/\.php$/, '')
+                                    : `${catUrl}/${sub.id}`;
+                                  return (
+                                    <li key={sub.id || sub.name}>
+                                      <Link
+                                        className="dropdown-item"
+                                        href={subUrl}
+                                        onClick={closeMobileMenu}>
+                                        {sub.name}
+                                      </Link>
+                                    </li>
+                                  );
+                                })}
+                              </ul>
+                            )}
                           </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/floor-plan-conversions.php">
-                              Floor Plan Conversions
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/photo-corrections.php">
-                              Photo Corrections
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/hdr-blending-corrections.php">
-                              HDR Blending Corrections
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/perspective-correction.php">
-                              Perspective Corrections
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/sky-replacement.php">
-                              Sky Replacement
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/360-virtual-tours.php">
-                              360° Virtual Tour
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/real-estate/drone-image-editing.php">
-                              Drone Image Editing
-                            </a>
-                          </li>
-                          <li>
-                            <a className="dropdown-item" href="/panorama360/">
-                              360°Panorama
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-
-                      {/* Portrait Services */}
-                      <li
-                        className="relative"
-                        onMouseEnter={() => setActiveSubmenu('portrait')}
-                        onMouseLeave={() => setActiveSubmenu(null)}>
-                        <a
-                          className="dropdown-item has-submenu"
-                          href="/portrait/">
-                          Portrait Services
-                        </a>
-                        <ul
-                          className={`submenu dropdown-menu ${
-                            activeSubmenu === 'portrait' ? 'show' : ''
-                          }`}>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/photo-retouching/">
-                              Photo Retouching
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/airbrushing-services.php">
-                              Airbrushing
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/wedding-photo-editing.php">
-                              Wedding Photo Editing
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/photo-montage.php">
-                              Photo Montage
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/skin-retouching.php">
-                              Skin Retouching
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/remove-backgrounds.php">
-                              Remove Background
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/natural-shadow.php">
-                              Natural Shadow
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/color-corrections.php">
-                              Color Correction
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/exposure-corrections.php">
-                              Exposure Corrections
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/portrait/high-end-retouching.php">
-                              High-end Retouching
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-
-                      {/* Image Clipping */}
-                      <li
-                        className="relative"
-                        onMouseEnter={() => setActiveSubmenu('clipping')}
-                        onMouseLeave={() => setActiveSubmenu(null)}>
-                        <a
-                          className="dropdown-item has-submenu"
-                          href="/image-clipping/">
-                          Image Clipping
-                        </a>
-                        <ul
-                          className={`submenu dropdown-menu ${
-                            activeSubmenu === 'clipping' ? 'show' : ''
-                          }`}>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/image-clipping/clipping-path-services.php">
-                              Clipping Path
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/image-clipping/tracing-image.php">
-                              Tracing Image
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/image-clipping/hair-masking.php">
-                              Hair Masking
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/image-clipping/conversions.php">
-                              Conversions
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/image-manipulation/car-image-clipping.php">
-                              Car Image Clipping
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/image-clipping/product-image-clipping.php">
-                              Product Image Clipping
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-
-                      {/* Fashion Photo */}
-                      <li
-                        className="relative"
-                        onMouseEnter={() => setActiveSubmenu('fashion')}
-                        onMouseLeave={() => setActiveSubmenu(null)}>
-                        <a
-                          className="dropdown-item has-submenu"
-                          href="/fashion/">
-                          Fashion Photo
-                        </a>
-                        <ul
-                          className={`submenu dropdown-menu ${
-                            activeSubmenu === 'fashion' ? 'show' : ''
-                          }`}>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/fashion/ghost-mannequin-photo-editing.php">
-                              Ghost Mannequin Editing
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-
-                      {/* Photoshop Services */}
-                      <li
-                        className="relative"
-                        onMouseEnter={() => setActiveSubmenu('photoshop')}
-                        onMouseLeave={() => setActiveSubmenu(null)}>
-                        <a
-                          className="dropdown-item has-submenu"
-                          href="/photoshop-services/">
-                          Photoshop Services
-                        </a>
-                        <ul
-                          className={`submenu dropdown-menu ${
-                            activeSubmenu === 'photoshop' ? 'show' : ''
-                          }`}>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/photoshop-services/stock-photo-editing.php">
-                              Stock Photo Editing
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/photoshop-services/vector-graphics.php">
-                              Vector Graphics Editing
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/photoshop-services/image-cloning.php">
-                              Image Cloning
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/photoshop-services/pop-art.php">
-                              Pop Art
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/photoshop-services/special-effects.php">
-                              Special Effects
-                            </a>
-                          </li>
-                          <li>
-                            <a
-                              className="dropdown-item"
-                              href="/photoshop-services/focus-stacking.php">
-                              Focus Stacking
-                            </a>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li>
-                        <a
-                          className="dropdown-item"
-                          href="/lightroom-services/">
-                          Lightroom Services
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          className="dropdown-item"
-                          href="/image-manipulation/ecommerce-image-editing.php">
-                          E-Commerce
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/jewelry/">
-                          Jewelry
-                        </a>
-                      </li>
-                      <li>
-                        <a className="dropdown-item" href="/photo-restoration/">
-                          Photo Restoration
-                        </a>
-                      </li>
+                        );
+                      })}
                     </ul>
                   </li>
 
                   {/* Portfolio */}
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link menu_hover"
-                      href="/sample-images.php">
+                      href="/sample-images"
+                      onClick={closeMobileMenu}>
                       Portfolio
-                    </a>
+                    </Link>
                   </li>
 
                   {/* Resources */}
@@ -436,9 +193,11 @@ export const SiteNavbar: React.FC = () => {
                       className="nav-link cursor-pointer inline-flex items-center gap-1"
                       href="/resources"
                       onClick={(e) => {
-                        if (window.innerWidth < 768) {
+                        if (typeof window !== 'undefined' && window.innerWidth < 992) {
                           e.preventDefault();
                           toggleDropdown('resources');
+                        } else {
+                          closeMobileMenu();
                         }
                       }}>
                       <span>Resources</span>
@@ -449,33 +208,33 @@ export const SiteNavbar: React.FC = () => {
                         activeDropdown === 'resources' ? 'show' : ''
                       }`}>
                       <li>
-                        <a className="dropdown-item" href="/blog/">
+                        <Link className="dropdown-item" href="/blog" onClick={closeMobileMenu}>
                           Blog
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/articles/">
+                        <Link className="dropdown-item" href="/articles" onClick={closeMobileMenu}>
                           Articles
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/case-study/">
+                        <Link className="dropdown-item" href="/case-study" onClick={closeMobileMenu}>
                           Case Studies
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a className="dropdown-item" href="/testimonials.php">
+                        <Link className="dropdown-item" href="/testimonials" onClick={closeMobileMenu}>
                           Testimonials
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </li>
 
                   {/* Contact Us */}
                   <li className="nav-item">
-                    <a className="nav-link menu_hover" href="/contact-us.php">
+                    <Link className="nav-link menu_hover" href="/contact-us" onClick={closeMobileMenu}>
                       Contact us
-                    </a>
+                    </Link>
                   </li>
 
                   {/* Phone CTA Button */}
