@@ -2,12 +2,13 @@
 
 import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay, EffectFade } from "swiper/modules";
+import { Pagination, Autoplay, EffectFade, Navigation } from "swiper/modules";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
+import "swiper/css/navigation";
 
 interface SlideData {
   id: number;
@@ -80,9 +81,9 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="relative overflow-hidden w-full">
+    <div className="relative overflow-hidden w-full group">
       <Swiper
-        modules={[Pagination, Autoplay, EffectFade]}
+        modules={[Pagination, Autoplay, EffectFade, Navigation]}
         effect="fade"
         speed={1500}
         autoplay={{
@@ -96,6 +97,10 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
           el: ".hero-custom-pagination",
           bulletClass: "swiper-pagination-bullet",
           bulletActiveClass: "swiper-pagination-bullet-active",
+        }}
+        navigation={{
+          prevEl: ".hero-slider-prev-btn",
+          nextEl: ".hero-slider-next-btn",
         }}
         className="slide-swiper relative w-full"
       >
@@ -132,7 +137,29 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
             </SwiperSlide>
           );
         })}
-        {/* Custom right-aligned pagination bullets */}
+
+        {/* Sleek Navigation Arrows (Visible on desktop/tablet hover) */}
+        <button
+          type="button"
+          className="hero-slider-prev-btn absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 md:w-12 md:h-12 rounded-full bg-slate-950/40 hover:bg-slate-900/80 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer pointer-events-auto"
+          aria-label="Previous slide"
+        >
+          <svg className="w-5 h-5 -translate-x-0.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <button
+          type="button"
+          className="hero-slider-next-btn absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 md:w-12 md:h-12 rounded-full bg-slate-950/40 hover:bg-slate-900/80 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer pointer-events-auto"
+          aria-label="Next slide"
+        >
+          <svg className="w-5 h-5 translate-x-0.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+
+        {/* Attractive Bottom Centered Floating Glass Dock Pagination */}
         <div className="hero-custom-pagination swiper-pagination swiper-pagination-bullets"></div>
       </Swiper>
     </div>
