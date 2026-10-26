@@ -1,32 +1,26 @@
 """
-Database Connection & Connection Pool Extension.
-Uses psycopg3 (psycopg & psycopg_pool) for PostgreSQL interaction.
-Provides context managers for parameterised raw SQL execution and transaction control.
-Gracefully detects when PostgreSQL is offline to prevent connection pool spam and timeouts.
-NO ORM IS USED.
+Database Extension.
+Manages raw psycopg3 connection pooling to PostgreSQL.
+NO ORM - All database queries are executed via direct parameterized SQL.
 """
 import logging
 import socket
 from contextlib import contextmanager
 from typing import Generator
 from urllib.parse import urlparse
-from flask import Flask, current_app
 
 import psycopg
+from flask import Flask
 from psycopg.rows import dict_row
 from psycopg_pool import ConnectionPool
 
 logger = logging.getLogger("app.database")
 
-# Silence noisy psycopg background connection retry logs
-logging.getLogger("psycopg").setLevel(logging.ERROR)
-logging.getLogger("psycopg.pool").setLevel(logging.ERROR)
-
 _pool: ConnectionPool | None = None
 _db_online: bool = False
 
 
-def _is_server_reachable(conn_url: str, timeout: float = 4.0) -> bool:
+def _is_server_reachable(conn_url: str, timeout: float = 5.0) -> bool:
     """Quick non-blocking check to see if the database host:port is listening."""
     try:
         parsed = urlparse(conn_url)
@@ -44,12 +38,19 @@ def init_db(app: Flask) -> None:
     db_url = app.config.get("DATABASE_URL", "")
     timeout = app.config.get("DB_TIMEOUT", 15)
 
-    # Check if PostgreSQL server is listening
-    if not _is_server_reachable(db_url, timeout=4.0):
-        logger.info("PostgreSQL server is unreachable. App will run in standalone mode without database.")
+    if not db_url:
+        logger.info("No DATABASE_URL configured. App will run in standalone mode.")
         _pool = None
         _db_online = False
         return
+
+    # If running on localhost and not listening, bypass pool creation quickly
+    if "localhost" in db_url or "127.0.0.1" in db_url:
+        if not _is_server_reachable(db_url, timeout=1.5):
+            logger.info("Local PostgreSQL server is unreachable. App will run in standalone mode without database.")
+            _pool = None
+            _db_online = False
+            return
 
     try:
         _pool = ConnectionPool(
@@ -61,10 +62,19 @@ def init_db(app: Flask) -> None:
             max_idle=45.0,
             open=True,
         )
+        # Test connection actively
+        with _pool.connection(timeout=10.0) as conn:
+            with conn.cursor() as cur:
+                cur.execute("SELECT 1")
         _db_online = True
-        logger.info("PostgreSQL connection pool configured and opened successfully.")
+        logger.info("PostgreSQL connection pool configured, opened, and verified successfully.")
     except Exception as e:
-        logger.warning(f"Could not initialize PostgreSQL pool: {e}")
+        logger.warning(f"Could not connect to PostgreSQL pool: {e}. App will run in standalone mode.")
+        if _pool:
+            try:
+                _pool.close()
+            except Exception:
+                pass
         _pool = None
         _db_online = False
 
@@ -117,15 +127,15 @@ def get_db_connection() -> Generator[psycopg.Connection, None, None]:
                 conn.rollback()
                 raise
     except Exception as e:
-        logger.debug(f"Database connection error: {e}")
+        logger.error(f"Database connection error: {e}")
         raise
 
 
 @contextmanager
 def get_db_cursor(commit: bool = True) -> Generator[psycopg.Cursor, None, None]:
     """
-    Context manager yielding a dictionary cursor for executing raw parameterized SQL queries.
+    Convenience context manager yielding a dictionary cursor directly.
     """
     with get_db_connection() as conn:
-        with conn.cursor() as cursor:
+        with conn.cursor(row_factory=dict_row) as cursor:
             yield cursor

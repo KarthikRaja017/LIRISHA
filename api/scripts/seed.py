@@ -1,6 +1,6 @@
 """
 Database Seed Script.
-Populates initial sample user data safely.
+Populates initial sample user data and dynamic content safely into PostgreSQL.
 """
 import os
 import sys
@@ -16,7 +16,7 @@ from psycopg.rows import dict_row
 from werkzeug.security import generate_password_hash
 
 
-def seed_data():
+def seed_users():
     """Seeds initial admin and regular user accounts if not present."""
     db_url = os.getenv("DATABASE_URL")
     if not db_url:
@@ -53,10 +53,20 @@ def seed_data():
                     print(f"User {user_email} already exists.")
 
                 conn.commit()
-        print("Seeding finished successfully.")
+        print("User seeding finished successfully.")
     except Exception as e:
-        print(f"ERROR seeding data: {e}")
+        print(f"ERROR seeding users: {e}")
         sys.exit(1)
+
+
+def seed_data():
+    """Seeds both core users and dynamic CMS content."""
+    seed_users()
+    try:
+        from scripts.seed_dynamic_content import run_seeder
+        run_seeder()
+    except Exception as e:
+        print(f"Warning running dynamic content seeder: {e}")
 
 
 if __name__ == "__main__":
