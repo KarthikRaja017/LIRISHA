@@ -56,10 +56,16 @@ export const SiteNavbar: React.FC = () => {
                 href="/"
                 onClick={closeMobileMenu}>
                 <img
-                  src={logoUrl}
+                  src={logoUrl || '/images/lirisha-camera-logo.png'}
                   alt={`${siteName} logo`}
                   className="header-logo-img"
                   title={`${siteName} logo`}
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== '/images/lirisha-camera-logo.png' && !target.src.endsWith('/images/lirisha-camera-logo.png')) {
+                      target.src = '/images/lirisha-camera-logo.png';
+                    }
+                  }}
                   style={{
                     height: '46px',
                     width: 'auto',

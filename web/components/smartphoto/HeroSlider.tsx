@@ -99,30 +99,39 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
         }}
         className="slide-swiper relative w-full"
       >
-        {activeSlides.map((slide, index) => (
-          <SwiperSlide key={slide.id}>
-            <div className="slider-container relative overflow-hidden w-full">
-              <img
-                src={slide.image}
-                alt={slide.alt}
-                className="slide-img"
-                key={activeIndex === index ? `active-${index}` : `inactive-${index}`}
-              />
-              <div className="slide-content-title">
-                <span className="hero-category-tag">{slide.category}</span>
-                <div>{slide.title}</div>
-                <p>{slide.description}</p>
-                <a
-                  href={slide.link}
-                  className="butn5 butn__new butn-size inline-block"
-                  aria-label={`View more about ${slide.category}`}
-                >
-                  View More
-                </a>
+        {activeSlides.map((slide, index) => {
+          const fallbackBanner = slides[index % slides.length]?.image || "/images/homepage/banner-1.webp";
+          return (
+            <SwiperSlide key={slide.id || index}>
+              <div className="slider-container relative overflow-hidden w-full">
+                <img
+                  src={slide.image || fallbackBanner}
+                  alt={slide.alt || "Banner"}
+                  className="slide-img"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (target.src !== fallbackBanner && !target.src.endsWith(fallbackBanner)) {
+                      target.src = fallbackBanner;
+                    }
+                  }}
+                  key={activeIndex === index ? `active-${index}` : `inactive-${index}`}
+                />
+                <div className="slide-content-title">
+                  <span className="hero-category-tag">{slide.category}</span>
+                  <div>{slide.title}</div>
+                  <p>{slide.description}</p>
+                  <a
+                    href={slide.link}
+                    className="butn5 butn__new butn-size inline-block"
+                    aria-label={`View more about ${slide.category}`}
+                  >
+                    View More
+                  </a>
+                </div>
               </div>
-            </div>
-          </SwiperSlide>
-        ))}
+            </SwiperSlide>
+          );
+        })}
         {/* Custom right-aligned pagination bullets */}
         <div className="hero-custom-pagination swiper-pagination swiper-pagination-bullets"></div>
       </Swiper>

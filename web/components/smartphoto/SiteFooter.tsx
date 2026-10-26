@@ -159,10 +159,16 @@ export const SiteFooter: React.FC = () => {
           style={{ borderBottomColor: 'var(--surface-dark)' }}>
           <div className="inline-flex items-center gap-3 justify-center mb-3">
             <img
-              src={footerLogo}
+              src={footerLogo || '/images/lirisha-camera-logo.png'}
               alt={`${siteName} Footer logo`}
               className="footer-logo-img mx-auto"
               title={`${siteName} Footer logo`}
+              onError={(e) => {
+                const target = e.currentTarget;
+                if (target.src !== '/images/lirisha-camera-logo.png' && !target.src.endsWith('/images/lirisha-camera-logo.png')) {
+                  target.src = '/images/lirisha-camera-logo.png';
+                }
+              }}
               style={{
                 height: '46px',
                 width: 'auto',

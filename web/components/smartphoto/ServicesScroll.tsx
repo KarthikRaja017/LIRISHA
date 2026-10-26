@@ -173,16 +173,23 @@ export const ServicesScroll: React.FC<ServicesScrollProps> = ({ initialData }) =
                     <div className="row g-4 items-stretch justify-center">
                       {pair.map((card, cIdx) => {
                         const cleanLink = card.link ? card.link.replace(/\.php$/, "") : "/services";
+                        const defaultCardImg = defaultCards[(pIdx * 2 + cIdx) % defaultCards.length]?.image || "/images/homepage/real-estate.webp";
                         return (
                           <div key={cIdx} className="col-md-6 col-lg-6 col-xl-6 flex">
                             <div className="image-editing-box bg-white w-full rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group">
                               <Link href={cleanLink} className="block flex-1 flex flex-col justify-between">
                                 <div className="overflow-hidden rounded-xl bg-gray-100 aspect-[628/332] mb-3.5 relative shadow-inner">
                                   <img
-                                    src={card.image}
+                                    src={card.image || defaultCardImg}
                                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-xl"
                                     alt={card.alt || card.title}
                                     loading="lazy"
+                                    onError={(e) => {
+                                      const target = e.currentTarget;
+                                      if (target.src !== defaultCardImg && !target.src.endsWith(defaultCardImg)) {
+                                        target.src = defaultCardImg;
+                                      }
+                                    }}
                                   />
                                 </div>
                                 <h3 className="flex items-center justify-between text-base sm:text-lg font-bold text-gray-900 group-hover:text-[#1265E8] transition-colors m-0 pt-1">
