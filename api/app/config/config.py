@@ -18,8 +18,9 @@ load_dotenv()
 
 def sanitize_database_url(url: str) -> str:
     """
-    Safely normalizes DATABASE_URL if the password contains unencoded special characters
-    like '@', '#', or '*' which would otherwise break URI parsing in psycopg.
+    Safely normalizes DATABASE_URL:
+    1. Handles passwords containing unencoded special characters ('@', '#', '*')
+    2. Ensures sslmode=require for cloud-hosted databases like Supabase
     """
     if not url or not url.startswith(("postgresql://", "postgres://")):
         return url
@@ -38,7 +39,14 @@ def sanitize_database_url(url: str) -> str:
     user, raw_password = user_pass_part.split(":", 1)
     unquoted = urllib.parse.unquote(raw_password)
     encoded_pass = urllib.parse.quote(unquoted, safe="")
-    return f"{prefix}{user}:{encoded_pass}@{host_db_part}"
+    normalized = f"{prefix}{user}:{encoded_pass}@{host_db_part}"
+
+    # Ensure sslmode=require for Supabase / cloud connections
+    if "supabase.com" in normalized and "sslmode" not in normalized:
+        separator = "&" if "?" in normalized else "?"
+        normalized = f"{normalized}{separator}sslmode=require"
+
+    return normalized
 
 
 class Config:
@@ -48,7 +56,7 @@ class Config:
         os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/project_db")
     )
     DB_MIN_CONN: int = int(os.getenv("DB_MIN_CONN", "1"))
-    DB_MAX_CONN: int = int(os.getenv("DB_MAX_CONN", "10"))
+    DB_MAX_CONN: int = int(os.getenv("DB_MAX_CONN", "5"))
     DB_TIMEOUT: int = int(os.getenv("DB_TIMEOUT", "15"))
 
     JWT_SECRET_KEY: str = os.getenv("JWT_SECRET_KEY", "jwt-secret-key-change-in-production")
@@ -74,7 +82,7 @@ class DevelopmentConfig(Config):
 class ProductionConfig(Config):
     """Production Configuration."""
     DEBUG: bool = False
-    LOG_LEVEL: str = "WARNING"
+    LOG_LEVEL: str = "INFO"
 
 
 class TestingConfig(Config):
