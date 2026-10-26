@@ -10,7 +10,7 @@ from typing import Generator
 from urllib.parse import urlparse
 
 import psycopg
-from flask import Flask
+from flask import Flask, current_app
 from psycopg.rows import dict_row
 from psycopg_pool import ConnectionPool
 
@@ -53,6 +53,12 @@ def init_db(app: Flask) -> None:
             return
 
     try:
+        if _pool and not _pool.closed:
+            try:
+                _pool.close()
+            except Exception:
+                pass
+
         _pool = ConnectionPool(
             conninfo=db_url,
             min_size=0,
@@ -99,6 +105,16 @@ def get_pool() -> ConnectionPool | None:
 
 def is_db_online() -> bool:
     """Returns True if the database pool is active and online."""
+    global _pool, _db_online
+    if not _db_online or not _pool:
+        # Self-healing retry if running in web request context
+        try:
+            if current_app:
+                db_url = current_app.config.get("DATABASE_URL", "")
+                if db_url and "localhost" not in db_url:
+                    init_db(current_app)
+        except Exception:
+            pass
     return _db_online and _pool is not None
 
 
@@ -109,6 +125,16 @@ def get_db_connection() -> Generator[psycopg.Connection, None, None]:
     Handles commit on success and rollback on exception.
     """
     global _pool, _db_online
+    if not _pool or not _db_online:
+        # Self-healing retry on demand
+        try:
+            if current_app:
+                db_url = current_app.config.get("DATABASE_URL", "")
+                if db_url and "localhost" not in db_url:
+                    init_db(current_app)
+        except Exception:
+            pass
+
     if not _pool or not _db_online:
         raise RuntimeError("PostgreSQL database is offline or unreachable.")
 
