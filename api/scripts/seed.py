@@ -32,14 +32,20 @@ def seed_users():
             with conn.cursor() as cursor:
                 # Seed Admin
                 cursor.execute("SELECT id FROM users WHERE email = %s", (admin_email,))
-                if not cursor.fetchone():
+                existing_admin = cursor.fetchone()
+                if not existing_admin:
                     cursor.execute("""
                         INSERT INTO users (email, password_hash, first_name, last_name, role, is_active)
                         VALUES (%s, %s, %s, %s, %s, true)
                     """, (admin_email, default_password, "System", "Admin", "admin"))
                     print(f"Seeded admin user: {admin_email}")
                 else:
-                    print(f"Admin user {admin_email} already exists.")
+                    cursor.execute("""
+                        UPDATE users
+                        SET password_hash = %s, role = 'admin', is_active = true
+                        WHERE email = %s
+                    """, (default_password, admin_email))
+                    print(f"Admin user {admin_email} updated with latest credentials.")
 
                 # Seed Regular User
                 cursor.execute("SELECT id FROM users WHERE email = %s", (user_email,))
