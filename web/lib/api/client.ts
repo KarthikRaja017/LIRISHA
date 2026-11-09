@@ -59,14 +59,42 @@ class ApiClient {
       headers["Content-Type"] = "application/json";
     }
 
+    let response: Response;
     try {
-      const response = await fetch(url, {
+      try {
+      response = await fetch(url, {
         method,
         headers,
         body: isFormData ? (body as any) : (body ? JSON.stringify(body) : undefined),
         signal: controller.signal,
         ...rest,
       });
+
+      } catch (fetchErr: unknown) {
+        // If local backend is down (connection refused / false-flag CORS error because server is not running),
+        // seamlessly retry against the live production Render API
+        if (
+          url.includes("localhost:8000") ||
+          url.includes("127.0.0.1:8000")
+        ) {
+          const fallbackUrl = url.replace(
+            /https?:\/\/(localhost|127\.0\.0\.1):8000\/api\/v1/,
+            "https://lirisha-api.onrender.com/api/v1"
+          );
+          console.warn(
+            `[ApiClient] Local server offline at ${url}. Seamlessly falling back to live API: ${fallbackUrl}`
+          );
+          response = await fetch(fallbackUrl, {
+            method,
+            headers,
+            body: isFormData ? (body as any) : (body ? JSON.stringify(body) : undefined),
+            signal: controller.signal,
+            ...rest,
+          });
+        } else {
+          throw fetchErr;
+        }
+      }
 
       clearTimeout(timeoutId);
 
