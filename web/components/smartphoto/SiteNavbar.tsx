@@ -13,9 +13,14 @@ export const SiteNavbar: React.FC = () => {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<'services' | 'resources' | null>(null);
-  const [mobileExpandedCat, setMobileExpandedCat] = useState<string | null>(null);
-  const [services, setServices] = useState<ServiceCategory[]>(FALLBACK_SERVICES);
+  const [activeDropdown, setActiveDropdown] = useState<
+    'services' | 'resources' | null
+  >(null);
+  const [mobileExpandedCat, setMobileExpandedCat] = useState<string | null>(
+    null,
+  );
+  const [services, setServices] =
+    useState<ServiceCategory[]>(FALLBACK_SERVICES);
   const dropdownTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const rawLogo = getSettingValue('site_logo', '');
@@ -76,18 +81,36 @@ export const SiteNavbar: React.FC = () => {
     setMobileExpandedCat(null);
   };
 
-  // Helper icon selector for service categories
+  // Helper icon selector for service categories - inherits color dynamically
   const getCategoryIcon = (slug?: string, iconClass?: string) => {
-    if (iconClass) return <i className={`${iconClass} text-blue-600 text-sm`} />;
+    const base = 'text-sm transition-colors duration-150';
+    if (iconClass) return <i className={`${iconClass} ${base}`} />;
     const s = (slug || '').toLowerCase();
-    if (s.includes('clipping')) return <i className="fa-solid fa-scissors text-blue-600 text-sm" />;
-    if (s.includes('portrait')) return <i className="fa-solid fa-user text-blue-600 text-sm" />;
-    if (s.includes('real-estate')) return <i className="fa-solid fa-building text-blue-600 text-sm" />;
-    if (s.includes('ecommerce')) return <i className="fa-solid fa-cart-shopping text-blue-600 text-sm" />;
-    if (s.includes('jewelry')) return <i className="fa-solid fa-gem text-blue-600 text-sm" />;
-    if (s.includes('photoshop')) return <i className="fa-solid fa-wand-magic-sparkles text-blue-600 text-sm" />;
-    if (s.includes('fashion')) return <i className="fa-solid fa-shirt text-blue-600 text-sm" />;
-    return <i className="fa-solid fa-camera text-blue-600 text-sm" />;
+    if (s.includes('clipping')) return <i className={`fa-solid fa-scissors ${base}`} />;
+    if (s.includes('portrait')) return <i className={`fa-solid fa-user ${base}`} />;
+    if (s.includes('real-estate')) return <i className={`fa-solid fa-building ${base}`} />;
+    if (s.includes('ecommerce')) return <i className={`fa-solid fa-cart-shopping ${base}`} />;
+    if (s.includes('jewelry')) return <i className={`fa-solid fa-gem ${base}`} />;
+    if (s.includes('photoshop')) return <i className={`fa-solid fa-wand-magic-sparkles ${base}`} />;
+    if (s.includes('fashion')) return <i className={`fa-solid fa-shirt ${base}`} />;
+    if (s.includes('lightroom')) return <i className={`fa-solid fa-sliders ${base}`} />;
+    if (s.includes('restoration')) return <i className={`fa-solid fa-clock-rotate-left ${base}`} />;
+    return <i className={`fa-solid fa-camera ${base}`} />;
+  };
+
+  // Helper tagline selector for clean, concise service labels without ugly truncation
+  const getCategoryTagline = (slug?: string, defaultDesc?: string) => {
+    const s = (slug || '').toLowerCase();
+    if (s.includes('ecommerce')) return 'Pure white #FFFFFF & shadow creation';
+    if (s.includes('fashion')) return 'Ghost mannequin & studio apparel';
+    if (s.includes('clipping')) return 'Handcrafted vector pen paths';
+    if (s.includes('jewelry')) return 'Facet sparkle & high-end metal polish';
+    if (s.includes('lightroom')) return 'Batch RAW color grading & correction';
+    if (s.includes('restoration')) return 'Vintage scratch & damage repair';
+    if (s.includes('photoshop')) return 'Creative retouch & photo composites';
+    if (s.includes('real-estate')) return 'HDR exposure blending & twilight';
+    if (s.includes('portrait')) return 'Skin smoothing & frequency separation';
+    return defaultDesc || 'Specialized post-production';
   };
 
   return (
@@ -96,8 +119,7 @@ export const SiteNavbar: React.FC = () => {
         isScrolled
           ? 'bg-white/95 backdrop-blur-xl border-b border-slate-200/80 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.06)]'
           : 'bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm'
-      }`}
-    >
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-[68px]">
           {/* Logo & Brand */}
@@ -106,8 +128,7 @@ export const SiteNavbar: React.FC = () => {
               href="/"
               onClick={closeMobileMenu}
               className="flex items-center group transition-transform duration-200 hover:scale-[1.02]"
-              aria-label={`${siteName} Homepage`}
-            >
+              aria-label={`${siteName} Homepage`}>
               <img
                 src={logoUrl}
                 alt={siteName}
@@ -128,22 +149,27 @@ export const SiteNavbar: React.FC = () => {
             <div
               className="relative"
               onMouseEnter={() => handleMouseEnter('services')}
-              onMouseLeave={handleMouseLeave}
-            >
+              onMouseLeave={handleMouseLeave}>
               <button
                 type="button"
                 className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
-                  activeDropdown === 'services' || pathname.startsWith('/services')
+                  activeDropdown === 'services' ||
+                  pathname.startsWith('/services')
                     ? 'text-blue-600 bg-blue-50/80 font-semibold'
                     : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
                 }`}
-                onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
-                aria-expanded={activeDropdown === 'services'}
-              >
+                onClick={() =>
+                  setActiveDropdown(
+                    activeDropdown === 'services' ? null : 'services',
+                  )
+                }
+                aria-expanded={activeDropdown === 'services'}>
                 <span>Services</span>
                 <i
                   className={`fa-solid fa-chevron-down text-[10px] transition-transform duration-200 ${
-                    activeDropdown === 'services' ? 'rotate-180 text-blue-600' : 'text-slate-400'
+                    activeDropdown === 'services'
+                      ? 'rotate-180 text-blue-600'
+                      : 'text-slate-400'
                   }`}
                 />
               </button>
@@ -151,31 +177,37 @@ export const SiteNavbar: React.FC = () => {
               {/* Mega-Flyout Panel */}
               {activeDropdown === 'services' && (
                 <div
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[780px] xl:w-[880px] animate-in fade-in zoom-in-95 duration-150"
+                  className="absolute top-full -left-2 xl:-left-4 pt-2.5 w-[760px] xl:w-[820px] animate-in fade-in-50 zoom-in-95 duration-150 z-50"
                   onMouseEnter={() => handleMouseEnter('services')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="bg-white rounded-2xl shadow-2xl border border-slate-200/90 p-6 overflow-hidden">
-                    <div className="flex items-center justify-between pb-4 mb-4 border-b border-slate-100">
-                      <div>
-                        <h3 className="text-base font-bold text-slate-900">
-                          Professional Photo Editing Services
-                        </h3>
-                        <p className="text-xs text-slate-500 mt-0.5">
-                          High-volume studio outsourcing with 12–24h rush delivery
-                        </p>
+                  <div className="bg-white/98 backdrop-blur-2xl rounded-2xl shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18),0_0_1px_1px_rgba(15,23,42,0.06)] border border-slate-200/90 p-5 overflow-hidden">
+                    {/* Header */}
+                    <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-100">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center text-xs">
+                          <i className="fa-solid fa-layer-group" />
+                        </div>
+                        <div>
+                          <h3 className="text-sm font-bold text-slate-900 leading-none">
+                            Studio Photo Editing Services
+                          </h3>
+                          <p className="text-[11.5px] text-slate-500 mt-1">
+                            High-volume studio outsourcing • 12–24h rush delivery • ISO 9001 certified
+                          </p>
+                        </div>
                       </div>
                       <Link
                         href="/services"
-                        className="text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 group/all whitespace-nowrap"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50/70 hover:bg-blue-100/70 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
                       >
                         <span>Browse All Services</span>
-                        <i className="fa-solid fa-arrow-right text-[10px] transition-transform group-hover/all:translate-x-0.5" />
+                        <i className="fa-solid fa-arrow-right text-[10px]" />
                       </Link>
                     </div>
 
                     {/* Services 3-Column Grid */}
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-2.5">
                       {services.slice(0, 9).map((cat) => {
                         const catKey = cat.slug || cat.id;
                         const catUrl = `/${catKey}`;
@@ -183,19 +215,20 @@ export const SiteNavbar: React.FC = () => {
                           <Link
                             key={catKey}
                             href={catUrl}
-                            className="group/item flex items-start gap-2.5 p-2 rounded-xl transition-all duration-150 hover:bg-slate-50/90 border border-transparent hover:border-slate-200/60"
+                            className="group/item flex items-center gap-3 p-2.5 rounded-xl transition-all duration-150 hover:bg-slate-50 border border-transparent hover:border-slate-200/70 hover:shadow-xs"
                           >
-                            <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100/80 flex items-center justify-center flex-shrink-0 group-hover/item:bg-blue-600 group-hover/item:border-blue-600 transition-colors duration-150">
-                              <span className="group-hover/item:text-white transition-colors">
-                                {getCategoryIcon(cat.slug, cat.iconClass)}
-                              </span>
+                            <div className="w-9 h-9 rounded-xl bg-blue-50/90 border border-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white group-hover/item:border-blue-600 transition-all duration-150 shadow-xs">
+                              {getCategoryIcon(cat.slug, cat.iconClass)}
                             </div>
-                            <div className="min-w-0">
-                              <h4 className="text-xs font-bold text-slate-800 group-hover/item:text-blue-600 transition-colors truncate">
-                                {cat.name}
-                              </h4>
-                              <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
-                                {cat.shortDesc || cat.tagline || 'Specialized post-processing'}
+                            <div className="min-w-0 flex-1">
+                              <div className="flex items-center justify-between">
+                                <h4 className="text-[12.5px] font-bold text-slate-800 group-hover/item:text-blue-600 transition-colors truncate">
+                                  {cat.name}
+                                </h4>
+                                <i className="fa-solid fa-chevron-right text-[8.5px] text-slate-300 opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:text-blue-500 transition-all duration-150" />
+                              </div>
+                              <p className="text-[11px] text-slate-400 group-hover/item:text-slate-500 transition-colors truncate mt-0.5">
+                                {getCategoryTagline(cat.slug, cat.shortDesc)}
                               </p>
                             </div>
                           </Link>
@@ -204,21 +237,21 @@ export const SiteNavbar: React.FC = () => {
                     </div>
 
                     {/* Highlight Footer Banner */}
-                    <div className="mt-4 pt-3.5 border-t border-slate-100 flex items-center justify-between bg-slate-50/80 -mx-6 -mb-6 px-6 py-3">
-                      <div className="flex items-center gap-2">
+                    <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/80 -mx-5 -mb-5 px-5 py-3 rounded-b-2xl">
+                      <div className="flex items-center gap-2 text-xs">
                         <span className="flex h-2 w-2 relative">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                          <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
                         </span>
-                        <span className="text-xs font-medium text-slate-700">
-                          Free Sample Edit: Test our quality with up to 5 trial images.
-                        </span>
+                        <span className="font-semibold text-slate-900">Try Before You Commit:</span>
+                        <span className="text-slate-500 hidden sm:inline">Test our speed &amp; quality with up to 5 free trial images.</span>
                       </div>
                       <Link
                         href="/contact-us"
-                        className="text-xs font-bold text-blue-600 hover:text-blue-700 uppercase tracking-wider whitespace-nowrap"
+                        className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-white hover:bg-blue-600 border border-blue-200 hover:border-blue-600 bg-white px-3 py-1.5 rounded-full transition-all duration-150 shadow-xs whitespace-nowrap"
                       >
-                        Claim Free Trial →
+                        <span>Claim 5 Free Edits</span>
+                        <i className="fa-solid fa-arrow-right text-[10px]" />
                       </Link>
                     </div>
                   </div>
@@ -233,8 +266,7 @@ export const SiteNavbar: React.FC = () => {
                 pathname === '/sample-images'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
                   : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
-              }`}
-            >
+              }`}>
               Portfolio
             </Link>
 
@@ -245,8 +277,7 @@ export const SiteNavbar: React.FC = () => {
                 pathname === '/about-us'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
                   : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
-              }`}
-            >
+              }`}>
               About Us
             </Link>
 
@@ -257,8 +288,7 @@ export const SiteNavbar: React.FC = () => {
                 pathname === '/pricing'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
                   : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
-              }`}
-            >
+              }`}>
               Pricing
             </Link>
 
@@ -266,87 +296,103 @@ export const SiteNavbar: React.FC = () => {
             <div
               className="relative"
               onMouseEnter={() => handleMouseEnter('resources')}
-              onMouseLeave={handleMouseLeave}
-            >
+              onMouseLeave={handleMouseLeave}>
               <button
                 type="button"
                 className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
-                  activeDropdown === 'resources' || pathname.startsWith('/resources')
+                  activeDropdown === 'resources' ||
+                  pathname.startsWith('/resources')
                     ? 'text-blue-600 bg-blue-50/80 font-semibold'
                     : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
                 }`}
-                onClick={() => setActiveDropdown(activeDropdown === 'resources' ? null : 'resources')}
-                aria-expanded={activeDropdown === 'resources'}
-              >
+                onClick={() =>
+                  setActiveDropdown(
+                    activeDropdown === 'resources' ? null : 'resources',
+                  )
+                }
+                aria-expanded={activeDropdown === 'resources'}>
                 <span>Resources</span>
                 <i
                   className={`fa-solid fa-chevron-down text-[10px] transition-transform duration-200 ${
-                    activeDropdown === 'resources' ? 'rotate-180 text-blue-600' : 'text-slate-400'
+                    activeDropdown === 'resources'
+                      ? 'rotate-180 text-blue-600'
+                      : 'text-slate-400'
                   }`}
                 />
               </button>
 
               {activeDropdown === 'resources' && (
                 <div
-                  className="absolute top-full left-0 pt-2 w-64 animate-in fade-in zoom-in-95 duration-150"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-72 animate-in fade-in-50 zoom-in-95 duration-150 z-50"
                   onMouseEnter={() => handleMouseEnter('resources')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="bg-white rounded-2xl shadow-xl border border-slate-200/90 p-2 overflow-hidden">
+                  <div className="bg-white/98 backdrop-blur-2xl rounded-2xl shadow-[0_20px_50px_-15px_rgba(15,23,42,0.18),0_0_1px_1px_rgba(15,23,42,0.06)] border border-slate-200/90 p-2.5 overflow-hidden">
                     <Link
                       href="/blog"
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600 whitespace-nowrap"
+                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
                     >
-                      <i className="fa-regular fa-newspaper text-slate-400 w-4 text-center" />
-                      <div>
-                        <div className="text-xs font-bold">Studio Blog</div>
-                        <div className="text-[11px] text-slate-400">Industry insights & guides</div>
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
+                        <i className="fa-regular fa-newspaper text-xs" />
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Studio Blog</div>
+                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Industry insights &amp; guides</div>
+                      </div>
+                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
                     </Link>
                     <Link
                       href="/case-study"
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600 whitespace-nowrap"
+                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
                     >
-                      <i className="fa-solid fa-chart-line text-slate-400 w-4 text-center" />
-                      <div>
-                        <div className="text-xs font-bold">Case Studies</div>
-                        <div className="text-[11px] text-slate-400">Real client scaling results</div>
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
+                        <i className="fa-solid fa-chart-line text-xs" />
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Case Studies</div>
+                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Real client scaling results</div>
+                      </div>
+                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
                     </Link>
                     <Link
                       href="/articles"
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600 whitespace-nowrap"
+                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
                     >
-                      <i className="fa-solid fa-book-open text-slate-400 w-4 text-center" />
-                      <div>
-                        <div className="text-xs font-bold">Resource Articles</div>
-                        <div className="text-[11px] text-slate-400">Technical workflows & tips</div>
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
+                        <i className="fa-solid fa-book-open text-xs" />
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Resource Articles</div>
+                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Technical workflows &amp; tips</div>
+                      </div>
+                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
                     </Link>
                     <Link
                       href="/testimonials"
-                      className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-slate-50 transition-colors text-slate-700 hover:text-blue-600 whitespace-nowrap"
+                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
                     >
-                      <i className="fa-regular fa-comments text-slate-400 w-4 text-center" />
-                      <div>
-                        <div className="text-xs font-bold">Client Testimonials</div>
-                        <div className="text-[11px] text-slate-400">Reviews from photographers</div>
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
+                        <i className="fa-regular fa-comments text-xs" />
                       </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Client Testimonials</div>
+                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Reviews from photographers</div>
+                      </div>
+                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
                     </Link>
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Contact */}
+            {/* Contact */}{/* Contact */}
             <Link
               href="/contact-us"
               className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/contact-us'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
                   : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
-              }`}
-            >
+              }`}>
               Contact
             </Link>
           </nav>
@@ -354,32 +400,11 @@ export const SiteNavbar: React.FC = () => {
           {/* Right Action Buttons */}
           <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
             <div className="hidden xl:block h-4 w-px bg-slate-200/90 mr-1" />
-            {/* Direct Phone Link */}
-            {contactPhone && (
-              <a
-                href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}
-                className="hidden 2xl:inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-blue-600 transition-colors px-2 py-1.5 rounded-lg hover:bg-slate-50 whitespace-nowrap"
-                title="Call our specialists"
-              >
-                <i className="fa-solid fa-phone text-blue-500 text-xs" />
-                <span>{contactPhone}</span>
-              </a>
-            )}
-
-            {/* Sign In Link */}
-            <Link
-              href="/login"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap"
-            >
-              <i className="fa-regular fa-user text-xs opacity-75" />
-              <span>Sign In</span>
-            </Link>
 
             {/* Primary Action Button: Free Trial / Instant Quote */}
             <Link
               href="/contact-us"
-              className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-sm shadow-blue-500/20 transition-all duration-150 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-95 whitespace-nowrap"
-            >
+              className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-sm shadow-blue-500/20 transition-all duration-150 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-95 whitespace-nowrap">
               <span>Get Free Quote</span>
               <i className="fa-solid fa-arrow-right text-[10px] transition-transform duration-200 group-hover:translate-x-1" />
             </Link>
@@ -389,8 +414,7 @@ export const SiteNavbar: React.FC = () => {
           <div className="flex lg:hidden items-center gap-2">
             <Link
               href="/contact-us"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm"
-            >
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm">
               <span>Free Quote</span>
             </Link>
 
@@ -399,8 +423,7 @@ export const SiteNavbar: React.FC = () => {
               onClick={() => setIsOpen(!isOpen)}
               className="w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition-colors focus:outline-none"
               aria-label="Toggle Navigation Menu"
-              aria-expanded={isOpen}
-            >
+              aria-expanded={isOpen}>
               {isOpen ? (
                 <i className="fa-solid fa-xmark text-lg text-slate-800" />
               ) : (
@@ -420,8 +443,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/services"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors"
-              >
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
                 <span>All Services</span>
                 <i className="fa-solid fa-chevron-right text-xs text-slate-400" />
               </Link>
@@ -437,8 +459,7 @@ export const SiteNavbar: React.FC = () => {
                         <Link
                           href={`/${catKey}`}
                           onClick={closeMobileMenu}
-                          className="flex items-center gap-2 py-1.5 text-xs font-semibold text-slate-700 hover:text-blue-600"
-                        >
+                          className="flex items-center gap-2 py-1.5 text-xs font-semibold text-slate-700 hover:text-blue-600">
                           <span className="w-5 text-center text-xs text-blue-600">
                             {getCategoryIcon(cat.slug, cat.iconClass)}
                           </span>
@@ -451,8 +472,7 @@ export const SiteNavbar: React.FC = () => {
                               setMobileExpandedCat(isExpanded ? null : catKey)
                             }
                             className="p-1 text-slate-400 hover:text-slate-600"
-                            aria-label={`Expand ${cat.name}`}
-                          >
+                            aria-label={`Expand ${cat.name}`}>
                             <i
                               className={`fa-solid fa-chevron-down text-[10px] transition-transform ${
                                 isExpanded ? 'rotate-180' : ''
@@ -474,8 +494,7 @@ export const SiteNavbar: React.FC = () => {
                                 key={sIdx}
                                 href={subLink}
                                 onClick={closeMobileMenu}
-                                className="block py-1 text-[11px] text-slate-600 hover:text-blue-600 truncate"
-                              >
+                                className="block py-1 text-[11px] text-slate-600 hover:text-blue-600 truncate">
                                 {sub.name}
                               </Link>
                             );
@@ -490,8 +509,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/sample-images"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors"
-              >
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
                 <span>Portfolio</span>
                 <i className="fa-solid fa-chevron-right text-xs text-slate-400" />
               </Link>
@@ -499,8 +517,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/about-us"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors"
-              >
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
                 <span>About Us</span>
                 <i className="fa-solid fa-chevron-right text-xs text-slate-400" />
               </Link>
@@ -508,8 +525,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/pricing"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors"
-              >
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
                 <span>Pricing</span>
                 <i className="fa-solid fa-chevron-right text-xs text-slate-400" />
               </Link>
@@ -517,8 +533,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/blog"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors"
-              >
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
                 <span>Studio Blog</span>
                 <i className="fa-solid fa-chevron-right text-xs text-slate-400" />
               </Link>
@@ -526,8 +541,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/contact-us"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors"
-              >
+                className="flex items-center justify-between px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
                 <span>Contact Us</span>
                 <i className="fa-solid fa-chevron-right text-xs text-slate-400" />
               </Link>
@@ -538,8 +552,7 @@ export const SiteNavbar: React.FC = () => {
               {contactPhone && (
                 <a
                   href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}
-                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold"
-                >
+                  className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-bold">
                   <i className="fa-solid fa-phone text-blue-600 text-xs" />
                   <span>Call {contactPhone}</span>
                 </a>
@@ -548,8 +561,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/login"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold uppercase tracking-wider"
-              >
+                className="flex items-center justify-center gap-2 w-full py-2.5 rounded-xl bg-slate-900 text-white text-xs font-bold uppercase tracking-wider">
                 <i className="fa-regular fa-user text-xs" />
                 <span>Sign In to Portal</span>
               </Link>
@@ -557,8 +569,7 @@ export const SiteNavbar: React.FC = () => {
               <Link
                 href="/contact-us"
                 onClick={closeMobileMenu}
-                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-blue-500/25"
-              >
+                className="flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 text-white text-xs font-bold uppercase tracking-wider shadow-lg shadow-blue-500/25">
                 <span>Get Free Quote &amp; 5 Free Edits</span>
                 <i className="fa-solid fa-arrow-right text-xs" />
               </Link>
