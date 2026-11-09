@@ -65,7 +65,10 @@ class Config:
 
     CORS_ORIGINS: List[str] = [
         origin.strip()
-        for origin in os.getenv("CORS_ORIGINS", "http://localhost:3000,http://127.0.0.1:3000").split(",")
+        for origin in os.getenv(
+            "CORS_ORIGINS",
+            "*,http://localhost:3000,http://127.0.0.1:3000,https://lirisha1.vercel.app"
+        ).split(",")
         if origin.strip()
     ]
     LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")

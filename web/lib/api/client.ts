@@ -4,15 +4,22 @@ import { ApiError } from "./errors";
 import { getToken } from "@/lib/auth/token";
 
 class ApiClient {
-  private baseUrl: string;
+  private baseUrl?: string;
 
-  constructor(baseUrl: string = APP_CONFIG.apiUrl) {
-    this.baseUrl = baseUrl.replace(/\/$/, "");
+  constructor(baseUrl?: string) {
+    if (baseUrl) {
+      this.baseUrl = baseUrl.replace(/\/$/, "");
+    }
+  }
+
+  private getBaseUrl(): string {
+    const raw = this.baseUrl || APP_CONFIG.apiUrl;
+    return raw.replace(/\/$/, "");
   }
 
   private buildUrl(endpoint: string, params?: Record<string, string | number | boolean | undefined | null>): string {
     const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
-    const url = new URL(`${this.baseUrl}${cleanEndpoint}`);
+    const url = new URL(`${this.getBaseUrl()}${cleanEndpoint}`);
 
     if (params) {
       Object.entries(params).forEach(([key, value]) => {

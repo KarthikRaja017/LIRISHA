@@ -49,6 +49,14 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async rewrites() {
+    return [
+      {
+        source: "/api/proxy/:path*",
+        destination: "https://lirisha-api.onrender.com/api/v1/:path*",
+      },
+    ];
+  },
   async redirects() {
     return [
       {
