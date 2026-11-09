@@ -17,32 +17,28 @@ interface FooterLinkItem {
 }
 
 const defaultQuickLinks: FooterLinkItem[] = [
-  { id: 'ql-1', label: 'Services', url: '/services' },
-  { id: 'ql-2', label: 'Resources', url: '/resources' },
-  { id: 'ql-3', label: 'About Us', url: '/about-us' },
-  { id: 'ql-4', label: 'Contact Us', url: '/contact-us' },
-  { id: 'ql-5', label: 'Portfolio', url: '/sample-images' },
-  { id: 'ql-login', label: 'Login', url: '/login' },
-  { id: 'ql-6', label: 'Blog', url: '/blog' },
-  { id: 'ql-7', label: 'Sitemap', url: '/sitemap' },
+  { id: 'ql-1', label: 'All Services', url: '/services' },
+  { id: 'ql-2', label: 'Sample Portfolio', url: '/sample-images' },
+  { id: 'ql-3', label: 'About Our Studio', url: '/about-us' },
+  { id: 'ql-4', label: 'Pricing & Packages', url: '/pricing' },
+  { id: 'ql-5', label: 'Contact Us', url: '/contact-us' },
+  { id: 'ql-6', label: 'Client & Admin Portal', url: '/login' },
+  { id: 'ql-7', label: 'Studio Blog', url: '/blog' },
   { id: 'ql-8', label: 'Case Studies', url: '/case-study' },
-  { id: 'ql-9', label: 'Resource Articles', url: '/articles' },
-  { id: 'ql-10', label: 'Accessories', url: '/accessories' },
-  { id: 'ql-11', label: 'Testimonials', url: '/testimonials' },
-  { id: 'ql-12', label: 'Privacy Policy', url: '/privacy-policy' },
+  { id: 'ql-9', label: 'Testimonials', url: '/testimonials' },
+  { id: 'ql-10', label: 'Privacy Policy', url: '/privacy-policy' },
 ];
 
 const defaultFeatureLinks: FooterLinkItem[] = [
-  { id: 'fl-1', label: 'Security', url: '/security' },
-  { id: 'fl-2', label: 'Quality', url: '/quality' },
-  { id: 'fl-3', label: '24/7 Coverage', url: '/247-coverage' },
-  { id: 'fl-4', label: 'Pricing', url: '/pricing' },
-  { id: 'fl-5', label: 'Benefits', url: '/benefits' },
-  { id: 'fl-6', label: 'Quick Delivery', url: '/turnaround-time' },
-  { id: 'fl-7', label: '100% Compliance Software', url: '/compliant-software' },
-  { id: 'fl-8', label: 'Adobe specialized artists', url: '/adobe-specialized-artists' },
+  { id: 'fl-1', label: 'Data Security & NDA', url: '/security' },
+  { id: 'fl-2', label: 'Quality Guarantee', url: '/quality' },
+  { id: 'fl-3', label: '24/7 Global Production', url: '/247-coverage' },
+  { id: 'fl-4', label: '12h Rush Turnaround', url: '/turnaround-time' },
+  { id: 'fl-5', label: 'Outsource Benefits', url: '/benefits' },
+  { id: 'fl-6', label: 'Compliant Software', url: '/compliant-software' },
+  { id: 'fl-7', label: 'Adobe-Certified Artists', url: '/adobe-specialized-artists' },
+  { id: 'fl-8', label: 'Photo Terminology Glossary', url: '/glossary' },
   { id: 'fl-9', label: 'Sitemap', url: '/sitemap' },
-  { id: 'fl-10', label: 'Glossary', url: '/glossary' },
 ];
 
 export const SiteFooter: React.FC = () => {
@@ -57,7 +53,7 @@ export const SiteFooter: React.FC = () => {
   );
   const brandDesc = getSettingValue(
     'footer_brand_desc',
-    `${siteName} is a team of skilled photo editing specialists with a commitment to providing quality, excellence, and satisfaction.`,
+    `${siteName} is a global outsourced image editing studio with 200+ dedicated photo artists, delivering 12–24h turnaround, ISO-certified consistency, and pixel-level accuracy for top commercial photographers and e-commerce brands.`,
   );
 
   // Dynamic Locations parsing
@@ -75,11 +71,10 @@ export const SiteFooter: React.FC = () => {
     }
   }
 
-  // Fallback to legacy individual location settings if footer_locations_json was never initialized
   if (!locationsJson) {
     const locs: FooterLocation[] = [];
     const usaAddr = getSettingValue('footer_address_usa', '116 Village Blvd, Suite 220, Princeton, NJ 08540');
-    const usaTitle = getSettingValue('footer_address_usa_title', 'USA');
+    const usaTitle = getSettingValue('footer_address_usa_title', 'United States');
     if (usaAddr) locs.push({ id: 'loc-usa', title: usaTitle, address: usaAddr });
 
     const indiaAddr = getSettingValue('footer_address_india', 'No.6, Banaswadi Main Road, Dodda Banaswadi, Bangalore - 560 043');
@@ -99,7 +94,7 @@ export const SiteFooter: React.FC = () => {
   if (quickLinksJson) {
     try {
       const parsed = JSON.parse(quickLinksJson);
-      if (Array.isArray(parsed)) quickLinks = parsed;
+      if (Array.isArray(parsed) && parsed.length > 0) quickLinks = parsed;
     } catch {}
   }
 
@@ -108,251 +103,247 @@ export const SiteFooter: React.FC = () => {
   if (featureLinksJson) {
     try {
       const parsed = JSON.parse(featureLinksJson);
-      if (Array.isArray(parsed)) featureLinks = parsed;
+      if (Array.isArray(parsed) && parsed.length > 0) featureLinks = parsed;
     } catch {}
   }
 
-  const contactEmail = getSettingValue(
-    'contact_email',
-    'info@smartphotoeditors.com',
-  );
-  const contactPhone = getSettingValue('contact_phone', '1-855-924-0830');
-  const chatText = getSettingValue('footer_chat_text', 'Live Chat');
+  const contactEmail = getSettingValue('contact_email', 'info@lirisha.com');
+  const contactPhone = getSettingValue('contact_phone', '1-855-695-6028');
+  const chatText = getSettingValue('footer_chat_text', 'Live Concierge');
 
   const copyrightText = getSettingValue(
     'footer_copyright',
-    `© ${currentYear} www.smartphotoeditors.com | Web Property of Flatworld Solutions Inc.`,
+    `© ${currentYear} ${siteName}. All Rights Reserved.`,
   );
 
-  const fbLink = getSettingValue(
-    'footer_social_facebook',
-    'https://www.facebook.com/SmartPHOTOeditors/',
-  );
-  const twitterLink = getSettingValue(
-    'footer_social_twitter',
-    'https://twitter.com/smartphotoedits',
-  );
-  const linkedinLink = getSettingValue(
-    'footer_social_linkedin',
-    'https://www.linkedin.com/company/smart-photo-editors/',
-  );
-  const pinterestLink = getSettingValue(
-    'footer_social_pinterest',
-    '//pinterest.com/smartphotoedits/',
-  );
+  const fbLink = getSettingValue('footer_social_facebook', 'https://www.facebook.com/SmartPHOTOeditors/');
+  const twitterLink = getSettingValue('footer_social_twitter', 'https://twitter.com/smartphotoedits');
+  const linkedinLink = getSettingValue('footer_social_linkedin', 'https://www.linkedin.com/company/smart-photo-editors/');
+  const pinterestLink = getSettingValue('footer_social_pinterest', 'https://pinterest.com/smartphotoedits/');
 
   const handleCopyEmail = (e: React.MouseEvent) => {
     e.preventDefault();
-    navigator.clipboard.writeText(contactEmail).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-      alert(`Email copied to clipboard: ${contactEmail}`);
-    });
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(contactEmail).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2200);
+      });
+    }
   };
 
   return (
-    <footer style={{ backgroundColor: 'var(--background-dark)' }}>
-      <div className="container">
-        {/* Footer Top Brand */}
-        <div
-          className="footer-logo text-center"
-          style={{ borderBottomColor: 'var(--surface-dark)' }}>
-          <div className="inline-flex items-center gap-3 justify-center mb-3">
-            <img
-              src={footerLogo || '/images/lirisha-camera-logo.png'}
-              alt={`${siteName} Footer logo`}
-              className="footer-logo-img mx-auto"
-              title={`${siteName} Footer logo`}
-              onError={(e) => {
-                const target = e.currentTarget;
-                if (target.src !== '/images/lirisha-camera-logo.png' && !target.src.endsWith('/images/lirisha-camera-logo.png')) {
-                  target.src = '/images/lirisha-camera-logo.png';
-                }
-              }}
-              style={{
-                height: '46px',
-                width: 'auto',
-                maxWidth: '160px',
-                objectFit: 'contain',
-                display: 'inline-block',
-              }}
-            />
+    <footer className="bg-[#060911] text-slate-300 border-t border-slate-800/80 pt-16 pb-12 relative overflow-hidden">
+      {/* Decorative ambient background blur */}
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        {/* Brand Banner Top */}
+        <div className="flex flex-col md:flex-row items-center justify-between pb-12 mb-12 border-b border-slate-800/80 gap-6">
+          <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
+            <Link href="/" className="inline-block transition-transform hover:scale-105">
+              <img
+                src={footerLogo || '/images/lirisha-camera-logo.png'}
+                alt={`${siteName} Footer Logo`}
+                className="h-11 w-auto max-w-[170px] object-contain"
+                onError={(e) => {
+                  const target = e.currentTarget;
+                  if (
+                    target.src !== '/images/lirisha-camera-logo.png' &&
+                    !target.src.endsWith('/images/lirisha-camera-logo.png')
+                  ) {
+                    target.src = '/images/lirisha-camera-logo.png';
+                  }
+                }}
+              />
+            </Link>
+            <span className="hidden sm:inline-block h-6 w-px bg-slate-800" />
+            <p className="text-xs text-slate-400 max-w-xl leading-relaxed">
+              {brandDesc}
+            </p>
           </div>
-          <p style={{ color: 'var(--text-secondary-dark)' }}>
-            {brandDesc}
-          </p>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/contact-us"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-md shadow-blue-500/20 transition-all hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <span>Get Free Trial</span>
+              <i className="fa-solid fa-arrow-right text-[10px]" />
+            </Link>
+          </div>
         </div>
 
-        {/* 4 Column Links & Info */}
-        <div
-          className="row"
-          style={{ borderBottom: '2px solid #07152F', paddingBottom: '19px' }}>
-          {/* Quick Links */}
-          <div className="col-6 col-md-2 mb-4 mb-md-0">
-            <div className="widget quick-links">
-              <p className="footer-menu-heading">Quick Links</p>
-              <ul>
-                {quickLinks.map((item) => (
-                  <li key={item.id}>
-                    <Link href={item.url}> {item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+        {/* 4-Column Navigation Links */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800/80">
+          {/* Col 1: Quick Links */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+              <span>Studio Navigation</span>
+            </h4>
+            <ul className="space-y-2.5 text-xs">
+              {quickLinks.slice(0, 8).map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={item.url}
+                    className="text-slate-400 hover:text-cyan-400 transition-colors inline-block"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Features */}
-          <div className="col-6 col-md-3 mb-4 mb-md-0">
-            <div className="widget quick-links">
-              <p className="footer-menu-heading">Features</p>
-              <ul>
-                {featureLinks.map((item) => (
-                  <li key={item.id}>
-                    <Link href={item.url}> {item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Col 2: Features & Compliance */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-500" />
+              <span>Features &amp; Trust</span>
+            </h4>
+            <ul className="space-y-2.5 text-xs">
+              {featureLinks.slice(0, 8).map((item) => (
+                <li key={item.id}>
+                  <Link
+                    href={item.url}
+                    className="text-slate-400 hover:text-cyan-400 transition-colors inline-block"
+                  >
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Addresses - FULLY DYNAMIC WITH SINGLE OR MULTIPLE LOCATIONS */}
-          <div className="col-12 col-md-3 mb-4 mb-md-0">
-            <div className="widget address">
-              <p className="footer-menu-heading">Address</p>
+          {/* Col 3: Global Production Hubs */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
+              <span>Global Locations</span>
+            </h4>
+            <div className="space-y-4">
               {locations.length === 0 ? (
-                <p className="text-gray-400 text-xs">No address locations specified.</p>
+                <p className="text-slate-500 text-xs">No address locations specified.</p>
               ) : (
                 locations.map((loc) => (
-                  <div key={loc.id} className="add-1 mb-3">
-                    <p className="country-name font-bold text-white text-sm mb-1">{loc.title}</p>
-                    <p className="text-gray-400 text-xs leading-relaxed">{loc.address}</p>
+                  <div key={loc.id} className="text-xs">
+                    <p className="font-bold text-white mb-1 flex items-center gap-1.5">
+                      <i className="fa-solid fa-location-dot text-blue-500 text-[11px]" />
+                      <span>{loc.title}</span>
+                    </p>
+                    <p className="text-slate-400 leading-relaxed pl-4">{loc.address}</p>
                   </div>
                 ))
               )}
             </div>
           </div>
 
-          {/* Contact Details */}
-          <div className="col-12 col-md-4">
-            <ul className="widget contact-us">
-              <li className="contact-col">
-                <span className="icons-size">
-                  <i className="fa-solid fa-envelope" aria-hidden="true"></i>
+          {/* Col 4: Quick Contact Channels */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              <span>Direct Concierge</span>
+            </h4>
+            <div className="space-y-3.5 text-xs">
+              {/* Email */}
+              <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-blue-400/40 transition-colors">
+                <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">
+                  Direct Email
                 </span>
-                <div className="contact-text">
-                  <p>
-                    <span>Email</span> <br />
-                    <a
-                      href="#"
-                      onClick={handleCopyEmail}
-                      className="click2copy"
-                      id="footerEmail">
-                      {contactEmail}{' '}
-                      <i
-                        className={`far ${
-                          copied ? 'fa-check-circle text-[#00C8F8]' : 'fa-copy'
-                        } copy-icon`}></i>
-                    </a>
-                  </p>
+                <button
+                  type="button"
+                  onClick={handleCopyEmail}
+                  className="text-white hover:text-cyan-400 font-semibold flex items-center gap-2 text-left"
+                >
+                  <span>{contactEmail}</span>
+                  <i
+                    className={`far ${
+                      copied ? 'fa-check-circle text-emerald-400' : 'fa-copy text-slate-400'
+                    } text-xs`}
+                  />
+                </button>
+              </div>
+
+              {/* Phone */}
+              {contactPhone && (
+                <div className="p-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-blue-400/40 transition-colors">
+                  <span className="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">
+                    Toll-Free Phone
+                  </span>
+                  <a
+                    href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}
+                    className="text-white hover:text-cyan-400 font-semibold block"
+                  >
+                    {contactPhone}
+                  </a>
                 </div>
-              </li>
-              <li className="contact-col">
-                <span className="icons-size">
-                  <i className="fa-solid fa-comments" aria-hidden="true"></i>
-                </span>
-                <div className="contact-text">
-                  <p>
-                    <span>
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          alert(
-                            'Live Chat will connect you with a representative.',
-                          );
-                        }}>
-                        {chatText}
-                      </a>
-                    </span>
-                  </p>
-                </div>
-              </li>
-              <li className="contact-col">
-                <span className="icons-size">
-                  <i className="fa-solid fa-phone" aria-hidden="true"></i>
-                </span>
-                <div className="contact-text">
-                  <p>
-                    <span>Toll Free Number</span> <br />
-                    <a
-                      href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}
-                      id="footerPhone">
-                      {contactPhone}
-                    </a>
-                  </p>
-                </div>
-              </li>
-            </ul>
+              )}
+
+              {/* Live Chat */}
+              <button
+                type="button"
+                onClick={() => alert('Our 24/7 client concierge will connect with you immediately.')}
+                className="w-full py-2.5 px-3 rounded-xl bg-white/[0.03] border border-white/10 hover:border-blue-400/40 text-slate-300 hover:text-white font-semibold flex items-center justify-center gap-2 transition-colors"
+              >
+                <i className="fa-regular fa-comment-dots text-blue-400" />
+                <span>{chatText}</span>
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Copyright & Social */}
-        <div className="copyright">
-          <div className="row align-items-center">
-            <div className="col-xl-8 col-lg-8 col-xxl-8 col-sm-12 col-md-6">
-              <p>
-                {copyrightText}{' '}
-                <span className="mx-2 opacity-30">|</span>
-                <Link
-                  href="/login"
-                  className="text-gray-400 hover:text-white transition-colors underline decoration-dotted text-xs inline-flex items-center gap-1">
-                  <i className="fa-solid fa-arrow-right-to-bracket text-[10px]"></i> Login
-                </Link>
-              </p>
-            </div>
-            <div className="col-xl-4 col-lg-4 col-xxl-4 col-sm-12 col-md-6">
-              <div className="social-icons">
-                <p>
-                  Social connect :{' '}
-                  <a
-                    href={fbLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Facebook">
-                    <i
-                      className="fa-brands fa-facebook-f"
-                      aria-hidden="true"></i>
-                  </a>
-                  <a
-                    href={twitterLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Twitter">
-                    <i
-                      className="fa-brands fa-x-twitter"
-                      aria-hidden="true"></i>
-                  </a>
-                  <a
-                    href={linkedinLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Linkedin">
-                    <i
-                      className="fa-brands fa-linkedin-in"
-                      aria-hidden="true"></i>
-                  </a>
-                  <a
-                    href={pinterestLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Pinterest">
-                    <i
-                      className="fa-brands fa-pinterest-p"
-                      aria-hidden="true"></i>
-                  </a>
-                </p>
-              </div>
-            </div>
+        {/* Bottom Bar: Copyright & Socials */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex flex-wrap items-center gap-2 text-center sm:text-left">
+            <span>{copyrightText}</span>
+            <span className="opacity-30">|</span>
+            <Link
+              href="/login"
+              className="text-slate-400 hover:text-white transition-colors underline decoration-dotted inline-flex items-center gap-1"
+            >
+              <i className="fa-solid fa-arrow-right-to-bracket text-[10px]" />
+              <span>Portal Sign In</span>
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <span className="text-[11px] text-slate-500 mr-1">Social:</span>
+            <a
+              href={fbLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-blue-600 hover:text-white flex items-center justify-center text-slate-400 transition-all hover:scale-110"
+              aria-label="Facebook"
+            >
+              <i className="fa-brands fa-facebook-f text-xs" />
+            </a>
+            <a
+              href={twitterLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-blue-600 hover:text-white flex items-center justify-center text-slate-400 transition-all hover:scale-110"
+              aria-label="X Twitter"
+            >
+              <i className="fa-brands fa-x-twitter text-xs" />
+            </a>
+            <a
+              href={linkedinLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-blue-600 hover:text-white flex items-center justify-center text-slate-400 transition-all hover:scale-110"
+              aria-label="LinkedIn"
+            >
+              <i className="fa-brands fa-linkedin-in text-xs" />
+            </a>
+            <a
+              href={pinterestLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 rounded-full bg-white/5 hover:bg-rose-600 hover:text-white flex items-center justify-center text-slate-400 transition-all hover:scale-110"
+              aria-label="Pinterest"
+            >
+              <i className="fa-brands fa-pinterest-p text-xs" />
+            </a>
           </div>
         </div>
       </div>

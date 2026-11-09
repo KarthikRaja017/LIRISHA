@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, EffectFade, Navigation } from "swiper/modules";
 
@@ -27,48 +28,49 @@ const slides: SlideData[] = [
     category: "Image Editing",
     title: "Professional Image Editing Services",
     description:
-      "LIRISHA is a trusted outsource image editing service with over 200 professional editors, serving clients globally since 2010. Its 12-hour delivery and 100% quality output make it a top choice for professional photographers.",
+      "LIRISHA is a premier outsourced image post-processing studio with over 200 dedicated artists. Guaranteed 12–24h turnaround, pixel-perfect accuracy, and ISO-certified consistency for top commercial photographers.",
     link: "/photoshop-services",
-    alt: "Image Editing",
+    alt: "Image Editing Services",
   },
   {
     id: 2,
     image: "/images/homepage/banner-2.webp",
-    category: "Photo Editing",
-    title: "Portrait Photo Editing Services",
+    category: "Portrait Retouching",
+    title: "High-End Portrait Photo Retouching",
     description:
-      "Scalable and professional portrait photo editing services that ensure brand consistency across executive and employee profiles.",
+      "Flawless frequency separation, realistic skin texture retention, digital makeup, and background cleanup that preserves identity while elevating editorial impact.",
     link: "/portrait",
-    alt: "Photo Editing",
+    alt: "Portrait Photo Editing Services",
   },
   {
     id: 3,
     image: "/images/homepage/banner-3.webp",
-    category: "Ecommerce Photo Editing",
-    title: "Ecommerce Photo Editing Services",
+    category: "Ecommerce Visuals",
+    title: "High-Volume Ecommerce Product Editing",
     description:
-      "LIRISHA provides fast, cost-effective E-Commerce Photo Editing Services, specializing in product photo retouching for key markets including the UK, US, and Australia.",
+      "Amazon, Shopify, and eBay marketplace-compliant pure white backgrounds (#FFFFFF), invisible ghost mannequin composites, and natural cast shadows tailored for brand catalogs.",
     link: "/image-manipulation/ecommerce-image-editing",
-    alt: "Ecommerce Photo Editing",
+    alt: "Ecommerce Photo Editing Services",
   },
   {
     id: 4,
     image: "/images/homepage/banner-4.webp",
     category: "Real Estate",
-    title: "Sky Replacement Editing Services",
+    title: "Architectural & Sky Replacement Editing",
     description:
-      "Elevate your visual storytelling by transforming your images into captivating masterpieces.",
+      "Transform overcast properties into golden-hour masterworks. Complete with HDR exposure blending, window masking, 360 virtual tours, and perspective corrections.",
     link: "/real-estate/sky-replacement",
-    alt: "Real Estate",
+    alt: "Real Estate Sky Replacement Services",
   },
   {
     id: 5,
     image: "/images/homepage/banner-5.webp",
-    category: "Wedding Editing",
-    title: "Wedding Photo Editing Services",
-    description: "Impress your clients by quick turnaround time and creativity.",
+    category: "Wedding & Events",
+    title: "Bespoke Wedding Photo Retouching",
+    description:
+      "Speed up your studio delivery without compromising your signature style. Consistent batch color grading, skin smoothing, stray hair removal, and artistic enhancements.",
     link: "/portrait/wedding-photo-editing",
-    alt: "Wedding Editing",
+    alt: "Wedding Photo Editing Services",
   },
 ];
 
@@ -81,13 +83,13 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="relative overflow-hidden w-full group">
+    <div className="relative overflow-hidden w-full group bg-slate-950">
       <Swiper
         modules={[Pagination, Autoplay, EffectFade, Navigation]}
         effect="fade"
-        speed={1500}
+        speed={1400}
         autoplay={{
-          delay: 5000,
+          delay: 5500,
           disableOnInteraction: false,
         }}
         loop={true}
@@ -108,11 +110,12 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
           const fallbackBanner = slides[index % slides.length]?.image || "/images/homepage/banner-1.webp";
           return (
             <SwiperSlide key={slide.id || index}>
-              <div className="slider-container relative overflow-hidden w-full">
+              <div className="relative overflow-hidden w-full h-[75dvh] min-h-[580px] lg:h-[86dvh] lg:min-h-[660px]">
+                {/* Background Image with Ken Burns Zoom */}
                 <img
                   src={slide.image || fallbackBanner}
                   alt={slide.alt || "Banner"}
-                  className="slide-img"
+                  className="slide-img absolute inset-0 w-full h-full object-cover"
                   onError={(e) => {
                     const target = e.currentTarget;
                     if (target.src !== fallbackBanner && !target.src.endsWith(fallbackBanner)) {
@@ -121,27 +124,75 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
                   }}
                   key={activeIndex === index ? `active-${index}` : `inactive-${index}`}
                 />
-                <div className="slide-content-title">
-                  <span className="hero-category-tag">{slide.category}</span>
-                  <div>{slide.title}</div>
-                  <p>{slide.description}</p>
-                  <a
-                    href={slide.link}
-                    className="butn5 butn__new butn-size inline-block"
-                    aria-label={`View more about ${slide.category}`}
-                  >
-                    View More
-                  </a>
+
+                {/* Cinematic Vignette & Ambient Gradient Overlays */}
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/92 via-slate-950/65 to-slate-950/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/30" />
+
+                {/* Content Container */}
+                <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+                  <div className="max-w-xl lg:max-w-2xl py-12">
+                    {/* Eyebrow Pill */}
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase text-cyan-300 bg-cyan-950/70 border border-cyan-400/40 backdrop-blur-md mb-5 shadow-lg shadow-cyan-950/50">
+                      <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00C8F8] animate-pulse" />
+                      <span>{slide.category}</span>
+                    </div>
+
+                    {/* Headline */}
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-4 drop-shadow-md">
+                      {slide.title}
+                    </h1>
+
+                    {/* Description */}
+                    <p className="text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed mb-8 drop-shadow max-w-xl">
+                      {slide.description}
+                    </p>
+
+                    {/* CTA Button Group */}
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
+                      <Link
+                        href={slide.link}
+                        className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 shadow-xl shadow-blue-600/30 hover:shadow-blue-500/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+                        aria-label={`Explore ${slide.category}`}
+                      >
+                        <span>Explore Services</span>
+                        <i className="fa-solid fa-arrow-right text-xs transition-transform duration-200 group-hover:translate-x-1" />
+                      </Link>
+
+                      <Link
+                        href="/contact-us"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white rounded-full bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+                      >
+                        <span>Claim 5 Free Edits</span>
+                      </Link>
+                    </div>
+
+                    {/* Trust Badges */}
+                    <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-4 border-t border-white/15 text-xs font-semibold text-slate-300">
+                      <div className="flex items-center gap-1.5">
+                        <i className="fa-solid fa-bolt text-cyan-400 text-xs" />
+                        <span>12–24h Rush Turnaround</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <i className="fa-solid fa-shield-halved text-cyan-400 text-xs" />
+                        <span>ISO 9001 &amp; Bilateral NDA</span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <i className="fa-solid fa-users text-cyan-400 text-xs" />
+                        <span>200+ Adobe Certified Artists</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </SwiperSlide>
           );
         })}
 
-        {/* Sleek Navigation Arrows (Visible on desktop/tablet hover) */}
+        {/* Desktop Navigation Arrows */}
         <button
           type="button"
-          className="hero-slider-prev-btn absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 md:w-12 md:h-12 rounded-full bg-slate-950/40 hover:bg-slate-900/80 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer pointer-events-auto"
+          className="hero-slider-prev-btn absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-950/50 hover:bg-slate-900/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
           aria-label="Previous slide"
         >
           <svg className="w-5 h-5 -translate-x-0.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -151,7 +202,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
 
         <button
           type="button"
-          className="hero-slider-next-btn absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-40 w-11 h-11 md:w-12 md:h-12 rounded-full bg-slate-950/40 hover:bg-slate-900/80 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer pointer-events-auto"
+          className="hero-slider-next-btn absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-950/50 hover:bg-slate-900/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
           aria-label="Next slide"
         >
           <svg className="w-5 h-5 translate-x-0.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -159,7 +210,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
           </svg>
         </button>
 
-        {/* Attractive Bottom Centered Floating Glass Dock Pagination */}
+        {/* Bottom Floating Glass Dock Pagination */}
         <div className="hero-custom-pagination swiper-pagination swiper-pagination-bullets"></div>
       </Swiper>
     </div>

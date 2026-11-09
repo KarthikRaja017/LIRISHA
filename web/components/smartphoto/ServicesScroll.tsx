@@ -47,10 +47,10 @@ const defaultCards: ServiceCardItem[] = [
   },
   {
     id: 4,
-    title: "Image Cliping",
+    title: "Image Clipping & Masking",
     link: "/image-clipping/",
     image: "/images/homepage/image-cliping.webp",
-    alt: "Image Cliping Services",
+    alt: "Image Clipping Services",
   },
   {
     id: 5,
@@ -61,7 +61,7 @@ const defaultCards: ServiceCardItem[] = [
   },
   {
     id: 6,
-    title: "Real Estate",
+    title: "Real Estate HDR Enhancement",
     link: "/real-estate/",
     image: "/images/homepage/real-estate.webp",
     alt: "Real Estate Services",
@@ -92,7 +92,6 @@ export const ServicesScroll: React.FC<ServicesScrollProps> = ({ initialData }) =
     const items = wrapper.querySelectorAll<HTMLElement>(".item");
     if (!items.length) return;
 
-    // Set initial positions: first card pair visible, subsequent pairs start off-screen below with opacity 0
     items.forEach((item, index) => {
       if (index === 0) {
         gsap.set(item, { yPercent: 0, opacity: 1, scale: 1 });
@@ -105,8 +104,8 @@ export const ServicesScroll: React.FC<ServicesScrollProps> = ({ initialData }) =
       const timeline = gsap.timeline({
         scrollTrigger: {
           trigger: section,
+          start: "top top+=80",
           pin: true,
-          start: "top top",
           end: () => `+=${Math.max(1, items.length - 1) * 85}%`,
           scrub: 1,
           invalidateOnRefresh: true,
@@ -116,17 +115,12 @@ export const ServicesScroll: React.FC<ServicesScrollProps> = ({ initialData }) =
 
       items.forEach((item, index) => {
         if (items[index + 1]) {
-          // Clean cover: Previous card pair smoothly fades out & scales slightly as the next pair enters
-          timeline.to(
-            item,
-            {
-              opacity: 0,
-              scale: 0.96,
-              duration: 1,
-            }
-          );
+          timeline.to(item, {
+            opacity: 0,
+            scale: 0.96,
+            duration: 1,
+          });
 
-          // Next card pair slides up to cover fully with opacity 1, preventing any uneven bleed
           timeline.to(
             items[index + 1],
             {
@@ -146,42 +140,47 @@ export const ServicesScroll: React.FC<ServicesScrollProps> = ({ initialData }) =
   }, [cardPairs.length]);
 
   return (
-    <section className="services-scroll py-8 bg-[#f2f2f2]">
+    <section className="services-scroll py-20 bg-slate-50/80 border-y border-slate-200/70">
       <div ref={sectionRef} className="services-scroll-pin-wrapper">
-        <div className="container mx-auto px-4">
-          <div className="scroll-section vertical-section image-editing">
-            <div className="row">
-              <div className="col-md-10 col-lg-6 col-xl-6 offset-md-1 offset-xl-3 offset-lg-3 text-center mb-6">
-                <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 leading-tight">
-                  {heading1}
-                  <br />
-                  <span className="text-[#1265E8]">{heading2}</span>
-                </h2>
-                <div className="space30"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="scroll-section vertical-section">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/60 mb-4">
+                <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                <span>Specialized Production Lines</span>
               </div>
+
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+                {heading1}{" "}
+                <span className="bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent">
+                  {heading2}
+                </span>
+              </h2>
             </div>
 
-            <div ref={wrapperRef} className="wrapper relative overflow-hidden">
+            <div ref={wrapperRef} className="wrapper relative overflow-hidden h-[480px] sm:h-[520px]">
               <div role="list" className="list relative w-full h-full">
                 {cardPairs.map((pair, pIdx) => (
                   <div
                     key={pIdx}
                     role="listitem"
-                    className="item absolute inset-0 w-full h-full bg-[#f2f2f2] flex flex-col justify-center"
+                    className="item absolute inset-0 w-full h-full bg-transparent flex flex-col justify-center"
                     style={{ zIndex: pIdx + 1 }}
                   >
-                    <div className="row g-4 items-stretch justify-center">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch justify-center max-w-5xl mx-auto w-full">
                       {pair.map((card, cIdx) => {
                         const cleanLink = card.link ? card.link.replace(/\.php$/, "") : "/services";
-                        const defaultCardImg = defaultCards[(pIdx * 2 + cIdx) % defaultCards.length]?.image || "/images/homepage/real-estate.webp";
+                        const defaultCardImg =
+                          defaultCards[(pIdx * 2 + cIdx) % defaultCards.length]?.image ||
+                          "/images/homepage/real-estate.webp";
                         return (
-                          <div key={cIdx} className="col-md-6 col-lg-6 col-xl-6 flex">
-                            <div className="image-editing-box bg-white w-full rounded-2xl p-4 sm:p-5 border border-gray-200/90 shadow-md hover:shadow-2xl transition-all duration-300 flex flex-col justify-between group">
+                          <div key={cIdx} className="flex">
+                            <div className="bg-white w-full rounded-3xl p-5 border border-slate-200/90 shadow-md hover:shadow-2xl hover:border-blue-400 transition-all duration-300 flex flex-col justify-between group">
                               <Link href={cleanLink} className="block flex-1 flex flex-col justify-between">
-                                <div className="overflow-hidden rounded-xl bg-gray-100 aspect-[628/332] mb-3.5 relative shadow-inner">
+                                <div className="overflow-hidden rounded-2xl bg-slate-100 aspect-[16/10] mb-4 relative shadow-inner">
                                   <img
                                     src={card.image || defaultCardImg}
-                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-xl"
+                                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
                                     alt={card.alt || card.title}
                                     loading="lazy"
                                     onError={(e) => {
@@ -192,10 +191,10 @@ export const ServicesScroll: React.FC<ServicesScrollProps> = ({ initialData }) =
                                     }}
                                   />
                                 </div>
-                                <h3 className="flex items-center justify-between text-base sm:text-lg font-bold text-gray-900 group-hover:text-[#1265E8] transition-colors m-0 pt-1">
+                                <h3 className="flex items-center justify-between text-base sm:text-lg font-bold text-slate-900 group-hover:text-blue-600 transition-colors m-0">
                                   <span>{card.title}</span>
-                                  <span className="w-8 h-8 rounded-full bg-blue-50 group-hover:bg-[#1265E8] text-[#1265E8] group-hover:text-white flex items-center justify-center transition-all duration-300 shrink-0 text-xs shadow-sm">
-                                    <i className="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition-transform"></i>
+                                  <span className="w-9 h-9 rounded-full bg-blue-50 group-hover:bg-blue-600 text-blue-600 group-hover:text-white flex items-center justify-center transition-all duration-300 shrink-0 text-xs shadow-sm">
+                                    <i className="fa-solid fa-arrow-right group-hover:translate-x-0.5 transition-transform" />
                                   </span>
                                 </h3>
                               </Link>

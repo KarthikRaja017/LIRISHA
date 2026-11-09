@@ -53,11 +53,13 @@ module.exports = {
         },
       },
       fontFamily: {
-        syne: ["var(--font-syne)", "sans-serif"],
-        dm: ["var(--font-dm-sans)", "sans-serif"],
-        heading: ["var(--font-syne)", "sans-serif"],
-        display: ["var(--font-syne)", "sans-serif"],
-        sans: ["var(--font-dm-sans)", "system-ui", "sans-serif"],
+        jakarta: ["var(--font-plus-jakarta)", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
+        syne: ["var(--font-plus-jakarta)", "sans-serif"],
+        dm: ["var(--font-plus-jakarta)", "sans-serif"],
+        heading: ["var(--font-plus-jakarta)", "sans-serif"],
+        display: ["var(--font-plus-jakarta)", "sans-serif"],
+        sans: ["var(--font-plus-jakarta)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         button: "10px",

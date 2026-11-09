@@ -14,77 +14,98 @@ export interface FAQSectionProps {
 
 const defaultFaqs: FAQItem[] = [
   {
-    question: "Which image editing providers offer free trials or sample edits?",
+    question: "Do you offer free trial edits before contract commitment?",
     answer:
-      "Reputable providers offer free sample edits to demonstrate quality, consistency, and turnaround before onboarding high-volume or long-term image editing projects.",
+      "Yes. We provide up to 5 complimentary sample edits for studios and high-volume brands. This allows you to verify our turnaround, layer structure, and color consistency on your own raw captures before starting a project.",
   },
   {
-    question: "Do you offer bulk photo editing discounts for high-volume orders?",
+    question: "What is your standard turnaround time, and can you rush overnight?",
     answer:
-      "Yes. Bulk pricing is available based on volume, complexity, and turnaround, helping ecommerce teams reduce per-image costs at scale.",
+      "Our standard delivery is 24 hours. For high-priority production runs, we provide 12-hour rush turnarounds so you can shoot during the day and have finalized, retouched files on your desk the following morning.",
   },
   {
-    question:
-      "Can you edit product photos to meet Amazon, Shopify, eBay, Etsy, Walmart & Marketplace requirements for sellers?",
+    question: "Do you offer volume-based tiered discounts?",
     answer:
-      "Yes. We align images with platform guidelines, including background, size, resolution, and formatting, to ensure compliance across major ecommerce marketplaces.",
+      "Absolutely. We offer dedicated editor team structures and tiered volume rates based on monthly image volumes, drastically reducing your studio's cost per image at scale.",
   },
   {
-    question:
-      "Can your image editing service handle 500+ product photos per week for a U.S.-based ecommerce store?",
+    question: "Which file formats do you accept and deliver?",
     answer:
-      "Yes. Our teams handle high-volume workflows with consistent quality, meeting weekly delivery targets through scalable production and dedicated resource allocation.",
+      "We accept RAW (CR2, CR3, NEF, ARW, DNG), TIFF, PSD, and JPEG formats. Deliverables can be exported in layered PSD with non-destructive adjustment masks, high-res TIFF, web-optimized JPEG, or transparent PNG.",
   },
   {
-    question:
-      "What file formats do you accept and return — can you work with RAW, TIFF, PSD, and JPEG files?",
+    question: "How do you guarantee client data privacy and image security?",
     answer:
-      "We accept RAW, TIFF, PSD, and JPEG formats and deliver outputs in required formats, optimized for web, print, or marketplace-specific needs.",
+      "We operate under bilateral non-disclosure agreements (NDAs) with biometrically restricted editing facilities. Editor terminals have USB and external storage ports physically disabled, and files are transferred via end-to-end encrypted SFTP pipelines.",
   },
 ];
 
 export const FAQSection: React.FC<FAQSectionProps> = ({ initialFaqs, heading }) => {
   const activeFaqs = initialFaqs && initialFaqs.length > 0 ? initialFaqs : defaultFaqs;
   const activeHeading = heading || "Frequently Asked Questions";
-  const [openIndex, setOpenIndex] = useState<number | null>(0); // First item open by default
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex((prev) => (prev === index ? null : index));
   };
 
   return (
-    <section className="new-faq-template py-10 bg-white">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-12 text-center my-4 mt-0">
-            <h2 className="text-3xl font-bold text-gray-900">
-              {activeHeading}
-            </h2>
+    <section className="py-20 lg:py-28 bg-slate-50/70 border-t border-slate-200/70">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/60 mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+            <span>Got Questions?</span>
           </div>
+
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+            {activeHeading}
+          </h2>
+
+          <p className="mt-3 text-sm sm:text-base text-slate-500 max-w-xl mx-auto">
+            Everything you need to know about our outsourcing turnaround, quality guarantees, and sample workflows.
+          </p>
         </div>
 
-        <div className="max-w-4xl mx-auto space-y-3">
+        {/* FAQ Accordion Stack */}
+        <div className="space-y-3.5">
           {activeFaqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
               <div
                 key={index}
-                className="border border-gray-200 rounded-lg overflow-hidden shadow-sm transition"
+                className={`rounded-2xl border transition-all duration-200 overflow-hidden ${
+                  isOpen
+                    ? "bg-white border-blue-300 shadow-md ring-1 ring-blue-100"
+                    : "bg-white border-slate-200/80 hover:border-slate-300 shadow-sm"
+                }`}
               >
                 <button
                   type="button"
                   onClick={() => toggleFAQ(index)}
-                  className="w-full text-left p-4 bg-gray-50 hover:bg-gray-100 flex items-center justify-between font-medium text-gray-800 focus:outline-none"
+                  className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 font-bold text-slate-900 focus:outline-none"
+                  aria-expanded={isOpen}
                 >
-                  <span className="text-base md:text-lg">{faq.question}</span>
-                  <i
-                    className={`fa ${
-                      isOpen ? "fa-minus text-[#1265E8]" : "fa-plus text-gray-400"
-                    } transition-transform ml-4 flex-shrink-0`}
-                  ></i>
+                  <span className="text-base sm:text-lg leading-snug">
+                    {faq.question}
+                  </span>
+                  <span
+                    className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-200 ${
+                      isOpen
+                        ? "bg-blue-600 text-white"
+                        : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                    }`}
+                  >
+                    <i
+                      className={`fa-solid fa-chevron-down text-xs transition-transform duration-200 ${
+                        isOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </span>
                 </button>
+
                 {isOpen && (
-                  <div className="p-4 bg-white text-gray-700 leading-relaxed border-t border-gray-100 animate-fadeIn">
+                  <div className="px-5 pb-6 sm:px-6 sm:pb-6 text-sm sm:text-base text-slate-600 leading-relaxed border-t border-slate-100 pt-4 animate-in fade-in duration-150">
                     {faq.answer}
                   </div>
                 )}
