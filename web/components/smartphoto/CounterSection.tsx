@@ -46,11 +46,11 @@ export const CounterSection: React.FC<CounterSectionProps> = ({ initialStats }) 
 
   return (
     <section className="relative z-20 -mt-8 sm:-mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 reveal-group">
         {activeStats.map((stat, idx) => (
           <div
             key={idx}
-            className="group relative bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_16px_40px_rgb(0,0,0,0.1)] hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
+            className="group relative reveal-card bg-white/95 backdrop-blur-xl border border-slate-200/90 rounded-2xl p-5 sm:p-6 shadow-[0_8px_30px_rgb(0,0,0,0.06)] hover:shadow-[0_16px_40px_rgb(0,0,0,0.1)] hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
           >
             <div className="flex items-center justify-between mb-3">
               <span className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 bg-clip-text text-transparent">

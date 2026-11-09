@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "@/hooks/useAuth";
 import { SiteShell } from "@/components/layout/SiteShell";
 import { SettingsProvider } from "@/context/SettingsContext";
+import { FadeInObserver } from "@/components/smartphoto/FadeInObserver";
 
 export const dynamic = "force-dynamic";
 
@@ -56,6 +57,7 @@ export default function RootLayout({
       <body className="font-sans antialiased text-[var(--text-primary)] bg-[var(--background)]" suppressHydrationWarning>
         <AuthProvider>
           <SettingsProvider>
+            <FadeInObserver />
             <SiteShell>{children}</SiteShell>
           </SettingsProvider>
         </AuthProvider>

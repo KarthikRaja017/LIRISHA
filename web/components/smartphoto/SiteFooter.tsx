@@ -138,7 +138,7 @@ export const SiteFooter: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Brand Banner Top */}
-        <div className="flex flex-col md:flex-row items-center justify-between pb-12 mb-12 border-b border-slate-800/80 gap-6">
+        <div className="flex flex-col md:flex-row items-center justify-between pb-12 mb-12 border-b border-slate-800/80 gap-6 reveal">
           <div className="flex flex-col sm:flex-row items-center gap-4 text-center sm:text-left">
             <Link href="/" className="inline-block transition-transform hover:scale-105">
               <img
@@ -174,7 +174,7 @@ export const SiteFooter: React.FC = () => {
         </div>
 
         {/* 4-Column Navigation Links */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800/80">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800/80 reveal-group">
           {/* Col 1: Quick Links */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-wider text-white mb-4 flex items-center gap-2">

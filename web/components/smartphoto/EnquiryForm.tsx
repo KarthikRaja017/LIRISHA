@@ -62,7 +62,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialData }) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-gradient-to-tr from-blue-100/40 to-cyan-100/30 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-2xl mx-auto mb-12">
+        <div className="text-center max-w-2xl mx-auto mb-12 reveal-header">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/60 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
             <span>Fast Turnaround Guarantee</span>
@@ -78,7 +78,7 @@ export const EnquiryForm: React.FC<EnquiryFormProps> = ({ initialData }) => {
         </div>
 
         {/* Lead Capture Card */}
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-2xl mx-auto reveal">
           {submitted ? (
             <div className="bg-white/95 backdrop-blur-xl border border-emerald-200 rounded-3xl p-10 sm:p-12 shadow-2xl text-center animate-in zoom-in-95 duration-200">
               <div className="w-16 h-16 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center text-3xl mx-auto mb-5 border border-emerald-200 shadow-sm">

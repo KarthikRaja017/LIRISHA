@@ -48,7 +48,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ initialData }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           {/* Left Column: Narrative */}
-          <div className="lg:col-span-6 space-y-6">
+          <div className="lg:col-span-6 space-y-6 reveal">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/60">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
               <span>Who We Are</span>
@@ -85,11 +85,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ initialData }) => {
           </div>
 
           {/* Right Column: Trust Pillars Bento Grid */}
-          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4 reveal-group">
             {pillars.map((pillar, idx) => (
               <div
                 key={idx}
-                className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all duration-200 group"
+                className="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-lg hover:border-blue-300 transition-all duration-200 group reveal-card"
               >
                 <div className="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 text-lg mb-4 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-200">
                   <i className={pillar.icon} />

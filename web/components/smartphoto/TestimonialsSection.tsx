@@ -66,7 +66,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ initia
       <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 reveal-header">
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-cyan-400 bg-cyan-950/60 border border-cyan-400/30 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
@@ -91,11 +91,11 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({ initia
         </div>
 
         {/* Testimonials 3-Card Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 reveal-group">
           {reviews.map((rev, idx) => (
             <div
               key={rev.id || idx}
-              className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-7 lg:p-8 flex flex-col justify-between hover:border-cyan-400/40 hover:bg-white/[0.07] transition-all duration-300 hover:-translate-y-1 group"
+              className="bg-white/[0.04] backdrop-blur-xl border border-white/10 rounded-3xl p-7 lg:p-8 flex flex-col justify-between hover:border-cyan-400/40 hover:bg-white/[0.07] transition-all duration-300 hover:-translate-y-1 group reveal-card"
             >
               <div>
                 {/* 5 Stars */}

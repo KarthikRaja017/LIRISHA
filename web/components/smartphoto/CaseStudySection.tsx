@@ -56,7 +56,7 @@ export const CaseStudySection: React.FC<CaseStudySectionProps> = ({ initialData 
   return (
     <section className="py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 reveal-header">
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/60 mb-4">
               <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
@@ -78,20 +78,20 @@ export const CaseStudySection: React.FC<CaseStudySectionProps> = ({ initialData 
         </div>
 
         {/* 3-Column Modern Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 reveal-group">
           {caseStudies.map((study, idx) => {
             const cleanLink = study.link ? study.link.replace(/\.php$/, "") : "/case-study";
             return (
               <div
                 key={study.id || idx}
-                className="group flex flex-col justify-between bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-300 transition-all duration-300 hover:-translate-y-1"
+                className="group flex flex-col justify-between bg-white rounded-3xl p-5 border border-slate-200/90 shadow-sm hover:shadow-2xl hover:border-blue-300 transition-all duration-300 hover:-translate-y-1 reveal-card"
               >
                 <div>
-                  <div className="relative overflow-hidden rounded-2xl aspect-[16/10] bg-slate-100 mb-5 shadow-inner">
+                  <div className="relative overflow-hidden rounded-2xl aspect-[16/10] bg-slate-100 mb-5 shadow-inner img-reveal-container">
                     <img
                       src={study.img}
                       alt={study.alt || study.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl img-reveal"
                       onError={(e) => {
                         const target = e.currentTarget;
                         target.src = "/images/homepage/case-study-1.webp";

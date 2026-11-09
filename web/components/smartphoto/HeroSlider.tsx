@@ -110,12 +110,12 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
           const fallbackBanner = slides[index % slides.length]?.image || "/images/homepage/banner-1.webp";
           return (
             <SwiperSlide key={slide.id || index}>
-              <div className="relative overflow-hidden w-full h-[75dvh] min-h-[580px] lg:h-[86dvh] lg:min-h-[660px]">
+              <div className="relative overflow-hidden w-full h-[82dvh] min-h-[600px] sm:h-[75dvh] sm:min-h-[580px] lg:h-[86dvh] lg:min-h-[660px]">
                 {/* Background Image with Ken Burns Zoom */}
                 <img
                   src={slide.image || fallbackBanner}
                   alt={slide.alt || "Banner"}
-                  className="slide-img absolute inset-0 w-full h-full object-cover"
+                  className="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
                   onError={(e) => {
                     const target = e.currentTarget;
                     if (target.src !== fallbackBanner && !target.src.endsWith(fallbackBanner)) {
@@ -131,7 +131,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
 
                 {/* Content Container */}
                 <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-                  <div className="max-w-xl lg:max-w-2xl py-12">
+                  <div className="max-w-xl lg:max-w-2xl pt-6 pb-24 sm:py-12">
                     {/* Eyebrow Pill */}
                     <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase text-cyan-300 bg-cyan-950/70 border border-cyan-400/40 backdrop-blur-md mb-5 shadow-lg shadow-cyan-950/50">
                       <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00C8F8] animate-pulse" />

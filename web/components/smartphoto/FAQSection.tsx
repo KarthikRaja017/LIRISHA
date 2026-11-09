@@ -52,7 +52,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ initialFaqs, heading }) 
   return (
     <section className="py-20 lg:py-28 bg-slate-50/70 border-t border-slate-200/70">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 reveal-header">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 border border-blue-200/60 mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
             <span>Got Questions?</span>
@@ -68,7 +68,7 @@ export const FAQSection: React.FC<FAQSectionProps> = ({ initialFaqs, heading }) 
         </div>
 
         {/* FAQ Accordion Stack */}
-        <div className="space-y-3.5">
+        <div className="space-y-3.5 reveal-group">
           {activeFaqs.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
