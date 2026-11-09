@@ -74,7 +74,7 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
       className="relative min-h-screen flex flex-col bg-white">
       <CustomCursor />
       <SiteNavbar />
-      <main className="main-section flex-1">{children}</main>
+      <main className="main-section flex-1 !mt-0">{children}</main>
       <SiteFooter />
     </div>
   );

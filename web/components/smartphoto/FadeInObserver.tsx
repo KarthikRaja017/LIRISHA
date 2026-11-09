@@ -126,15 +126,15 @@ export const FadeInObserver: React.FC = () => {
       );
       elements.forEach((el) => elementObserver.observe(el));
 
-      // 2. Image reveal targets: .img-reveal, [data-img-reveal], and images within cards/sections
+      // 2. Image reveal targets: explicit .img-reveal, [data-reveal-img], or inside .img-reveal-container
       const images = document.querySelectorAll<HTMLImageElement>(
-        ".img-reveal, [data-img-reveal], .img-reveal-container img, .group img:not(.no-reveal)"
+        ".img-reveal, [data-reveal-img], .img-reveal-container img:not(.no-reveal)"
       );
       images.forEach((img) => {
         img.classList.add("img-reveal");
         imageObserver.observe(img);
 
-        // If parent doesn't have reveal-container, wrap or tag parent
+        // If parent doesn't have reveal-container, tag parent
         if (img.parentElement && !img.parentElement.classList.contains("img-reveal-container")) {
           img.parentElement.classList.add("img-reveal-container");
         }

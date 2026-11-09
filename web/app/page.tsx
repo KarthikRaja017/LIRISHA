@@ -41,9 +41,6 @@ export default async function HomePage() {
 
   return (
     <>
-      {/* Global Scroll Fade-in Trigger */}
-      <FadeInObserver />
-
       {/* Hero Swiper Slider with Ken Burns Effect */}
       <HeroSlider initialSlides={heroSlides} />
 

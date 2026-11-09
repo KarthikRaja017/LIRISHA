@@ -83,11 +83,11 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <div className="relative overflow-hidden w-full group bg-slate-950">
+    <div className="relative overflow-hidden w-full bg-slate-950 group">
       <Swiper
         modules={[Pagination, Autoplay, EffectFade, Navigation]}
         effect="fade"
-        speed={1400}
+        speed={1200}
         autoplay={{
           delay: 5500,
           disableOnInteraction: false,
@@ -107,39 +107,39 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
         className="slide-swiper relative w-full"
       >
         {activeSlides.map((slide, index) => {
-          const fallbackBanner = slides[index % slides.length]?.image || "/images/homepage/banner-1.webp";
+          const fallbackBanner =
+            slides[index % slides.length]?.image || "/images/homepage/banner-1.webp";
           return (
             <SwiperSlide key={slide.id || index}>
-              <div className="relative overflow-hidden w-full h-[82dvh] min-h-[600px] sm:h-[75dvh] sm:min-h-[580px] lg:h-[86dvh] lg:min-h-[660px]">
-                {/* Background Image with Ken Burns Zoom */}
+              <div className="relative overflow-hidden w-full h-[80dvh] min-h-[580px] sm:h-[76dvh] sm:min-h-[560px] lg:h-[86dvh] lg:min-h-[640px]">
+                {/* Background Image with Ken Burns zoom */}
                 <img
                   src={slide.image || fallbackBanner}
                   alt={slide.alt || "Banner"}
-                  className="slide-img absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
+                  className="slide-img no-reveal absolute inset-0 w-full h-full object-cover transition-opacity duration-700"
                   onError={(e) => {
                     const target = e.currentTarget;
                     if (target.src !== fallbackBanner && !target.src.endsWith(fallbackBanner)) {
                       target.src = fallbackBanner;
                     }
                   }}
-                  key={activeIndex === index ? `active-${index}` : `inactive-${index}`}
                 />
 
                 {/* Cinematic Vignette & Ambient Gradient Overlays */}
-                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/92 via-slate-950/65 to-slate-950/20" />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/30" />
+                <div className="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/75 to-slate-950/20 pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-transparent to-slate-950/35 pointer-events-none" />
 
                 {/* Content Container */}
                 <div className="relative z-20 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
-                  <div className="max-w-xl lg:max-w-2xl pt-6 pb-24 sm:py-12">
+                  <div className="max-w-xl lg:max-w-2xl py-12 pb-24 sm:pb-16">
                     {/* Eyebrow Pill */}
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase text-cyan-300 bg-cyan-950/70 border border-cyan-400/40 backdrop-blur-md mb-5 shadow-lg shadow-cyan-950/50">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold tracking-wider uppercase text-cyan-300 bg-cyan-950/80 border border-cyan-400/40 backdrop-blur-md mb-5 shadow-lg shadow-cyan-950/50">
                       <span className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_#00C8F8] animate-pulse" />
                       <span>{slide.category}</span>
                     </div>
 
                     {/* Headline */}
-                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.12] mb-4 drop-shadow-md">
+                    <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.12] mb-4 drop-shadow-md">
                       {slide.title}
                     </h1>
 
@@ -151,19 +151,19 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
                     {/* CTA Button Group */}
                     <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
                       <Link
-                        href={slide.link}
-                        className="group inline-flex items-center justify-center gap-2.5 px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 shadow-xl shadow-blue-600/30 hover:shadow-blue-500/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
-                        aria-label={`Explore ${slide.category}`}
+                        href="/contact-us"
+                        className="inline-flex items-center justify-center gap-2.5 px-6 sm:px-7 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white rounded-full bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 shadow-xl shadow-blue-600/35 hover:shadow-blue-500/50 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
                       >
-                        <span>Explore Services</span>
-                        <i className="fa-solid fa-arrow-right text-xs transition-transform duration-200 group-hover:translate-x-1" />
+                        <span>Claim 5 Free Edits</span>
+                        <i className="fa-solid fa-arrow-right text-xs" />
                       </Link>
 
                       <Link
-                        href="/contact-us"
-                        className="inline-flex items-center justify-center gap-2 px-6 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white rounded-full bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+                        href={slide.link}
+                        className="inline-flex items-center justify-center gap-2 px-6 sm:px-7 py-3.5 text-xs sm:text-sm font-bold uppercase tracking-wider text-white rounded-full bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95"
+                        aria-label={`Explore ${slide.category}`}
                       >
-                        <span>Claim 5 Free Edits</span>
+                        <span>Explore Services</span>
                       </Link>
                     </div>
 
@@ -192,7 +192,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
         {/* Desktop Navigation Arrows */}
         <button
           type="button"
-          className="hero-slider-prev-btn absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-950/50 hover:bg-slate-900/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
+          className="hero-slider-prev-btn absolute left-4 lg:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-950/60 hover:bg-blue-600 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
           aria-label="Previous slide"
         >
           <svg className="w-5 h-5 -translate-x-0.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,7 +202,7 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
 
         <button
           type="button"
-          className="hero-slider-next-btn absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-950/50 hover:bg-slate-900/90 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
+          className="hero-slider-next-btn absolute right-4 lg:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 rounded-full bg-slate-950/60 hover:bg-blue-600 border border-white/20 text-white flex items-center justify-center backdrop-blur-md transition-all duration-300 hover:scale-110 shadow-2xl opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
           aria-label="Next slide"
         >
           <svg className="w-5 h-5 translate-x-0.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -211,8 +211,10 @@ export const HeroSlider: React.FC<HeroSliderProps> = ({ initialSlides }) => {
         </button>
 
         {/* Bottom Floating Glass Dock Pagination */}
-        <div className="hero-custom-pagination swiper-pagination swiper-pagination-bullets"></div>
+        <div className="hero-custom-pagination swiper-pagination swiper-pagination-bullets z-30 pointer-events-auto"></div>
       </Swiper>
     </div>
   );
 };
+
+export default HeroSlider;
