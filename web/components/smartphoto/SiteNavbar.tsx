@@ -152,11 +152,11 @@ export const SiteNavbar: React.FC = () => {
               onMouseLeave={handleMouseLeave}>
               <button
                 type="button"
-                className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[13.5px] font-medium rounded-lg transition-all duration-150 outline-none focus:outline-none focus:ring-0 select-none whitespace-nowrap ${
                   activeDropdown === 'services' ||
                   pathname.startsWith('/services')
-                    ? 'text-blue-600 bg-blue-50/80 font-semibold'
-                    : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
+                    ? 'text-blue-600 bg-blue-50/80 font-semibold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
                 }`}
                 onClick={() =>
                   setActiveDropdown(
@@ -166,7 +166,7 @@ export const SiteNavbar: React.FC = () => {
                 aria-expanded={activeDropdown === 'services'}>
                 <span>Services</span>
                 <i
-                  className={`fa-solid fa-chevron-down text-[10px] transition-transform duration-200 ${
+                  className={`fa-solid fa-chevron-down text-[9.5px] transition-transform duration-200 ${
                     activeDropdown === 'services'
                       ? 'rotate-180 text-blue-600'
                       : 'text-slate-400'
@@ -181,7 +181,7 @@ export const SiteNavbar: React.FC = () => {
                   onMouseEnter={() => handleMouseEnter('services')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="bg-white/98 backdrop-blur-2xl rounded-2xl shadow-[0_25px_60px_-15px_rgba(15,23,42,0.18),0_0_1px_1px_rgba(15,23,42,0.06)] border border-slate-200/90 p-5 overflow-hidden">
+                  <div className="bg-white rounded-2xl shadow-[0_25px_60px_-15px_rgba(15,23,42,0.25),0_0_1px_1px_rgba(15,23,42,0.08)] border border-slate-200/90 p-6 overflow-hidden" style={{ backgroundColor: "#ffffff" }}>
                     {/* Header */}
                     <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-100">
                       <div className="flex items-center gap-2.5">
@@ -199,7 +199,7 @@ export const SiteNavbar: React.FC = () => {
                       </div>
                       <Link
                         href="/services"
-                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 hover:text-blue-700 bg-blue-50/70 hover:bg-blue-100/70 px-3 py-1.5 rounded-lg transition-colors whitespace-nowrap"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 bg-slate-100/80 hover:bg-blue-50 px-3 py-1.5 rounded-lg border border-slate-200/60 hover:border-blue-200 transition-all duration-150 whitespace-nowrap"
                       >
                         <span>Browse All Services</span>
                         <i className="fa-solid fa-arrow-right text-[10px]" />
@@ -215,19 +215,19 @@ export const SiteNavbar: React.FC = () => {
                           <Link
                             key={catKey}
                             href={catUrl}
-                            className="group/item flex items-center gap-3 p-2.5 rounded-xl transition-all duration-150 hover:bg-slate-50 border border-transparent hover:border-slate-200/70 hover:shadow-xs"
+                            className="group/item flex items-center gap-3 p-2.5 rounded-xl transition-all duration-150 hover:bg-slate-100/80 border border-transparent hover:border-slate-200/80 hover:shadow-xs"
                           >
-                            <div className="w-9 h-9 rounded-xl bg-blue-50/90 border border-blue-100 flex items-center justify-center flex-shrink-0 text-blue-600 group-hover/item:bg-blue-600 group-hover/item:text-white group-hover/item:border-blue-600 transition-all duration-150 shadow-xs">
+                            <div className="w-9 h-9 rounded-xl bg-blue-50/80 border border-blue-100/80 flex items-center justify-center flex-shrink-0 text-blue-600 group-hover/item:scale-105 group-hover/item:bg-blue-600 group-hover/item:text-white group-hover/item:border-blue-600 transition-all duration-150 shadow-xs">
                               {getCategoryIcon(cat.slug, cat.iconClass)}
                             </div>
                             <div className="min-w-0 flex-1">
                               <div className="flex items-center justify-between">
-                                <h4 className="text-[12.5px] font-bold text-slate-800 group-hover/item:text-blue-600 transition-colors truncate">
+                                <h4 className="text-[13px] font-semibold text-slate-800 group-hover/item:text-blue-600 transition-colors truncate">
                                   {cat.name}
                                 </h4>
                                 <i className="fa-solid fa-chevron-right text-[8.5px] text-slate-300 opacity-0 -translate-x-1 group-hover/item:opacity-100 group-hover/item:translate-x-0 group-hover/item:text-blue-500 transition-all duration-150" />
                               </div>
-                              <p className="text-[11px] text-slate-400 group-hover/item:text-slate-500 transition-colors truncate mt-0.5">
+                              <p className="text-[11.5px] text-slate-500 group-hover/item:text-slate-600 transition-colors truncate mt-0.5 font-normal">
                                 {getCategoryTagline(cat.slug, cat.shortDesc)}
                               </p>
                             </div>
@@ -237,7 +237,7 @@ export const SiteNavbar: React.FC = () => {
                     </div>
 
                     {/* Highlight Footer Banner */}
-                    <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/80 -mx-5 -mb-5 px-5 py-3 rounded-b-2xl">
+                    <div className="mt-3.5 pt-3 border-t border-slate-100 flex items-center justify-between bg-slate-50/80 -mx-6 -mb-6 px-6 py-3.5 rounded-b-2xl">
                       <div className="flex items-center gap-2 text-xs">
                         <span className="flex h-2 w-2 relative">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -248,7 +248,7 @@ export const SiteNavbar: React.FC = () => {
                       </div>
                       <Link
                         href="/contact-us"
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-white hover:bg-blue-600 border border-blue-200 hover:border-blue-600 bg-white px-3 py-1.5 rounded-full transition-all duration-150 shadow-xs whitespace-nowrap"
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-800 px-4 py-1.5 rounded-full shadow-xs hover:shadow transition-all duration-150 whitespace-nowrap"
                       >
                         <span>Claim 5 Free Edits</span>
                         <i className="fa-solid fa-arrow-right text-[10px]" />
@@ -265,7 +265,7 @@ export const SiteNavbar: React.FC = () => {
               className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/sample-images'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
-                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 outline-none focus:outline-none'
               }`}>
               Portfolio
             </Link>
@@ -276,7 +276,7 @@ export const SiteNavbar: React.FC = () => {
               className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/about-us'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
-                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 outline-none focus:outline-none'
               }`}>
               About Us
             </Link>
@@ -287,7 +287,7 @@ export const SiteNavbar: React.FC = () => {
               className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/pricing'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
-                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 outline-none focus:outline-none'
               }`}>
               Pricing
             </Link>
@@ -299,11 +299,11 @@ export const SiteNavbar: React.FC = () => {
               onMouseLeave={handleMouseLeave}>
               <button
                 type="button"
-                className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 text-[13.5px] font-medium rounded-lg transition-all duration-150 outline-none focus:outline-none focus:ring-0 select-none whitespace-nowrap ${
                   activeDropdown === 'resources' ||
                   pathname.startsWith('/resources')
-                    ? 'text-blue-600 bg-blue-50/80 font-semibold'
-                    : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
+                    ? 'text-blue-600 bg-blue-50/80 font-semibold shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70'
                 }`}
                 onClick={() =>
                   setActiveDropdown(
@@ -313,7 +313,7 @@ export const SiteNavbar: React.FC = () => {
                 aria-expanded={activeDropdown === 'resources'}>
                 <span>Resources</span>
                 <i
-                  className={`fa-solid fa-chevron-down text-[10px] transition-transform duration-200 ${
+                  className={`fa-solid fa-chevron-down text-[9.5px] transition-transform duration-200 ${
                     activeDropdown === 'resources'
                       ? 'rotate-180 text-blue-600'
                       : 'text-slate-400'
@@ -323,62 +323,95 @@ export const SiteNavbar: React.FC = () => {
 
               {activeDropdown === 'resources' && (
                 <div
-                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-72 animate-in fade-in-50 zoom-in-95 duration-150 z-50"
+                  className="absolute top-full left-1/2 -translate-x-1/2 pt-2.5 w-[360px] animate-in fade-in-50 zoom-in-95 duration-150 z-50"
+                  style={{ width: "360px", minWidth: "360px" }}
                   onMouseEnter={() => handleMouseEnter('resources')}
                   onMouseLeave={handleMouseLeave}
                 >
-                  <div className="bg-white/98 backdrop-blur-2xl rounded-2xl shadow-[0_20px_50px_-15px_rgba(15,23,42,0.18),0_0_1px_1px_rgba(15,23,42,0.06)] border border-slate-200/90 p-2.5 overflow-hidden">
+                  <div
+                    className="bg-white rounded-2xl shadow-[0_20px_50px_-15px_rgba(15,23,42,0.25),0_0_1px_1px_rgba(15,23,42,0.08)] border border-slate-200/90 p-3.5 space-y-1.5 overflow-hidden w-full"
+                    style={{ backgroundColor: "#ffffff", width: "100%", minWidth: "360px" }}
+                  >
+                    {/* Header */}
+                    <div className="flex items-center justify-between px-3 pt-1 pb-2 border-b border-slate-100">
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                        Resources &amp; Guides
+                      </span>
+                      <span className="text-[10px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
+                        4 Categories
+                      </span>
+                    </div>
+
                     <Link
                       href="/blog"
-                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
+                      className="group flex items-center gap-3.5 px-3.5 py-3 rounded-xl hover:bg-slate-100/80 border border-transparent hover:border-slate-200/80 transition-all duration-150 w-full"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
-                        <i className="fa-regular fa-newspaper text-xs" />
+                      <div className="w-10 h-10 rounded-xl bg-blue-50/80 border border-blue-100/80 flex items-center justify-center flex-shrink-0 text-blue-600 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150 shadow-xs">
+                        <i className="fa-regular fa-newspaper text-sm" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Studio Blog</div>
-                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Industry insights &amp; guides</div>
+                        <div className="text-[13px] font-semibold text-slate-800 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                          Studio Blog
+                        </div>
+                        <div className="text-[11.5px] text-slate-500 group-hover:text-slate-600 mt-0.5 leading-snug whitespace-nowrap">
+                          Industry insights &amp; photo editing guides
+                        </div>
                       </div>
-                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
+                      <i className="fa-solid fa-chevron-right text-[9px] text-slate-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-blue-500 transition-all duration-150 flex-shrink-0" />
                     </Link>
+
                     <Link
                       href="/case-study"
-                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
+                      className="group flex items-center gap-3.5 px-3.5 py-3 rounded-xl hover:bg-slate-100/80 border border-transparent hover:border-slate-200/80 transition-all duration-150 w-full"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
-                        <i className="fa-solid fa-chart-line text-xs" />
+                      <div className="w-10 h-10 rounded-xl bg-blue-50/80 border border-blue-100/80 flex items-center justify-center flex-shrink-0 text-blue-600 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150 shadow-xs">
+                        <i className="fa-solid fa-chart-line text-sm" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Case Studies</div>
-                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Real client scaling results</div>
+                        <div className="text-[13px] font-semibold text-slate-800 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                          Case Studies
+                        </div>
+                        <div className="text-[11.5px] text-slate-500 group-hover:text-slate-600 mt-0.5 leading-snug whitespace-nowrap">
+                          Real client scale &amp; turnaround results
+                        </div>
                       </div>
-                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
+                      <i className="fa-solid fa-chevron-right text-[9px] text-slate-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-blue-500 transition-all duration-150 flex-shrink-0" />
                     </Link>
+
                     <Link
                       href="/articles"
-                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
+                      className="group flex items-center gap-3.5 px-3.5 py-3 rounded-xl hover:bg-slate-100/80 border border-transparent hover:border-slate-200/80 transition-all duration-150 w-full"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
-                        <i className="fa-solid fa-book-open text-xs" />
+                      <div className="w-10 h-10 rounded-xl bg-blue-50/80 border border-blue-100/80 flex items-center justify-center flex-shrink-0 text-blue-600 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150 shadow-xs">
+                        <i className="fa-solid fa-book-open text-sm" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Resource Articles</div>
-                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Technical workflows &amp; tips</div>
+                        <div className="text-[13px] font-semibold text-slate-800 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                          Resource Articles
+                        </div>
+                        <div className="text-[11.5px] text-slate-500 group-hover:text-slate-600 mt-0.5 leading-snug whitespace-nowrap">
+                          Technical retouching workflows &amp; tips
+                        </div>
                       </div>
-                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
+                      <i className="fa-solid fa-chevron-right text-[9px] text-slate-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-blue-500 transition-all duration-150 flex-shrink-0" />
                     </Link>
+
                     <Link
                       href="/testimonials"
-                      className="group flex items-center gap-3 p-2.5 rounded-xl hover:bg-slate-50 border border-transparent hover:border-slate-200/70 transition-all duration-150 whitespace-nowrap"
+                      className="group flex items-center gap-3.5 px-3.5 py-3 rounded-xl hover:bg-slate-100/80 border border-transparent hover:border-slate-200/80 transition-all duration-150 w-full"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150">
-                        <i className="fa-regular fa-comments text-xs" />
+                      <div className="w-10 h-10 rounded-xl bg-blue-50/80 border border-blue-100/80 flex items-center justify-center flex-shrink-0 text-blue-600 group-hover:scale-105 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all duration-150 shadow-xs">
+                        <i className="fa-regular fa-comments text-sm" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition-colors">Client Testimonials</div>
-                        <div className="text-[11px] text-slate-400 group-hover:text-slate-500">Reviews from photographers</div>
+                        <div className="text-[13px] font-semibold text-slate-800 group-hover:text-blue-600 transition-colors whitespace-nowrap">
+                          Client Testimonials
+                        </div>
+                        <div className="text-[11.5px] text-slate-500 group-hover:text-slate-600 mt-0.5 leading-snug whitespace-nowrap">
+                          Verified feedback from studio partners
+                        </div>
                       </div>
-                      <i className="fa-solid fa-chevron-right text-[8px] text-slate-300 opacity-0 group-hover:opacity-100 group-hover:text-blue-500 transition-all" />
+                      <i className="fa-solid fa-chevron-right text-[9px] text-slate-300 opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-blue-500 transition-all duration-150 flex-shrink-0" />
                     </Link>
                   </div>
                 </div>
@@ -391,7 +424,7 @@ export const SiteNavbar: React.FC = () => {
               className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/contact-us'
                   ? 'text-blue-600 bg-blue-50/80 font-semibold'
-                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
+                  : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 outline-none focus:outline-none'
               }`}>
               Contact
             </Link>
@@ -436,7 +469,7 @@ export const SiteNavbar: React.FC = () => {
 
       {/* Mobile Drawer Accordion Menu */}
       {isOpen && (
-        <div className="lg:hidden border-t border-slate-200/80 bg-white/98 backdrop-blur-2xl shadow-2xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden border-t border-slate-200/80 bg-white shadow-2xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
           <div className="px-4 py-6 space-y-4">
             {/* Direct Links */}
             <div className="space-y-1">
