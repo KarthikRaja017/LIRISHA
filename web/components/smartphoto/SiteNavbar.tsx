@@ -99,7 +99,7 @@ export const SiteNavbar: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-[72px]">
+        <div className="flex items-center justify-between h-[68px]">
           {/* Logo & Brand */}
           <div className="flex items-center gap-3 shrink-0">
             <Link
@@ -111,7 +111,7 @@ export const SiteNavbar: React.FC = () => {
               <img
                 src={logoUrl}
                 alt={siteName}
-                className="h-9 sm:h-10 w-auto object-contain transition-all duration-200"
+                className="h-8 sm:h-9 w-auto object-contain transition-all duration-200"
                 onError={(e) => {
                   const target = e.currentTarget;
                   if (target.src !== '/images/lirisha-logo-header.png') {
@@ -132,10 +132,10 @@ export const SiteNavbar: React.FC = () => {
             >
               <button
                 type="button"
-                className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13.5px] xl:text-sm font-semibold rounded-lg transition-colors duration-150 whitespace-nowrap ${
+                className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                   activeDropdown === 'services' || pathname.startsWith('/services')
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                    ? 'text-blue-600 bg-blue-50/80 font-semibold'
+                    : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
                 }`}
                 onClick={() => setActiveDropdown(activeDropdown === 'services' ? null : 'services')}
                 aria-expanded={activeDropdown === 'services'}
@@ -229,10 +229,10 @@ export const SiteNavbar: React.FC = () => {
             {/* Portfolio */}
             <Link
               href="/sample-images"
-              className={`px-3 py-2 text-[13.5px] xl:text-sm font-semibold rounded-lg transition-colors duration-150 whitespace-nowrap ${
+              className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/sample-images'
-                  ? 'text-blue-600 bg-blue-50/70'
-                  : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                  ? 'text-blue-600 bg-blue-50/80 font-semibold'
+                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
               }`}
             >
               Portfolio
@@ -241,10 +241,10 @@ export const SiteNavbar: React.FC = () => {
             {/* About Us */}
             <Link
               href="/about-us"
-              className={`px-3 py-2 text-[13.5px] xl:text-sm font-semibold rounded-lg transition-colors duration-150 whitespace-nowrap ${
+              className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/about-us'
-                  ? 'text-blue-600 bg-blue-50/70'
-                  : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                  ? 'text-blue-600 bg-blue-50/80 font-semibold'
+                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
               }`}
             >
               About Us
@@ -253,10 +253,10 @@ export const SiteNavbar: React.FC = () => {
             {/* Pricing */}
             <Link
               href="/pricing"
-              className={`px-3 py-2 text-[13.5px] xl:text-sm font-semibold rounded-lg transition-colors duration-150 whitespace-nowrap ${
+              className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/pricing'
-                  ? 'text-blue-600 bg-blue-50/70'
-                  : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                  ? 'text-blue-600 bg-blue-50/80 font-semibold'
+                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
               }`}
             >
               Pricing
@@ -270,10 +270,10 @@ export const SiteNavbar: React.FC = () => {
             >
               <button
                 type="button"
-                className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13.5px] xl:text-sm font-semibold rounded-lg transition-colors duration-150 whitespace-nowrap ${
+                className={`inline-flex items-center gap-1.5 px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                   activeDropdown === 'resources' || pathname.startsWith('/resources')
-                    ? 'text-blue-600 bg-blue-50/70'
-                    : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                    ? 'text-blue-600 bg-blue-50/80 font-semibold'
+                    : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
                 }`}
                 onClick={() => setActiveDropdown(activeDropdown === 'resources' ? null : 'resources')}
                 aria-expanded={activeDropdown === 'resources'}
@@ -341,10 +341,10 @@ export const SiteNavbar: React.FC = () => {
             {/* Contact */}
             <Link
               href="/contact-us"
-              className={`px-3 py-2 text-[13.5px] xl:text-sm font-semibold rounded-lg transition-colors duration-150 whitespace-nowrap ${
+              className={`px-3 py-2 text-[13px] xl:text-[13.5px] font-medium rounded-lg transition-colors duration-150 whitespace-nowrap ${
                 pathname === '/contact-us'
-                  ? 'text-blue-600 bg-blue-50/70'
-                  : 'text-slate-700 hover:text-blue-600 hover:bg-slate-50'
+                  ? 'text-blue-600 bg-blue-50/80 font-semibold'
+                  : 'text-slate-600 hover:text-blue-600 hover:bg-slate-50/90'
               }`}
             >
               Contact
@@ -353,11 +353,12 @@ export const SiteNavbar: React.FC = () => {
 
           {/* Right Action Buttons */}
           <div className="hidden lg:flex items-center gap-2 xl:gap-3 shrink-0">
+            <div className="hidden xl:block h-4 w-px bg-slate-200/90 mr-1" />
             {/* Direct Phone Link */}
             {contactPhone && (
               <a
                 href={`tel:${contactPhone.replace(/[^0-9+]/g, '')}`}
-                className="hidden 2xl:inline-flex items-center gap-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 transition-colors px-2.5 py-2 rounded-lg hover:bg-slate-100/70 whitespace-nowrap"
+                className="hidden 2xl:inline-flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-blue-600 transition-colors px-2 py-1.5 rounded-lg hover:bg-slate-50 whitespace-nowrap"
                 title="Call our specialists"
               >
                 <i className="fa-solid fa-phone text-blue-500 text-xs" />
@@ -368,7 +369,7 @@ export const SiteNavbar: React.FC = () => {
             {/* Sign In Link */}
             <Link
               href="/login"
-              className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold uppercase tracking-wider text-slate-700 hover:text-blue-600 hover:bg-slate-100/80 rounded-full transition-colors whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-600 hover:text-blue-600 hover:bg-slate-50 rounded-lg transition-colors whitespace-nowrap"
             >
               <i className="fa-regular fa-user text-xs opacity-75" />
               <span>Sign In</span>
@@ -377,7 +378,7 @@ export const SiteNavbar: React.FC = () => {
             {/* Primary Action Button: Free Trial / Instant Quote */}
             <Link
               href="/contact-us"
-              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-500 hover:from-blue-500 hover:via-indigo-500 hover:to-cyan-400 shadow-md shadow-blue-500/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 active:scale-95 whitespace-nowrap"
+              className="group inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 shadow-sm shadow-blue-500/20 transition-all duration-150 hover:shadow-md hover:-translate-y-0.5 active:translate-y-0 active:scale-95 whitespace-nowrap"
             >
               <span>Get Free Quote</span>
               <i className="fa-solid fa-arrow-right text-[10px] transition-transform duration-200 group-hover:translate-x-1" />

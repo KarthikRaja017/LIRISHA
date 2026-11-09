@@ -45,7 +45,7 @@ export const CounterSection: React.FC<CounterSectionProps> = ({ initialStats }) 
   const activeStats = initialStats && initialStats.length > 0 ? initialStats : defaultStats;
 
   return (
-    <section className="relative z-20 -mt-8 sm:-mt-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative z-20 -mt-6 sm:-mt-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 reveal-group">
         {activeStats.map((stat, idx) => (
           <div

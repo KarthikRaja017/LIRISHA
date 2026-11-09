@@ -1088,7 +1088,7 @@ img { vertical-align: middle; border-style: none; }
   width: auto !important;
   height: auto !important;
   top: auto !important;
-  bottom: 28px !important;
+  bottom: 84px !important;
   left: 50% !important;
   right: auto !important;
   transform: translateX(-50%) !important;
@@ -1534,7 +1534,7 @@ footer a:hover { color: #00C8F8; }
     width: auto !important;
     height: auto !important;
     position: absolute !important;
-    bottom: 22px !important;
+    bottom: 56px !important;
     top: auto !important;
     left: 50% !important;
     right: auto !important;
