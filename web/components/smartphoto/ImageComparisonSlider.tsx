@@ -19,7 +19,27 @@ export const ImageComparisonSlider: React.FC<ImageComparisonSliderProps> = ({
 }) => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
+  const [containerWidth, setContainerWidth] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.clientWidth);
+      }
+    };
+    updateWidth();
+    const ro = typeof ResizeObserver !== "undefined" ? new ResizeObserver(updateWidth) : null;
+    if (ro && containerRef.current) {
+      ro.observe(containerRef.current);
+    }
+    window.addEventListener("resize", updateWidth);
+    return () => {
+      if (ro) ro.disconnect();
+      window.removeEventListener("resize", updateWidth);
+    };
+  }, []);
 
   const handleMove = useCallback((clientX: number) => {
     if (!containerRef.current) return;
@@ -96,7 +116,9 @@ export const ImageComparisonSlider: React.FC<ImageComparisonSliderProps> = ({
             alt={beforeAlt}
             className="absolute top-0 left-0 max-w-none h-full object-cover pointer-events-none"
             style={{
-              width: containerRef.current
+              width: containerWidth
+                ? `${containerWidth}px`
+                : containerRef.current
                 ? `${containerRef.current.clientWidth}px`
                 : "100%",
             }}

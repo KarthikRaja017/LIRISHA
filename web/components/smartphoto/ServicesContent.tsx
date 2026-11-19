@@ -222,7 +222,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                 >
                   <div className={`row items-center ${isEven ? "" : "flex-row-reverse"}`}>
                     {/* Left/Right Text Column */}
-                    <div className="col-lg-6 mb-8 lg:mb-0">
+                    <div className="w-full col-lg-6 mb-8 lg:mb-0">
                       <div className="flex items-center gap-3 mb-3">
                         <span className="w-10 h-10 rounded-xl bg-blue-100 text-[#1265E8] flex items-center justify-center text-lg">
                           <i className={service.iconClass}></i>
@@ -294,7 +294,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
                     </div>
 
                     {/* Left/Right Interactive Before/After Column */}
-                    <div className="col-lg-6">
+                    <div className="w-full col-lg-6">
                       <div className="bg-white p-3 md:p-4 rounded-2xl border border-gray-200 shadow-inner flex flex-col items-center">
                         <div className="w-full max-w-[500px]">
                           <ImageComparisonSlider

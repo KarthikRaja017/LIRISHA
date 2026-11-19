@@ -64,7 +64,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
       <section className="py-16 bg-white border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="row items-center">
-            <div className="col-lg-6 mb-8 lg:mb-0">
+            <div className="w-full col-lg-6 mb-8 lg:mb-0">
               <span className="text-[#1265E8] text-xs font-bold uppercase tracking-widest">
                 Overview & Value
               </span>
@@ -112,7 +112,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
             </div>
 
             {/* Comparison Slider */}
-            <div className="col-lg-6">
+            <div className="w-full col-lg-6">
               <div className="bg-[#f8f9fa] p-4 rounded-3xl border border-gray-200 shadow-sm flex flex-col items-center">
                 <div className="w-full max-w-[500px]">
                   <ImageComparisonSlider
@@ -206,7 +206,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
       <section className="py-16 bg-white border-t border-gray-200">
         <div className="container mx-auto px-4">
           <div className="row items-center">
-            <div className="col-lg-6 mb-8 lg:mb-0">
+            <div className="w-full col-lg-6 mb-8 lg:mb-0">
               <h2 className="text-2xl md:text-3xl font-bold text-[#07152F] mb-4">
                 Deliverables & Technical Standards
               </h2>
@@ -224,7 +224,7 @@ export const ServiceDetailContent: React.FC<ServiceDetailProps> = ({ service }) 
               </div>
             </div>
 
-            <div className="col-lg-6">
+            <div className="w-full col-lg-6">
               <div className="bg-[#07152F] text-white p-8 rounded-3xl relative overflow-hidden">
                 <div className="relative z-10">
                   <h3 className="text-2xl font-bold mb-2">Need a Custom Specification?</h3>

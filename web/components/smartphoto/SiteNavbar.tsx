@@ -918,7 +918,7 @@ export const SiteNavbar: React.FC = () => {
           <div className="flex lg:hidden items-center gap-2">
             <Link
               href="/contact-us"
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm">
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 shadow-sm whitespace-nowrap">
               <span>Free Quote</span>
             </Link>
 
@@ -940,7 +940,7 @@ export const SiteNavbar: React.FC = () => {
 
       {/* Mobile Drawer Accordion Menu */}
       {isOpen && (
-        <div className="lg:hidden border-t border-slate-200/80 bg-white shadow-2xl animate-in slide-in-from-top-2 duration-200 max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden border-t border-slate-200/80 bg-white shadow-2xl animate-in slide-in-from-top-2 duration-200 max-h-[calc(100dvh-68px)] overflow-y-auto pb-28">
           <div className="px-4 py-6 space-y-4">
             <div className="space-y-1">
               {/* Services Mobile Category */}

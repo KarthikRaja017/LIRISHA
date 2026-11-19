@@ -132,7 +132,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
       <section className="py-16 bg-white border-b border-gray-100">
         <div className="container mx-auto px-4">
           <div className="row items-center">
-            <div className="col-lg-6 mb-8 lg:mb-0">
+            <div className="w-full col-lg-6 mb-8 lg:mb-0">
               <span className="text-[#1265E8] text-xs font-bold uppercase tracking-widest">
                 Service Overview
               </span>
@@ -182,7 +182,7 @@ export const SubServiceDetailContent: React.FC<SubServiceDetailProps> = ({
             </div>
 
             {/* Comparison Slider */}
-            <div className="col-lg-6">
+            <div className="w-full col-lg-6">
               <div className="bg-[#f8f9fa] p-4 rounded-3xl border border-gray-200 shadow-sm flex flex-col items-center">
                 <div className="w-full max-w-[500px]">
                   <ImageComparisonSlider
