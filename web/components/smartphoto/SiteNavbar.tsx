@@ -16,9 +16,7 @@ export const SiteNavbar: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<
     'services' | 'resources' | null
   >(null);
-  const [activeServiceTab, setActiveServiceTab] = useState<
-    'real-estate' | 'image-clipping' | 'portrait' | 'wedding'
-  >('real-estate');
+  const [activeServiceTab, setActiveServiceTab] = useState<string>('real-estate');
   const [mobileExpandedCat, setMobileExpandedCat] = useState<string | null>(
     'real-estate',
   );
@@ -43,18 +41,34 @@ export const SiteNavbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Fetch dynamic CMS services
+  // Fetch dynamic CMS services and synchronize in real-time
   useEffect(() => {
     let isMounted = true;
-    getServices()
-      .then((data) => {
-        if (isMounted && data && Array.isArray(data) && data.length > 0) {
-          setServices(data);
-        }
-      })
-      .catch(() => {});
+    const fetchServices = () => {
+      getServices()
+        .then((data) => {
+          if (isMounted && data && Array.isArray(data) && data.length > 0) {
+            setServices(data);
+          }
+        })
+        .catch(() => {});
+    };
+
+    fetchServices();
+
+    const handleCmsUpdate = (e: any) => {
+      if (!e.detail || e.detail.type === 'services') {
+        fetchServices();
+      }
+    };
+
+    window.addEventListener('lirisha_cms_update', handleCmsUpdate);
+    window.addEventListener('storage', fetchServices);
+
     return () => {
       isMounted = false;
+      window.removeEventListener('lirisha_cms_update', handleCmsUpdate);
+      window.removeEventListener('storage', fetchServices);
     };
   }, []);
 
@@ -182,185 +196,78 @@ export const SiteNavbar: React.FC = () => {
 
                     {/* Interactive 2-Panel Layout: Category Tabs on Left, Full Sub-services on Right */}
                     <div className="grid grid-cols-12 gap-4">
-                      {/* Left Navigation Tabs (4 services only) */}
-                      <div className="col-span-4 space-y-1.5 border-r border-slate-100 pr-3">
+                      {/* Left Navigation Tabs (All services dynamically rendered) */}
+                      <div className="col-span-4 space-y-1 border-r border-slate-100 pr-3 max-h-[460px] overflow-y-auto">
                         <div className="text-[10.5px] font-bold uppercase tracking-wider text-slate-400 px-2.5 py-1">
-                          Select Service Category
+                          All Services ({services.length})
                         </div>
 
-                        {/* 1. Real Estate Tab */}
-                        <div
-                          onMouseEnter={() => setActiveServiceTab('real-estate')}
-                          className={`group p-2.5 rounded-xl cursor-pointer transition-all border ${
-                            activeServiceTab === 'real-estate'
-                              ? 'bg-blue-50/90 border-blue-200 shadow-xs'
-                              : 'bg-white hover:bg-slate-50 border-transparent'
-                          }`}>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2.5">
-                              <div
-                                className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs transition-colors ${
-                                  activeServiceTab === 'real-estate'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'
-                                }`}>
-                                <i className="fa-solid fa-house-chimney" />
-                              </div>
-                              <div>
-                                <Link
-                                  href="/real-estate"
-                                  className={`text-[13px] font-bold block ${
-                                    activeServiceTab === 'real-estate'
-                                      ? 'text-blue-700'
-                                      : 'text-slate-800 group-hover:text-blue-600'
-                                  }`}>
-                                  Real Estate Image Editing
-                                </Link>
-                                <span className="text-[11px] text-slate-500 block">
-                                  12 Services + Floor Plans
-                                </span>
-                              </div>
-                            </div>
-                            <i
-                              className={`fa-solid fa-chevron-right text-[10px] transition-transform ${
-                                activeServiceTab === 'real-estate'
-                                  ? 'text-blue-600 translate-x-0.5'
-                                  : 'text-slate-300'
-                              }`}
-                            />
-                          </div>
-                        </div>
+                        {services.map((srv) => {
+                          const isSelected =
+                            activeServiceTab === srv.id ||
+                            activeServiceTab === srv.slug;
+                          const targetLink =
+                            srv.id === 'wedding' ||
+                            srv.slug === 'wedding-photo-post-processing'
+                              ? '/wedding-photo-post-processing'
+                              : srv.slug?.startsWith('/')
+                              ? srv.slug
+                              : `/${srv.slug || srv.id}`;
+                          const subCount = srv.subServices?.length || 0;
 
-                        {/* 2. Image Clipping Tab */}
-                        <div
-                          onMouseEnter={() =>
-                            setActiveServiceTab('image-clipping')
-                          }
-                          className={`group p-2.5 rounded-xl cursor-pointer transition-all border ${
-                            activeServiceTab === 'image-clipping'
-                              ? 'bg-blue-50/90 border-blue-200 shadow-xs'
-                              : 'bg-white hover:bg-slate-50 border-transparent'
-                          }`}>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2.5">
-                              <div
-                                className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs transition-colors ${
-                                  activeServiceTab === 'image-clipping'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'
-                                }`}>
-                                <i className="fa-solid fa-scissors" />
-                              </div>
-                              <div>
-                                <Link
-                                  href="/image-clipping"
-                                  className={`text-[13px] font-bold block ${
-                                    activeServiceTab === 'image-clipping'
-                                      ? 'text-blue-700'
-                                      : 'text-slate-800 group-hover:text-blue-600'
-                                  }`}>
-                                  Image Clipping Services
-                                </Link>
-                                <span className="text-[11px] text-slate-500 block">
-                                  Background Removal &amp; Paths
-                                </span>
-                              </div>
-                            </div>
-                            <i
-                              className={`fa-solid fa-chevron-right text-[10px] transition-transform ${
-                                activeServiceTab === 'image-clipping'
-                                  ? 'text-blue-600 translate-x-0.5'
-                                  : 'text-slate-300'
-                              }`}
-                            />
-                          </div>
-                        </div>
-
-                        {/* 3. Portrait Editing Tab */}
-                        <div
-                          onMouseEnter={() => setActiveServiceTab('portrait')}
-                          className={`group p-2.5 rounded-xl cursor-pointer transition-all border ${
-                            activeServiceTab === 'portrait'
-                              ? 'bg-blue-50/90 border-blue-200 shadow-xs'
-                              : 'bg-white hover:bg-slate-50 border-transparent'
-                          }`}>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2.5">
-                              <div
-                                className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs transition-colors ${
-                                  activeServiceTab === 'portrait'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'
-                                }`}>
-                                <i className="fa-solid fa-user-check" />
-                              </div>
-                              <div>
-                                <Link
-                                  href="/portrait"
-                                  className={`text-[13px] font-bold block ${
-                                    activeServiceTab === 'portrait'
-                                      ? 'text-blue-700'
-                                      : 'text-slate-800 group-hover:text-blue-600'
-                                  }`}>
-                                  Portrait Editing Services
-                                </Link>
-                                <span className="text-[11px] text-slate-500 block">
-                                  Dedicated Menu &amp; Page
-                                </span>
+                          return (
+                            <div
+                              key={srv.id}
+                              onMouseEnter={() => setActiveServiceTab(srv.id)}
+                              className={`group p-2 rounded-xl cursor-pointer transition-all border ${
+                                isSelected
+                                  ? 'bg-blue-50/90 border-blue-200 shadow-xs'
+                                  : 'bg-white hover:bg-slate-50 border-transparent'
+                              }`}>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2.5 min-w-0">
+                                  <div
+                                    className={`w-7 h-7 rounded-lg flex items-center justify-center text-xs shrink-0 transition-colors ${
+                                      isSelected
+                                        ? 'bg-blue-600 text-white'
+                                        : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'
+                                    }`}>
+                                    <i
+                                      className={
+                                        srv.iconClass ||
+                                        'fa-solid fa-wand-magic-sparkles'
+                                      }
+                                    />
+                                  </div>
+                                  <div className="min-w-0">
+                                    <Link
+                                      href={targetLink}
+                                      onClick={() => setActiveDropdown(null)}
+                                      className={`text-[12.5px] font-bold block truncate ${
+                                        isSelected
+                                          ? 'text-blue-700'
+                                          : 'text-slate-800 group-hover:text-blue-600'
+                                      }`}>
+                                      {srv.name}
+                                    </Link>
+                                    <span className="text-[10.5px] text-slate-500 block truncate">
+                                      {subCount > 0
+                                        ? `${subCount} Sub-services`
+                                        : srv.tagline || 'Dedicated Page'}
+                                    </span>
+                                  </div>
+                                </div>
+                                <i
+                                  className={`fa-solid fa-chevron-right text-[10px] shrink-0 transition-transform ${
+                                    isSelected
+                                      ? 'text-blue-600 translate-x-0.5'
+                                      : 'text-slate-300'
+                                  }`}
+                                />
                               </div>
                             </div>
-                            <i
-                              className={`fa-solid fa-chevron-right text-[10px] transition-transform ${
-                                activeServiceTab === 'portrait'
-                                  ? 'text-blue-600 translate-x-0.5'
-                                  : 'text-slate-300'
-                              }`}
-                            />
-                          </div>
-                        </div>
-
-                        {/* 4. Wedding Photo Post Processing Tab */}
-                        <div
-                          onMouseEnter={() => setActiveServiceTab('wedding')}
-                          className={`group p-2.5 rounded-xl cursor-pointer transition-all border ${
-                            activeServiceTab === 'wedding'
-                              ? 'bg-blue-50/90 border-blue-200 shadow-xs'
-                              : 'bg-white hover:bg-slate-50 border-transparent'
-                          }`}>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2.5">
-                              <div
-                                className={`w-8 h-8 rounded-lg flex items-center justify-center text-xs transition-colors ${
-                                  activeServiceTab === 'wedding'
-                                    ? 'bg-blue-600 text-white'
-                                    : 'bg-blue-50 text-blue-600 group-hover:bg-blue-100'
-                                }`}>
-                                <i className="fa-solid fa-camera-retro" />
-                              </div>
-                              <div>
-                                <Link
-                                  href="/wedding-photo-post-processing"
-                                  className={`text-[13px] font-bold block ${
-                                    activeServiceTab === 'wedding'
-                                      ? 'text-blue-700'
-                                      : 'text-slate-800 group-hover:text-blue-600'
-                                  }`}>
-                                  Wedding Photo Post Processing
-                                </Link>
-                                <span className="text-[11px] text-slate-500 block">
-                                  Dedicated Menu &amp; Page
-                                </span>
-                              </div>
-                            </div>
-                            <i
-                              className={`fa-solid fa-chevron-right text-[10px] transition-transform ${
-                                activeServiceTab === 'wedding'
-                                  ? 'text-blue-600 translate-x-0.5'
-                                  : 'text-slate-300'
-                              }`}
-                            />
-                          </div>
-                        </div>
+                          );
+                        })}
                       </div>
 
                       {/* Right Detail Pane: Dynamic Based on Active Tab */}
@@ -708,6 +615,117 @@ export const SiteNavbar: React.FC = () => {
                             </div>
                           </div>
                         )}
+
+                        {/* 5. Dynamic View for All Other / Newly Added Services */}
+                        {!['real-estate', 'image-clipping', 'portrait', 'wedding'].includes(activeServiceTab) && (() => {
+                          const selectedSrv =
+                            services.find((s) => s.id === activeServiceTab || s.slug === activeServiceTab) ||
+                            services[0];
+                          if (!selectedSrv) return null;
+
+                          const targetLink =
+                            selectedSrv.slug?.startsWith('/')
+                              ? selectedSrv.slug
+                              : `/${selectedSrv.slug || selectedSrv.id}`;
+                          const subList = selectedSrv.subServices || [];
+
+                          return (
+                            <div className="space-y-3">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <span className="text-xs font-bold uppercase tracking-wider text-blue-700">
+                                    {selectedSrv.name}
+                                  </span>
+                                  <span className="text-[10px] font-semibold bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">
+                                    {selectedSrv.turnaroundTime || '12-24h Rush Delivery'}
+                                  </span>
+                                </div>
+                                <Link
+                                  href={targetLink}
+                                  onClick={() => setActiveDropdown(null)}
+                                  className="text-xs font-semibold text-blue-600 hover:underline">
+                                  View Live Screen &rarr;
+                                </Link>
+                              </div>
+
+                              <div className="p-4 rounded-xl bg-gradient-to-br from-blue-50/80 to-slate-50 border border-blue-100 space-y-3">
+                                <div className="flex items-start gap-3.5">
+                                  <div className="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center text-base shrink-0 shadow-sm">
+                                    <i
+                                      className={
+                                        selectedSrv.iconClass ||
+                                        'fa-solid fa-wand-magic-sparkles'
+                                      }
+                                    />
+                                  </div>
+                                  <div>
+                                    <h4 className="text-sm font-bold text-slate-900">
+                                      {selectedSrv.tagline || selectedSrv.name}
+                                    </h4>
+                                    <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                                      {selectedSrv.shortDesc ||
+                                        selectedSrv.fullDesc ||
+                                        'High-precision professional post-production and digital image retouching.'}
+                                    </p>
+                                  </div>
+                                </div>
+
+                                {subList.length > 0 && (
+                                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-blue-100/80">
+                                    {subList.slice(0, 6).map((sub: any, sIdx: number) => {
+                                      const subTitle =
+                                        typeof sub === 'string'
+                                          ? sub
+                                          : sub.name || sub.title;
+                                      const subSlug =
+                                        typeof sub === 'string' ? '' : sub.slug;
+                                      const subUrl = subSlug
+                                        ? `/${selectedSrv.slug}/${subSlug}`
+                                        : targetLink;
+                                      return (
+                                        <Link
+                                          key={sIdx}
+                                          href={subUrl}
+                                          onClick={() => setActiveDropdown(null)}
+                                          className="text-xs text-slate-700 hover:text-blue-600 flex items-center gap-1.5 truncate">
+                                          <i className="fa-solid fa-check text-blue-600 text-[10px] shrink-0" />
+                                          <span className="truncate">{subTitle}</span>
+                                        </Link>
+                                      );
+                                    })}
+                                  </div>
+                                )}
+
+                                {selectedSrv.deliverables &&
+                                  selectedSrv.deliverables.length > 0 && (
+                                    <div className="flex flex-wrap gap-1.5 pt-1">
+                                      {selectedSrv.deliverables.map(
+                                        (del: string, dIdx: number) => (
+                                          <span
+                                            key={dIdx}
+                                            className="text-[10.5px] font-semibold bg-white text-slate-700 px-2 py-0.5 rounded-md border border-slate-200">
+                                            ✓ {del}
+                                          </span>
+                                        ),
+                                      )}
+                                    </div>
+                                  )}
+
+                                <div className="pt-2">
+                                  <Link
+                                    href={targetLink}
+                                    onClick={() => setActiveDropdown(null)}
+                                    className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-xs">
+                                    <span>
+                                      Open Dedicated {selectedSrv.name} Screen
+                                    </span>
+                                    <i className="fa-solid fa-arrow-right text-[10px]" />
+                                  </Link>
+                                </div>
+                              </div>
+                            </div>
+                          );
+                        })()}
                       </div>
                     </div>
 
@@ -926,30 +944,36 @@ export const SiteNavbar: React.FC = () => {
           <div className="px-4 py-6 space-y-4">
             <div className="space-y-1">
               {/* Services Mobile Category */}
-              <div className="font-bold text-xs uppercase tracking-wider text-blue-600 px-3 py-1">
-                Services
+              <div className="flex items-center justify-between px-3 py-1">
+                <span className="font-bold text-xs uppercase tracking-wider text-blue-600">
+                  Services
+                </span>
+                <Link
+                  href="/services"
+                  onClick={closeMobileMenu}
+                  className="text-[11px] font-bold text-blue-600 hover:underline">
+                  All Services Hub &rarr;
+                </Link>
               </div>
 
-              {/* 1. Real Estate Accordion */}
+              {/* 1. Real Estate Image Editing Accordion */}
               <div>
                 <div className="flex items-center justify-between px-3 py-2 rounded-xl font-bold text-slate-900 hover:bg-slate-50">
                   <Link
                     href="/real-estate"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-2 text-slate-900">
-                    <i className="fa-solid fa-house-chimney text-blue-600 text-sm" />
-                    <span>Real Estate Image Editing</span>
+                    className="flex items-center gap-2 text-slate-900 flex-1 min-w-0">
+                    <i className="fa-solid fa-house-chimney text-blue-600 text-sm shrink-0" />
+                    <span className="truncate">Real Estate Image Editing</span>
                   </Link>
                   <button
                     type="button"
                     onClick={() =>
                       setMobileExpandedCat(
-                        mobileExpandedCat === 'real-estate'
-                          ? null
-                          : 'real-estate',
+                        mobileExpandedCat === 'real-estate' ? null : 'real-estate'
                       )
                     }
-                    className="p-1 text-slate-400 hover:text-slate-600">
+                    className="p-1 text-slate-400 hover:text-slate-600 shrink-0">
                     <i
                       className={`fa-solid fa-chevron-down text-xs transition-transform ${
                         mobileExpandedCat === 'real-estate' ? 'rotate-180' : ''
@@ -957,72 +981,73 @@ export const SiteNavbar: React.FC = () => {
                     />
                   </button>
                 </div>
+
                 {mobileExpandedCat === 'real-estate' && (
                   <div className="pl-6 py-1 space-y-1 bg-slate-50/70 rounded-xl my-1 border-l-2 border-blue-200">
                     <Link
                       href="/real-estate/image-enhancement"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Image Enhancement
                     </Link>
                     <Link
                       href="/real-estate/hdr-blending"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       HDR Blending
                     </Link>
                     <Link
                       href="/real-estate/aerial-editing"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Aerial Editing
                     </Link>
                     <Link
                       href="/real-estate/360-panorama"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       360 Panorama
                     </Link>
                     <Link
                       href="/real-estate/360-image-enhancement"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       360 Image Enhancement
                     </Link>
                     <Link
                       href="/real-estate/digital-declutter-item-removal"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Digital Declutter / Item Removal
                     </Link>
                     <Link
                       href="/real-estate/day-to-dusk-conversion"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Day to Dusk Conversion (Virtual Twilight)
                     </Link>
                     <Link
                       href="/real-estate/sky-replacement-services"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Sky Replacement Services
                     </Link>
                     <Link
                       href="/real-estate/virtual-staging-and-renovation"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Virtual Staging and Renovation
                     </Link>
                     <Link
                       href="/real-estate/360-virtual-tours"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       360 Virtual Tours
                     </Link>
                     <Link
                       href="/real-estate/real-estate-video-editing"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Real Estate Video Editing
                     </Link>
                     <div className="pt-1 mt-1 border-t border-slate-200">
@@ -1057,76 +1082,74 @@ export const SiteNavbar: React.FC = () => {
                 )}
               </div>
 
-              {/* 2. Image Clipping Accordion */}
+              {/* 2. Image Clipping Services Accordion */}
               <div>
                 <div className="flex items-center justify-between px-3 py-2 rounded-xl font-bold text-slate-900 hover:bg-slate-50">
                   <Link
                     href="/image-clipping"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-2 text-slate-900">
-                    <i className="fa-solid fa-scissors text-blue-600 text-sm" />
-                    <span>Image Clipping Services</span>
+                    className="flex items-center gap-2 text-slate-900 flex-1 min-w-0">
+                    <i className="fa-solid fa-scissors text-blue-600 text-sm shrink-0" />
+                    <span className="truncate">Image Clipping Services</span>
                   </Link>
                   <button
                     type="button"
                     onClick={() =>
                       setMobileExpandedCat(
-                        mobileExpandedCat === 'image-clipping'
-                          ? null
-                          : 'image-clipping',
+                        mobileExpandedCat === 'image-clipping' ? null : 'image-clipping'
                       )
                     }
-                    className="p-1 text-slate-400 hover:text-slate-600">
+                    className="p-1 text-slate-400 hover:text-slate-600 shrink-0">
                     <i
                       className={`fa-solid fa-chevron-down text-xs transition-transform ${
-                        mobileExpandedCat === 'image-clipping'
-                          ? 'rotate-180'
-                          : ''
+                        mobileExpandedCat === 'image-clipping' ? 'rotate-180' : ''
                       }`}
                     />
                   </button>
                 </div>
+
                 {mobileExpandedCat === 'image-clipping' && (
                   <div className="pl-6 py-1 space-y-1 bg-slate-50/70 rounded-xl my-1 border-l-2 border-blue-200">
                     <Link
                       href="/image-clipping/background-removal-services"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Background Removal Services
                     </Link>
                     <Link
                       href="/image-clipping/clipping-path-services"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Handcrafted Vector Clipping Paths
                     </Link>
                     <Link
                       href="/image-clipping/hair-masking"
                       onClick={closeMobileMenu}
-                      className="block py-1 text-xs text-slate-700 hover:text-blue-600">
+                      className="block py-1 text-xs text-slate-700 hover:text-blue-600 truncate">
                       Hair Masking &amp; Alpha Channels
                     </Link>
                   </div>
                 )}
               </div>
 
-              {/* 3. Portrait Editing Services */}
+              {/* 3. Portrait Editing Services: Dedicated card linking directly to its dedicated page */}
               <Link
                 href="/portrait"
                 onClick={closeMobileMenu}
                 className="flex items-center gap-2 px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
-                <i className="fa-solid fa-user-check text-blue-600 text-sm" />
+                <i className="fa-solid fa-user-check text-blue-600 text-sm shrink-0" />
                 <span>Portrait Editing Services</span>
               </Link>
 
-              {/* 4. Wedding Photo Post Processing */}
+              {/* 4. Wedding Photo Post Processing: Dedicated card linking directly to its dedicated page */}
               <Link
                 href="/wedding-photo-post-processing"
                 onClick={closeMobileMenu}
                 className="flex items-center gap-2 px-3 py-2.5 rounded-xl font-bold text-slate-900 hover:bg-slate-50 transition-colors">
-                <i className="fa-solid fa-camera-retro text-blue-600 text-sm" />
+                <i className="fa-solid fa-camera-retro text-blue-600 text-sm shrink-0" />
                 <span>Wedding Photo Post Processing</span>
               </Link>
+            </div>
 
               {/* Standard Links */}
               <div className="pt-2 border-t border-slate-100">
@@ -1170,7 +1193,6 @@ export const SiteNavbar: React.FC = () => {
                   <i className="fa-solid fa-chevron-right text-xs text-slate-400" />
                 </Link>
               </div>
-            </div>
 
             {/* Mobile Contact & Actions */}
             <div className="pt-4 border-t border-slate-200/80 space-y-3">

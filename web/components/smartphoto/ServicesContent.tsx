@@ -19,18 +19,38 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
   const [activeFaq, setActiveFaq] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!initialServices || initialServices.length === 0) {
-      setLoading(true);
+    let isMounted = true;
+    const fetchServices = () => {
       getServices()
         .then((data) => {
-          if (data && data.length > 0) setServices(data);
+          if (isMounted && data && data.length > 0) setServices(data);
         })
         .finally(() => {
-          setLoading(false);
+          if (isMounted) setLoading(false);
         });
+    };
+
+    if (!initialServices || initialServices.length === 0) {
+      setLoading(true);
+      fetchServices();
     } else {
       setLoading(false);
     }
+
+    const handleUpdate = (e: any) => {
+      if (!e.detail || e.detail.type === "services") {
+        fetchServices();
+      }
+    };
+
+    window.addEventListener("lirisha_cms_update", handleUpdate);
+    window.addEventListener("storage", fetchServices);
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("lirisha_cms_update", handleUpdate);
+      window.removeEventListener("storage", fetchServices);
+    };
   }, [initialServices]);
 
   const filteredServices =
@@ -41,10 +61,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
 
   const categories = [
     { id: "all", label: "All Services" },
-    { id: "real-estate", label: "Real Estate Image Editing" },
-    { id: "image-clipping", label: "Image Clipping Services" },
-    { id: "portrait", label: "Portrait Editing Services" },
-    { id: "wedding", label: "Wedding Photo Post Processing" },
+    ...services.map((s) => ({ id: s.id, label: s.name })),
   ];
 
   const serviceFaqs = [

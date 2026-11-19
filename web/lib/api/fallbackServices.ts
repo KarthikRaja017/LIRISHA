@@ -294,6 +294,19 @@ export const FALLBACK_SERVICES: ServiceCategory[] = [
           "Non-destructive workflow with embedded Photoshop paths"
         ],
         "description": "Industry-standard vector pen tool clipping paths delivered with sub-pixel precision for print, catalog, and packaging layouts."
+      },
+      {
+        "id": "hair-masking",
+        "link": "/image-clipping/hair-masking",
+        "name": "Hair Masking & Alpha Channels",
+        "beforeSrc": "/Portfolio/CLipping/DETAIL - PREMIUM - 1.jpg",
+        "afterSrc": "/Portfolio/CLipping/DETAIL - PREMIUM - 1_Clipped.jpg",
+        "features": [
+          "Complex edge isolation for fine flyaway hair and fur",
+          "Alpha channel transparency masking",
+          "Translucent glass and shadow preservation"
+        ],
+        "description": "Complex isolation for fine flyaway hair, fur, transparent glass, and intricate edges."
       }
     ]
   },

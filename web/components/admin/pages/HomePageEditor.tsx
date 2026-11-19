@@ -5,6 +5,7 @@ import Link from "next/link";
 import { PageContent } from "@/types/content";
 import { ImageUploadButton } from "@/components/admin/ImageUploadButton";
 import { BrandLoader } from "@/components/ui/BrandLoader";
+import { getServices } from "@/lib/api/content";
 
 interface HomePageEditorProps {
   page?: PageContent;
@@ -203,46 +204,66 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
   // Services Showcase Cards
   const defaultServicesCards = [
     {
-      id: 1,
-      title: "Furniture Photo Editing",
-      link: "/virtual-staging/furniture-photo-editing",
-      image: "/images/homepage/furniture-photo-editing.webp",
-      alt: "Furniture Photo Editing Services",
+      id: "real-estate",
+      title: "Real Estate Image Editing",
+      link: "/real-estate",
+      image: "/Portfolio/Real Estate/HDR Blending/07-Front Facade_1.jpg",
+      alt: "Real Estate Image Editing Services",
+      tagline: "High-impact MLS HDR bracket blending, twilight & virtual staging",
+      iconClass: "fa-solid fa-house-chimney",
+      subServices: [
+        "Image Enhancement",
+        "HDR Blending",
+        "Aerial Editing",
+        "360 Panorama & Tours",
+        "Day to Dusk Conversion",
+        "Floor Plans (2D, 3D, Site Plan)",
+      ],
     },
     {
-      id: 2,
-      title: "2D & 3D Floor Plan",
-      link: "/real-estate/floor-plan-conversions",
-      image: "/images/homepage/2d-3d-floor-plan.webp",
-      alt: "2D & 3D Floor Plan Services",
+      id: "image-clipping",
+      title: "Image Clipping Services",
+      link: "/image-clipping",
+      image: "/Portfolio/CLipping/1_2.jpg",
+      alt: "Image Clipping Services",
+      tagline: "Handcrafted Photoshop pen tool clipping paths & background removal",
+      iconClass: "fa-solid fa-scissors",
+      subServices: [
+        "Background Removal Services",
+        "Handcrafted Vector Paths",
+        "Hair Masking & Alpha Channel",
+        "Pure White #FFFFFF Amazon Backgrounds",
+      ],
     },
     {
-      id: 3,
-      title: "Ecommerce Image Editing",
-      link: "/image-manipulation/ecommerce-image-editing",
-      image: "/images/homepage/ecommerce-image-editing.webp",
-      alt: "Ecommerce Image Editing Services",
+      id: "portrait",
+      title: "Portrait Editing Services",
+      link: "/portrait",
+      image: "/Portfolio/Portrait Editing/1a.jpg",
+      alt: "Portrait Editing Services",
+      tagline: "Magazine-grade skin retouching that preserves authentic pore texture",
+      iconClass: "fa-solid fa-user-check",
+      subServices: [
+        "Skin Retouching & Frequency Separation",
+        "High-End Beauty Retouching",
+        "Corporate Headshot Grooming",
+        "Blemish, Teeth & Eye Sparkle",
+      ],
     },
     {
-      id: 4,
-      title: "Image Cliping",
-      link: "/image-clipping/",
-      image: "/images/homepage/image-cliping.webp",
-      alt: "Image Cliping Services",
-    },
-    {
-      id: 5,
-      title: "Jewelry Image Retouching",
-      link: "/jewelry/",
-      image: "/images/homepage/jewellery-retouching.webp",
-      alt: "Jewelry Image Retouching Services",
-    },
-    {
-      id: 6,
-      title: "Real Estate",
-      link: "/real-estate/",
-      image: "/images/homepage/real-estate.webp",
-      alt: "Real Estate Services",
+      id: "wedding",
+      title: "Wedding Photo Post Processing",
+      link: "/wedding-photo-post-processing",
+      image: "/Portfolio/Portrait Editing/DSC_5619_1.jpg",
+      alt: "Wedding Photo Post Processing",
+      tagline: "High-volume RAW culling, custom Lightroom presets & hero retouching",
+      iconClass: "fa-solid fa-camera-retro",
+      subServices: [
+        "High-Volume RAW Culling",
+        "Custom Lightroom Preset Calibration",
+        "Ceremony & Reception Tone Balance",
+        "Hero Bride & Groom Retouching",
+      ],
     },
   ];
 
@@ -256,6 +277,68 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
   const [servicesCards, setServicesCards] = useState<any[]>(
     servicesSection?.items || defaultServicesCards
   );
+  const [syncingServices, setSyncingServices] = useState(false);
+
+  const handleSyncFromServices = async () => {
+    setSyncingServices(true);
+    try {
+      const liveServices = await getServices();
+      if (!liveServices || liveServices.length === 0) {
+        showToast("No services found in Services Pages to sync.", "error");
+        return;
+      }
+
+      const defaultImgs = [
+        "/Portfolio/Real Estate/HDR Blending/07-Front Facade_1.jpg",
+        "/Portfolio/CLipping/1_2.jpg",
+        "/Portfolio/Portrait Editing/1a.jpg",
+        "/Portfolio/Portrait Editing/DSC_5619_1.jpg",
+        "/Portfolio/Ecommerce/01.jpg",
+        "/Portfolio/Jewelry/01.jpg",
+      ];
+
+      const mappedCards = liveServices.map((s, idx) => {
+        let img = s.heroImage || s.afterSrc || s.beforeSrc;
+        if (!img || img.includes("placeholder") || img.includes("banner-bg")) {
+          img = defaultImgs[idx % defaultImgs.length];
+        }
+
+        const targetLink =
+          s.id === "wedding" || s.slug === "wedding-photo-post-processing"
+            ? "/wedding-photo-post-processing"
+            : s.slug?.startsWith("/")
+            ? s.slug
+            : `/${s.slug || s.id}`;
+
+        const subs = Array.isArray(s.subServices)
+          ? s.subServices
+              .map((sub: any) => (typeof sub === "string" ? sub : sub.name || sub.title))
+              .filter(Boolean)
+          : [];
+
+        return {
+          id: s.id || `service-${idx}`,
+          title: s.name,
+          link: targetLink,
+          image: img,
+          alt: s.name,
+          tagline: s.tagline || s.shortDesc || "",
+          iconClass: s.iconClass || "fa-solid fa-wand-magic-sparkles",
+          subServices:
+            subs.length > 0
+              ? subs
+              : ["Professional Photo Editing", "12-24h Delivery", "Dedicated Artists"],
+        };
+      });
+
+      setServicesCards(mappedCards);
+      showToast(`Successfully synced ${mappedCards.length} services from Services Pages!`, "success");
+    } catch {
+      showToast("Failed to fetch services for sync.", "error");
+    } finally {
+      setSyncingServices(false);
+    }
+  };
 
   // Home Testimonials
   const defaultHomeReviews = [
@@ -1270,24 +1353,39 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
                 Configure the overlapping pinned scroll cards on the homepage under &quot;Our Professional Image Editing Services&quot;.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => {
-                const newCard = {
-                  id: Date.now(),
-                  title: "New Editing Service",
-                  link: "/services",
-                  image: "/images/homepage/furniture-photo-editing.webp",
-                  alt: "Editing Service",
-                };
-                setServicesCards([...servicesCards, newCard]);
-                showToast("New service card added!");
-              }}
-              className="px-4 py-2.5 rounded-xl bg-[#ff5b0a] hover:bg-[#e04f05] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition-all whitespace-nowrap shrink-0 self-start sm:self-auto"
-            >
-              <i className="fa-solid fa-plus"></i>
-              <span>Add Service Card</span>
-            </button>
+            <div className="flex items-center gap-2 flex-wrap self-start sm:self-auto">
+              <button
+                type="button"
+                onClick={handleSyncFromServices}
+                disabled={syncingServices}
+                className="px-3.5 py-2.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-[#ff5b0a] border border-orange-200 text-xs font-bold flex items-center gap-2 shadow-xs transition-all whitespace-nowrap shrink-0 disabled:opacity-50"
+                title="Pull all services from Services Pages Studio into Home Page Showcase Cards"
+              >
+                <i className={`fa-solid ${syncingServices ? "fa-spinner fa-spin" : "fa-arrows-rotate"}`}></i>
+                <span>{syncingServices ? "Syncing..." : "Sync from Services Pages"}</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const newCard = {
+                    id: Date.now(),
+                    title: "New Editing Service",
+                    link: "/services",
+                    image: "/Portfolio/Real Estate/HDR Blending/07-Front Facade_1.jpg",
+                    alt: "Editing Service",
+                    tagline: "High-precision image post-production",
+                    iconClass: "fa-solid fa-wand-magic-sparkles",
+                    subServices: ["Quality Retouching", "12-24h Delivery"],
+                  };
+                  setServicesCards([...servicesCards, newCard]);
+                  showToast("New service card added!");
+                }}
+                className="px-4 py-2.5 rounded-xl bg-[#ff5b0a] hover:bg-[#e04f05] text-white text-xs font-bold flex items-center gap-2 shadow-sm transition-all whitespace-nowrap shrink-0"
+              >
+                <i className="fa-solid fa-plus"></i>
+                <span>Add Service Card</span>
+              </button>
+            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
@@ -1428,36 +1526,119 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
                           setServicesCards(updated);
                         }}
                         className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-bold border border-slate-300 rounded-xl outline-none"
-                        placeholder="e.g. Furniture Photo Editing"
+                        placeholder="e.g. Real Estate Image Editing"
                       />
                     </div>
-                    <div>
-                      <label className="block font-bold text-slate-800 mb-1">Target Page Link</label>
-                      <input
-                        type="text"
-                        value={card.link}
-                        onChange={(e) => {
-                          const updated = [...servicesCards];
-                          updated[idx].link = e.target.value;
-                          setServicesCards(updated);
-                        }}
-                        className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-semibold border border-slate-300 rounded-xl outline-none"
-                        placeholder="e.g. /virtual-staging/furniture-photo-editing"
-                      />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-800 mb-1">Target Page Link</label>
+                        <input
+                          type="text"
+                          value={card.link}
+                          onChange={(e) => {
+                            const updated = [...servicesCards];
+                            updated[idx].link = e.target.value;
+                            setServicesCards(updated);
+                          }}
+                          className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-semibold border border-slate-300 rounded-xl outline-none"
+                          placeholder="e.g. /real-estate"
+                        />
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-800 mb-1">Image Alt Text</label>
+                        <input
+                          type="text"
+                          value={card.alt || ""}
+                          onChange={(e) => {
+                            const updated = [...servicesCards];
+                            updated[idx].alt = e.target.value;
+                            setServicesCards(updated);
+                          }}
+                          className="w-full px-3.5 py-2.5 bg-white text-slate-800 font-medium border border-slate-300 rounded-xl outline-none"
+                          placeholder="e.g. Real Estate Image Editing Services"
+                        />
+                      </div>
                     </div>
                     <div>
-                      <label className="block font-bold text-slate-800 mb-1">Image Alt Text</label>
+                      <label className="block font-bold text-slate-800 mb-1">Card Tagline / Subtitle</label>
                       <input
                         type="text"
-                        value={card.alt || ""}
+                        value={card.tagline || ""}
                         onChange={(e) => {
                           const updated = [...servicesCards];
-                          updated[idx].alt = e.target.value;
+                          updated[idx].tagline = e.target.value;
                           setServicesCards(updated);
                         }}
-                        className="w-full px-3.5 py-2.5 bg-white text-slate-800 font-medium border border-slate-300 rounded-xl outline-none"
-                        placeholder="e.g. Furniture Photo Editing Services"
+                        className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-medium border border-slate-300 rounded-xl outline-none"
+                        placeholder="e.g. High-impact MLS HDR bracket blending, twilight & virtual staging"
                       />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                      <div>
+                        <label className="block font-bold text-slate-800 mb-1">FontAwesome Icon Class</label>
+                        <div className="flex items-center gap-2">
+                          <span className="w-8 h-8 rounded-lg bg-slate-100 border border-slate-300 text-slate-700 flex items-center justify-center shrink-0 text-sm">
+                            <i className={card.iconClass || "fa-solid fa-wand-magic-sparkles"}></i>
+                          </span>
+                          <input
+                            type="text"
+                            value={card.iconClass || ""}
+                            onChange={(e) => {
+                              const updated = [...servicesCards];
+                              updated[idx].iconClass = e.target.value;
+                              setServicesCards(updated);
+                            }}
+                            className="w-full px-3 py-2 text-xs bg-white text-slate-900 font-mono border border-slate-300 rounded-xl outline-none"
+                            placeholder="e.g. fa-solid fa-house-chimney"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label className="block font-bold text-slate-800 mb-1">Live Screen Preview</label>
+                        <Link
+                          href={card.link || "/services"}
+                          target="_blank"
+                          className="inline-flex items-center gap-2 px-3.5 py-2 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 rounded-xl border border-blue-200 transition-all w-full justify-center"
+                        >
+                          <i className="fa-solid fa-arrow-up-right-from-square"></i>
+                          <span>Test Link: {card.link || "/services"}</span>
+                        </Link>
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block font-bold text-slate-800 mb-1">
+                        Sub-Services / &quot;What We Provide&quot; Tags (Comma-separated)
+                      </label>
+                      <input
+                        type="text"
+                        value={
+                          Array.isArray(card.subServices)
+                            ? card.subServices.join(", ")
+                            : card.subServices || ""
+                        }
+                        onChange={(e) => {
+                          const updated = [...servicesCards];
+                          updated[idx].subServices = e.target.value
+                            .split(",")
+                            .map((s) => s.trim())
+                            .filter(Boolean);
+                          setServicesCards(updated);
+                        }}
+                        className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-medium border border-slate-300 rounded-xl outline-none"
+                        placeholder="e.g. Image Enhancement, HDR Blending, Aerial Editing, 360 Panorama"
+                      />
+                      {Array.isArray(card.subServices) && card.subServices.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mt-2">
+                          {card.subServices.map((sub: string, sIdx: number) => (
+                            <span
+                              key={sIdx}
+                              className="text-[11px] font-semibold bg-orange-50 text-[#ff5b0a] border border-orange-200 px-2.5 py-0.5 rounded-full"
+                            >
+                              • {sub}
+                            </span>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>

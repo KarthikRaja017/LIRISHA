@@ -10,35 +10,117 @@ import {
   SiteSettingsMap,
 } from "@/types/content";
 
+const SERVICES_STORAGE_KEY = "lirisha_cms_services";
+const PAGES_STORAGE_KEY = "lirisha_cms_pages";
+const ALLOWED_CORE_SERVICE_IDS = new Set(["real-estate", "image-clipping", "portrait", "wedding"]);
+
+export function notifyCmsUpdate(type: "services" | "pages" | "settings") {
+  if (typeof window !== "undefined") {
+    try {
+      window.dispatchEvent(new CustomEvent("lirisha_cms_update", { detail: { type } }));
+    } catch {}
+  }
+}
+
+function getLocalServices(): ServiceCategory[] | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const raw = localStorage.getItem(SERVICES_STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        const valid = parsed.filter(
+          (s: ServiceCategory) =>
+            ALLOWED_CORE_SERVICE_IDS.has(s.id) ||
+            ALLOWED_CORE_SERVICE_IDS.has(s.slug) ||
+            s.id.startsWith("service-")
+        );
+        if (valid.length > 0) {
+          if (valid.length !== parsed.length) {
+            localStorage.setItem(SERVICES_STORAGE_KEY, JSON.stringify(valid));
+          }
+          return valid;
+        }
+      }
+    }
+  } catch {}
+  return null;
+}
+
+function setLocalServices(services: ServiceCategory[]) {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(SERVICES_STORAGE_KEY, JSON.stringify(services));
+  } catch {}
+}
+
 /**
  * Service API Methods
  */
 export async function getServices(): Promise<ServiceCategory[]> {
   try {
     const data = await apiClient.get<ServiceCategory[]>(ENDPOINTS.SERVICES.BASE);
-    if (data && Array.isArray(data) && data.length > 0) return data;
-    return FALLBACK_SERVICES;
-  } catch {
-    return FALLBACK_SERVICES;
-  }
+    if (data && Array.isArray(data) && data.length > 0) {
+      const valid = data.filter(
+        (s) =>
+          ALLOWED_CORE_SERVICE_IDS.has(s.id) ||
+          ALLOWED_CORE_SERVICE_IDS.has(s.slug) ||
+          s.id.startsWith("service-")
+      );
+      const toStore = valid.length > 0 ? valid : FALLBACK_SERVICES;
+      setLocalServices(toStore);
+      return toStore;
+    }
+  } catch {}
+  const local = getLocalServices();
+  if (local && local.length > 0) return local;
+  return FALLBACK_SERVICES;
 }
 
 export async function getServiceBySlug(slug: string): Promise<ServiceCategory | null> {
   try {
     const data = await apiClient.get<ServiceCategory>(ENDPOINTS.SERVICES.BY_SLUG(slug));
     if (data && data.name) return data;
-  } catch {
-    // continue to fallback
+  } catch {}
+  const local = getLocalServices();
+  if (local) {
+    const found = local.find((s) => s.slug === slug || s.id === slug);
+    if (found) return found;
   }
   return FALLBACK_SERVICES.find((s) => s.slug === slug || s.id === slug) || null;
 }
 
 export async function saveService(service: ServiceCategory): Promise<ServiceCategory> {
-  return await apiClient.put<ServiceCategory>(ENDPOINTS.SERVICES.BY_SLUG(service.id), service);
+  const current = getLocalServices() || [...FALLBACK_SERVICES];
+  const idx = current.findIndex((s) => s.id === service.id || s.slug === service.slug);
+  let updatedList: ServiceCategory[];
+  if (idx >= 0) {
+    updatedList = [...current];
+    updatedList[idx] = { ...updatedList[idx], ...service };
+  } else {
+    updatedList = [...current, service];
+  }
+  setLocalServices(updatedList);
+  notifyCmsUpdate("services");
+
+  try {
+    return await apiClient.put<ServiceCategory>(ENDPOINTS.SERVICES.BY_SLUG(service.id), service);
+  } catch {
+    return service;
+  }
 }
 
 export async function deleteService(id: string): Promise<{ id: string }> {
-  return await apiClient.delete<{ id: string }>(ENDPOINTS.SERVICES.BY_SLUG(id));
+  const current = getLocalServices() || [...FALLBACK_SERVICES];
+  const updatedList = current.filter((s) => s.id !== id && s.slug !== id);
+  setLocalServices(updatedList);
+  notifyCmsUpdate("services");
+
+  try {
+    return await apiClient.delete<{ id: string }>(ENDPOINTS.SERVICES.BY_SLUG(id));
+  } catch {
+    return { id };
+  }
 }
 
 /**
@@ -118,22 +200,70 @@ export async function deleteGalleryTab(id: string): Promise<{ id: string }> {
  */
 export async function getPages(): Promise<PageContent[]> {
   try {
-    return await apiClient.get<PageContent[]>(ENDPOINTS.PAGES.BASE);
-  } catch {
-    return [];
+    const data = await apiClient.get<PageContent[]>(ENDPOINTS.PAGES.BASE);
+    if (data && Array.isArray(data) && data.length > 0) {
+      if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem(PAGES_STORAGE_KEY, JSON.stringify(data));
+        } catch {}
+      }
+      return data;
+    }
+  } catch {}
+  if (typeof window !== "undefined") {
+    try {
+      const raw = localStorage.getItem(PAGES_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch {}
   }
+  return [];
 }
 
 export async function getPageContent(slug: string): Promise<PageContent | null> {
   try {
-    return await apiClient.get<PageContent>(ENDPOINTS.PAGES.BY_SLUG(slug));
-  } catch {
-    return null;
+    const page = await apiClient.get<PageContent>(ENDPOINTS.PAGES.BY_SLUG(slug));
+    if (page && page.slug) {
+      if (typeof window !== "undefined") {
+        try {
+          localStorage.setItem(`lirisha_page_${slug}`, JSON.stringify(page));
+        } catch {}
+      }
+      return page;
+    }
+  } catch {}
+  if (typeof window !== "undefined") {
+    try {
+      const raw = localStorage.getItem(`lirisha_page_${slug}`);
+      if (raw) return JSON.parse(raw);
+    } catch {}
   }
+  return null;
 }
 
 export async function savePageContent(page: PageContent): Promise<PageContent> {
-  return await apiClient.put<PageContent>(ENDPOINTS.PAGES.BY_SLUG(page.slug), page);
+  if (typeof window !== "undefined") {
+    try {
+      localStorage.setItem(`lirisha_page_${page.slug}`, JSON.stringify(page));
+      const pagesRaw = localStorage.getItem(PAGES_STORAGE_KEY);
+      let pagesList: PageContent[] = pagesRaw ? JSON.parse(pagesRaw) : [];
+      const idx = pagesList.findIndex((p) => p.slug === page.slug);
+      if (idx >= 0) {
+        pagesList[idx] = page;
+      } else {
+        pagesList.push(page);
+      }
+      localStorage.setItem(PAGES_STORAGE_KEY, JSON.stringify(pagesList));
+    } catch {}
+  }
+  notifyCmsUpdate("pages");
+  try {
+    return await apiClient.put<PageContent>(ENDPOINTS.PAGES.BY_SLUG(page.slug), page);
+  } catch {
+    return page;
+  }
 }
 
 /**

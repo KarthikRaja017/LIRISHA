@@ -217,11 +217,26 @@ export const ServicesPageEditor: React.FC<ServicesPageEditorProps> = ({
               </div>
             </div>
 
-            <div className="flex items-center gap-2.5">
+            <div className="flex items-center gap-2.5 flex-wrap">
               <span className="text-xs font-bold px-3 py-1.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded-full flex items-center gap-1.5">
                 <i className="fa-regular fa-clock text-emerald-600"></i>
                 Turnaround: {serviceForm.turnaroundTime || "12-24 Hours"}
               </span>
+              <a
+                href={
+                  serviceForm.id === "wedding" || serviceForm.slug === "wedding-photo-post-processing"
+                    ? "/wedding-photo-post-processing"
+                    : serviceForm.slug?.startsWith("/")
+                    ? serviceForm.slug
+                    : `/${serviceForm.slug || serviceForm.id}`
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-3 py-1.5 text-xs font-bold text-blue-600 hover:bg-blue-50 border border-blue-200 rounded-xl transition-colors flex items-center gap-1.5 shadow-xs"
+                title="View public live screen of this service"
+              >
+                <i className="fa-solid fa-arrow-up-right-from-square"></i> View Live Screen
+              </a>
               <button
                 type="button"
                 onClick={handleDelete}

@@ -99,60 +99,138 @@ export const ServicesScroll: React.FC<ServicesScrollProps> = ({ initialData }) =
 
   const [cards, setCards] = useState<ServiceCardItem[]>(() => {
     if (initialData?.items && initialData.items.length > 0) {
-      // Filter out any legacy services not in the 4 target services
-      const allowedSlugs = ["real-estate", "image-clipping", "portrait", "wedding", "wedding-photo-post-processing"];
-      const filtered = initialData.items.filter((item) => {
-        const s = (item.link || item.id || "").toString().toLowerCase();
-        return allowedSlugs.some((slug) => s.includes(slug));
-      });
-      if (filtered.length >= 2) return filtered;
+      return initialData.items;
     }
     return defaultCards;
   });
 
-  // Dynamic fetch to guarantee database synchronization
+  const syncCards = (liveServices: any[]) => {
+    if (!liveServices || liveServices.length === 0) return;
+
+    const defaultImgs = [
+      "/Portfolio/Real Estate/HDR Blending/07-Front Facade_1.jpg",
+      "/Portfolio/CLipping/1_2.jpg",
+      "/Portfolio/Portrait Editing/1a.jpg",
+      "/Portfolio/Portrait Editing/DSC_5619_1.jpg",
+      "/Portfolio/Ecommerce/01.jpg",
+      "/Portfolio/Jewelry/01.jpg",
+    ];
+
+    const initialItems = initialData?.items || [];
+    const matchedServiceIds = new Set<string>();
+    const mergedCards: ServiceCardItem[] = [];
+
+    // 1. Process initialData items
+    initialItems.forEach((item, idx) => {
+      const cleanLink = (item.link || "").replace(/^\/+|\/+$/g, "");
+      const match = liveServices.find(
+        (s) =>
+          s.id === item.id ||
+          s.slug === cleanLink ||
+          s.id === cleanLink ||
+          s.name.toLowerCase() === (item.title || "").toLowerCase()
+      );
+
+      // Skip legacy dummy cards that don't match any active live service
+      if (!match && !String(item.id).startsWith("service-")) {
+        return;
+      }
+
+      if (match) {
+        matchedServiceIds.add(match.id);
+        matchedServiceIds.add(match.slug);
+      }
+
+      mergedCards.push({
+        id: item.id || match?.id || `card-${idx}`,
+        title: item.title || match?.name || "Image Editing Service",
+        link: item.link || (match ? `/${match.slug}` : "/services"),
+        image: item.image || match?.heroImage || defaultImgs[idx % defaultImgs.length],
+        alt: item.alt || item.title || match?.name || "Image Editing",
+        tagline: item.tagline || match?.tagline || match?.shortDesc || "",
+        iconClass: item.iconClass || match?.iconClass || "fa-solid fa-wand-magic-sparkles",
+        subServices:
+          item.subServices && item.subServices.length > 0
+            ? item.subServices
+            : match?.subServices?.map((sub: any) =>
+                typeof sub === "string" ? sub : sub.name
+              ) || ["Professional Quality", "12-24h Delivery"],
+      });
+    });
+
+    // 2. Add any live services (including newly added services) not yet in initialItems
+    liveServices.forEach((s, idx) => {
+      if (!matchedServiceIds.has(s.id) && !matchedServiceIds.has(s.slug)) {
+        let img = s.heroImage || s.afterSrc || s.beforeSrc;
+        if (!img || img.includes("placeholder") || img.includes("banner-bg")) {
+          img = defaultImgs[idx % defaultImgs.length];
+        }
+
+        const targetLink =
+          s.id === "wedding" || s.slug === "wedding-photo-post-processing"
+            ? "/wedding-photo-post-processing"
+            : s.slug?.startsWith("/")
+            ? s.slug
+            : `/${s.slug || s.id}`;
+
+        const subs = Array.isArray(s.subServices)
+          ? s.subServices
+              .map((sub: any) =>
+                typeof sub === "string" ? sub : sub.name || sub.title
+              )
+              .filter(Boolean)
+          : [];
+
+        mergedCards.push({
+          id: s.id,
+          title: s.name,
+          link: targetLink,
+          image: img,
+          alt: s.name,
+          tagline: s.tagline || s.shortDesc || "",
+          iconClass: s.iconClass || "fa-solid fa-wand-magic-sparkles",
+          subServices:
+            subs.length > 0
+              ? subs.slice(0, 6)
+              : ["100% Handcrafted", "12-24h Delivery", "Dedicated Artists"],
+        });
+      }
+    });
+
+    if (mergedCards.length > 0) {
+      setCards(mergedCards);
+    }
+  };
+
+  // Dynamic fetch to synchronize with live database services and newly added ones
   useEffect(() => {
     let isMounted = true;
-    getServices()
-      .then((data) => {
-        if (!isMounted || !data || data.length === 0) return;
-        const mapped: ServiceCardItem[] = data.map((s) => {
-          let img = "/Portfolio/Real Estate/HDR Blending/07-Front Facade_1.jpg";
-          if (s.id.includes("clipping") || s.slug?.includes("clipping")) {
-            img = "/Portfolio/CLipping/1_2.jpg";
-          } else if (s.id.includes("portrait") || s.slug?.includes("portrait")) {
-            img = "/Portfolio/Portrait Editing/1a.jpg";
-          } else if (s.id.includes("wedding") || s.slug?.includes("wedding")) {
-            img = "/Portfolio/Portrait Editing/DSC_5619_1.jpg";
-          }
+    const fetchAndSync = () => {
+      getServices()
+        .then((data) => {
+          if (!isMounted || !data || data.length === 0) return;
+          syncCards(data);
+        })
+        .catch(() => {});
+    };
 
-          const targetLink =
-            s.id === "wedding" || s.slug === "wedding-photo-post-processing"
-              ? "/wedding-photo-post-processing"
-              : `/${s.slug || s.id}`;
+    fetchAndSync();
 
-          return {
-            id: s.id,
-            title: s.name,
-            link: targetLink,
-            image: s.heroImage && !s.heroImage.includes("product-editing") ? s.heroImage : img,
-            alt: s.name,
-            tagline: s.shortDesc || s.tagline,
-            iconClass: s.iconClass,
-            subServices: s.subServices?.slice(0, 6).map((sub) => sub.name) || [],
-          };
-        });
+    const handleCmsUpdate = (e: any) => {
+      if (!e.detail || e.detail.type === "services" || e.detail.type === "pages") {
+        fetchAndSync();
+      }
+    };
 
-        if (mapped.length > 0) {
-          setCards(mapped);
-        }
-      })
-      .catch(() => {});
+    window.addEventListener("lirisha_cms_update", handleCmsUpdate);
+    window.addEventListener("storage", fetchAndSync);
 
     return () => {
       isMounted = false;
+      window.removeEventListener("lirisha_cms_update", handleCmsUpdate);
+      window.removeEventListener("storage", fetchAndSync);
     };
-  }, []);
+  }, [initialData]);
 
   const heading1 = initialData?.headingLine1 || "Our Professional";
   const heading2 = initialData?.headingLine2 || "Image Editing Services";
