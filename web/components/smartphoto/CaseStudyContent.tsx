@@ -32,7 +32,7 @@ export const CaseStudyContent: React.FC<CaseStudyContentProps> = ({ initialCaseS
 
   if (loading && studies.length === 0) {
     return (
-      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+      <div className="min-h-[75vh] flex items-center justify-center bg-white">
         <BrandLoader
           size="lg"
           message="Loading Case Studies..."

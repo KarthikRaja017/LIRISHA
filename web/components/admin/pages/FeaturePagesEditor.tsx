@@ -167,7 +167,7 @@ export const FeaturePagesEditor: React.FC<FeaturePagesEditorProps> = ({
   defaultSlug = "benefits",
 }) => {
   const [selectedSlug, setSelectedSlug] = useState<string>(defaultSlug);
-  const [activeTab, setActiveTab] = useState<"banner" | "sections" | "seo">("banner");
+  const [activeTab, setActiveTab] = useState<"banner" | "sections">("banner");
   const [saving, setSaving] = useState(false);
 
   // Form states for the currently selected feature page
@@ -357,19 +357,6 @@ export const FeaturePagesEditor: React.FC<FeaturePagesEditorProps> = ({
             <i className="fa-solid fa-layer-group text-xs"></i>
             Content Sections ({sections.length})
           </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab("seo")}
-            className={`pb-3 text-xs font-bold border-b-2 flex items-center gap-2 transition-all ${
-              activeTab === "seo"
-                ? "border-[#1265E8] text-[#1265E8]"
-                : "border-transparent text-slate-500 hover:text-slate-800"
-            }`}
-          >
-            <i className="fa-solid fa-globe text-xs"></i>
-            SEO & Meta Tags
-          </button>
         </div>
 
         {/* Form Body */}
@@ -491,39 +478,6 @@ export const FeaturePagesEditor: React.FC<FeaturePagesEditorProps> = ({
                   </div>
                 </div>
               ))}
-            </div>
-          )}
-
-          {activeTab === "seo" && (
-            <div className="space-y-5 max-w-3xl">
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
-                  Page Meta Title (&lt;title&gt;)
-                </label>
-                <input
-                  type="text"
-                  value={pageTitle}
-                  onChange={(e) => setPageTitle(e.target.value)}
-                  placeholder="Meta Title for Search Engines"
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm text-slate-800 focus:outline-none focus:border-[#1265E8]"
-                />
-              </div>
-
-              <div>
-                <label className="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-1.5">
-                  Meta Description
-                </label>
-                <textarea
-                  rows={3}
-                  value={metaDescription}
-                  onChange={(e) => setMetaDescription(e.target.value)}
-                  placeholder="Summary snippet for search results"
-                  className="w-full px-4 py-2.5 rounded-xl border border-slate-300 text-sm text-slate-800 focus:outline-none focus:border-[#1265E8]"
-                />
-                <span className="text-[11px] text-slate-400 mt-1 block">
-                  Character count: {metaDescription.length} (Recommended: 120-160)
-                </span>
-              </div>
             </div>
           )}
 

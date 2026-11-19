@@ -174,19 +174,6 @@ export const SecurityPageEditor: React.FC<SecurityPageEditorProps> = ({
             <p className="text-slate-600 text-xs font-medium pl-9">Automatic server purging of completed raw and PSD assets upon sign-off.</p>
           </div>
         </div>
-
-        <div className="border-t border-slate-200 pt-5 space-y-3">
-          <label className="block text-xs font-bold text-slate-900 flex items-center gap-2">
-            <i className="fa-solid fa-magnifying-glass text-[#ff5b0a]"></i> SEO Meta Description
-          </label>
-          <textarea
-            rows={2}
-            value={metaDescription}
-            onChange={(e) => setMetaDescription(e.target.value)}
-            className="w-full px-4 py-3 bg-white border-2 border-slate-300 rounded-xl font-medium text-slate-900 text-sm focus:outline-none focus:border-[#ff5b0a] focus:ring-2 focus:ring-[#ff5b0a]/20 shadow-sm transition-all"
-            placeholder="Meta description for search engines..."
-          />
-        </div>
       </div>
 
       <div className="p-4 bg-white border border-slate-200 rounded-2xl shadow-sm flex items-center justify-between">

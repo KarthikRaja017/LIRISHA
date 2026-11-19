@@ -36,20 +36,15 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
   const filteredServices =
     selectedCategory === "all"
       ? services
-      : services.filter((s) => s.id === selectedCategory);
+      : services.filter((s) => s.id === selectedCategory || s.slug === selectedCategory);
 
 
   const categories = [
     { id: "all", label: "All Services" },
-    { id: "real-estate", label: "Real Estate" },
-    { id: "portrait", label: "Portrait & Beauty" },
-    { id: "image-clipping", label: "Clipping & Masking" },
-    { id: "fashion", label: "Fashion & Apparel" },
-    { id: "ecommerce", label: "E-Commerce" },
-    { id: "jewelry", label: "Jewelry" },
-    { id: "photoshop-services", label: "Photoshop Creative" },
-    { id: "lightroom-services", label: "Lightroom Batch" },
-    { id: "photo-restoration", label: "Restoration" },
+    { id: "real-estate", label: "Real Estate Image Editing" },
+    { id: "image-clipping", label: "Image Clipping Services" },
+    { id: "portrait", label: "Portrait Editing Services" },
+    { id: "wedding", label: "Wedding Photo Post Processing" },
   ];
 
   const serviceFaqs = [
@@ -77,7 +72,7 @@ export const ServicesContent: React.FC<ServicesContentProps> = ({ initialService
 
   if (loading && services.length === 0) {
     return (
-      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+      <div className="min-h-[75vh] flex items-center justify-center bg-white">
         <BrandLoader
           size="lg"
           message="Loading Services Catalog..."

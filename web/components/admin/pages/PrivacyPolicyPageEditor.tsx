@@ -16,7 +16,7 @@ export const PrivacyPolicyPageEditor: React.FC<PrivacyPolicyPageEditorProps> = (
   showToast,
 }) => {
   const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<"banner" | "sections" | "seo">("sections");
+  const [activeTab, setActiveTab] = useState<"banner" | "sections">("sections");
 
   const [pageTitle, setPageTitle] = useState(
     page?.title || "Privacy Policy & GDPR Compliance | SmartPHOTOeditors"
@@ -195,7 +195,6 @@ export const PrivacyPolicyPageEditor: React.FC<PrivacyPolicyPageEditorProps> = (
         {[
           { id: "sections", label: `1. Policy Clauses (${sectionsList.length})`, icon: "fa-shield-halved" },
           { id: "banner", label: "2. Headline Banner", icon: "fa-heading" },
-          { id: "seo", label: "3. SEO & Meta", icon: "fa-magnifying-glass" },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -342,49 +341,6 @@ export const PrivacyPolicyPageEditor: React.FC<PrivacyPolicyPageEditorProps> = (
               onChange={(e) => setHeroTagline(e.target.value)}
               className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-medium border border-slate-300 rounded-xl focus:border-slate-800 outline-none leading-relaxed shadow-sm"
               placeholder="How SmartPHOTOeditors collects, stores, and protects personal information and visual digital assets."
-            />
-          </div>
-        </div>
-      )}
-
-      {/* TAB 3: SEO */}
-      {activeTab === "seo" && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 text-xs">
-          <div className="border-b border-slate-100 pb-4">
-            <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              <span className="w-7 h-7 rounded-lg bg-slate-100 text-slate-800 flex items-center justify-center text-xs">
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </span>
-              SEO &amp; Metadata
-            </h3>
-            <p className="text-xs text-slate-500 mt-1">
-              Search engine tags for /privacy-policy and /privacy-policy
-            </p>
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">
-              Browser Title
-            </label>
-            <input
-              type="text"
-              value={pageTitle}
-              onChange={(e) => setPageTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-bold text-sm border border-slate-300 rounded-xl focus:border-slate-800 outline-none shadow-sm"
-              placeholder="Privacy Policy & GDPR Compliance | SmartPHOTOeditors"
-            />
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">
-              Meta Description
-            </label>
-            <textarea
-              rows={3}
-              value={metaDescription}
-              onChange={(e) => setMetaDescription(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-normal border border-slate-300 rounded-xl focus:border-slate-800 outline-none leading-relaxed shadow-sm"
-              placeholder="Privacy policy, data protection, and asset confidentiality commitments..."
             />
           </div>
         </div>

@@ -24,53 +24,43 @@ interface SlideData {
 const slides: SlideData[] = [
   {
     id: 1,
-    image: "/images/homepage/banner-1.webp",
-    category: "Image Editing",
-    title: "Professional Image Editing Services",
+    image: "/Portfolio/Real Estate/Day to Dusk/Real Estate11_1.jpg",
+    category: "Real Estate Media",
+    title: "Real Estate Image Editing & Floor Plans",
     description:
-      "LIRISHA is a premier outsourced image post-processing studio with over 200 dedicated artists. Guaranteed 12–24h turnaround, pixel-perfect accuracy, and ISO-certified consistency for top commercial photographers.",
-    link: "/photoshop-services",
-    alt: "Image Editing Services",
+      "Transform MLS listings into magazine-grade visuals. Overnight HDR exposure blending, day-to-dusk virtual twilight, 360 tours, and precision 2D/3D floor plans with 12–24h turnaround.",
+    link: "/real-estate",
+    alt: "Real Estate Image Editing Services",
   },
   {
     id: 2,
-    image: "/images/homepage/banner-2.webp",
+    image: "/Portfolio/Portrait Editing/1a.jpg",
     category: "Portrait Retouching",
-    title: "High-End Portrait Photo Retouching",
+    title: "High-End Portrait Editing Services",
     description:
-      "Flawless frequency separation, realistic skin texture retention, digital makeup, and background cleanup that preserves identity while elevating editorial impact.",
+      "Flawless frequency separation, natural skin pore retention, corporate headshot grooming, and subtle stray hair removal that elevates editorial beauty while keeping authentic textures.",
     link: "/portrait",
     alt: "Portrait Photo Editing Services",
   },
   {
     id: 3,
-    image: "/images/homepage/banner-3.webp",
-    category: "Ecommerce Visuals",
-    title: "High-Volume Ecommerce Product Editing",
+    image: "/Portfolio/CLipping/1_2.jpg",
+    category: "Image Clipping",
+    title: "Handcrafted Image Clipping & Masking",
     description:
-      "Amazon, Shopify, and eBay marketplace-compliant pure white backgrounds (#FFFFFF), invisible ghost mannequin composites, and natural cast shadows tailored for brand catalogs.",
-    link: "/image-manipulation/ecommerce-image-editing",
-    alt: "Ecommerce Photo Editing Services",
+      "Pixel-perfect handmade Photoshop pen tool clipping paths, pure #FFFFFF Amazon white backgrounds, and alpha channel hair masking with 100% vector accuracy.",
+    link: "/image-clipping",
+    alt: "Image Clipping and Background Removal Services",
   },
   {
     id: 4,
-    image: "/images/homepage/banner-4.webp",
-    category: "Real Estate",
-    title: "Architectural & Sky Replacement Editing",
-    description:
-      "Transform overcast properties into golden-hour masterworks. Complete with HDR exposure blending, window masking, 360 virtual tours, and perspective corrections.",
-    link: "/real-estate/sky-replacement",
-    alt: "Real Estate Sky Replacement Services",
-  },
-  {
-    id: 5,
-    image: "/images/homepage/banner-5.webp",
+    image: "/Portfolio/Portrait Editing/DSC_5619_1.jpg",
     category: "Wedding & Events",
-    title: "Bespoke Wedding Photo Retouching",
+    title: "Wedding Photo Post Processing",
     description:
-      "Speed up your studio delivery without compromising your signature style. Consistent batch color grading, skin smoothing, stray hair removal, and artistic enhancements.",
-    link: "/portrait/wedding-photo-editing",
-    alt: "Wedding Photo Editing Services",
+      "Comprehensive backend post-production for wedding photographers. High-volume RAW culling, custom Lightroom preset matching, ceremony tone balancing, and album cover hero retouching.",
+    link: "/wedding-photo-post-processing",
+    alt: "Wedding Photo Post Processing Services",
   },
 ];
 

@@ -22,12 +22,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const title = matched?.name || cleanSlug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   return {
-    title: `${title} | Image Clipping & Masking | LIRISHA`,
-    description: matched?.description || `Professional ${title} services with 12-24h turnaround.`,
+    title: `${title} | Image Clipping Services | LIRISHA`,
+    description: matched?.description || `Professional ${title} with 12-24h turnaround.`,
   };
 }
 
-export default async function ImageClippingSubServiceDynamicPage({ params }: PageProps) {
+export default async function ImageClippingSubServicePage({ params }: PageProps) {
   const { subservice } = await params;
   const cleanSlug = subservice.replace(/\.php$/, "");
   const category = await getServiceBySlug("image-clipping");
@@ -47,7 +47,7 @@ export default async function ImageClippingSubServiceDynamicPage({ params }: Pag
       title={matched?.name || fallbackTitle}
       description={
         matched?.description ||
-        `High-precision ${fallbackTitle} services with 100% manual vector pen paths and alpha channel masking.`
+        `Pixel-perfect ${fallbackTitle} services for e-commerce, catalogs, and commercial photography.`
       }
       parentCategory={category || undefined}
     />

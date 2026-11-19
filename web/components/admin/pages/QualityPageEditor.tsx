@@ -16,7 +16,7 @@ export const QualityPageEditor: React.FC<QualityPageEditorProps> = ({
   showToast,
 }) => {
   const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<"banner" | "stages" | "sections" | "seo">("banner");
+  const [activeTab, setActiveTab] = useState<"banner" | "stages" | "sections">("banner");
 
   const [pageTitle, setPageTitle] = useState(
     page?.title || "Quality Assurance Commitment | SmartPHOTOeditors"
@@ -220,7 +220,6 @@ export const QualityPageEditor: React.FC<QualityPageEditorProps> = ({
           { id: "banner", label: "1. Headline Banner", icon: "fa-heading" },
           { id: "stages", label: "2. Process Stages (3)", icon: "fa-bars-staggered" },
           { id: "sections", label: `3. QA Standards (${sectionsList.length})`, icon: "fa-circle-check" },
-          { id: "seo", label: "4. SEO & Meta", icon: "fa-magnifying-glass" },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -446,49 +445,6 @@ export const QualityPageEditor: React.FC<QualityPageEditorProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      )}
-
-      {/* TAB 4: SEO */}
-      {activeTab === "seo" && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6 text-xs">
-          <div className="border-b border-slate-100 pb-4">
-            <h3 className="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              <span className="w-7 h-7 rounded-lg bg-orange-100 text-[#ff5b0a] flex items-center justify-center text-xs">
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </span>
-              SEO &amp; Metadata
-            </h3>
-            <p className="text-xs text-slate-500 mt-1">
-              Search engine tags for /quality and /quality
-            </p>
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">
-              Browser Title
-            </label>
-            <input
-              type="text"
-              value={pageTitle}
-              onChange={(e) => setPageTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-bold text-sm border border-slate-300 rounded-xl focus:border-[#ff5b0a] outline-none shadow-sm"
-              placeholder="Quality Assurance Commitment | SmartPHOTOeditors"
-            />
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">
-              Meta Description
-            </label>
-            <textarea
-              rows={3}
-              value={metaDescription}
-              onChange={(e) => setMetaDescription(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-normal border border-slate-300 rounded-xl focus:border-[#ff5b0a] outline-none leading-relaxed shadow-sm"
-              placeholder="Meta description for search engine results..."
-            />
           </div>
         </div>
       )}

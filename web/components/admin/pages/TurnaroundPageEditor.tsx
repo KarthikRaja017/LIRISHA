@@ -159,19 +159,6 @@ export const TurnaroundPageEditor: React.FC<TurnaroundPageEditorProps> = ({
             <p className="text-[11px] text-slate-600 mt-1">Overnight turnaround on catalog orders exceeding 500+ assets.</p>
           </div>
         </div>
-
-        <div className="border-t border-slate-100 pt-5 space-y-3">
-          <label className="block font-bold text-slate-800 mb-1.5">
-            <i className="fa-solid fa-magnifying-glass text-[#ff5b0a] mr-1.5"></i>
-            SEO Meta Description
-          </label>
-          <textarea
-            rows={2}
-            value={metaDescription}
-            onChange={(e) => setMetaDescription(e.target.value)}
-            className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-medium border border-slate-300 rounded-xl focus:border-[#ff5b0a] focus:ring-4 focus:ring-orange-500/15 shadow-sm outline-none leading-relaxed transition-all"
-          />
-        </div>
       </div>
 
       <div className="p-4 sm:p-5 bg-white border border-slate-200 rounded-2xl shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">

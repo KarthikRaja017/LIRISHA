@@ -40,7 +40,7 @@ export const ArticlesContent: React.FC<ArticlesContentProps> = ({ initialArticle
 
   if (loading && articles.length === 0) {
     return (
-      <div className="min-h-[75vh] flex items-center justify-center bg-[#07152F]">
+      <div className="min-h-[75vh] flex items-center justify-center bg-white">
         <BrandLoader
           size="lg"
           message="Loading Articles & Tutorials..."

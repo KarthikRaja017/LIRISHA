@@ -19,7 +19,7 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
 }) => {
   const [saving, setSaving] = useState(false);
   const [activeSection, setActiveSection] = useState<
-    "seo" | "hero" | "counters" | "about" | "video" | "cta" | "services_showcase" | "home_testimonials" | "case_studies" | "faqs" | "enquiry_form"
+    "hero" | "counters" | "about" | "video" | "cta" | "services_showcase" | "home_testimonials" | "case_studies" | "faqs" | "enquiry_form"
   >("hero");
 
   // Local state initialized with fallback defaults matching the live site
@@ -570,7 +570,6 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
           { id: "case_studies", label: `Success Stories (${caseStudies.length})`, icon: "fa-trophy" },
           { id: "faqs", label: `FAQs (${faqs.length})`, icon: "fa-circle-question" },
           { id: "enquiry_form", label: "Enquiry Form", icon: "fa-envelope-open-text" },
-          { id: "seo", label: "SEO & Meta Tags", icon: "fa-magnifying-glass" },
         ].map((tab) => {
           const isActive = activeSection === tab.id;
           return (
@@ -1877,55 +1876,6 @@ export const HomePageEditor: React.FC<HomePageEditorProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      )}
-
-      {/* 7. SEO TAB */}
-      {activeSection === "seo" && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
-          <div className="border-b border-slate-100 pb-5">
-            <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-orange-100 text-[#ff5b0a] flex items-center justify-center text-sm font-bold">
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </span>
-              <h3 className="text-base font-extrabold text-slate-900">
-                Home Page SEO & Browser Meta Tags
-              </h3>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">
-              Optimized for Google search engines, social shares, and browser title display.
-            </p>
-          </div>
-
-          <div className="space-y-5 text-xs">
-            <div>
-              <label className="block font-bold text-slate-800 mb-1.5">Page Title Tag</label>
-              <input
-                type="text"
-                value={pageTitle}
-                onChange={(e) => setPageTitle(e.target.value)}
-                className="w-full px-3.5 py-3 bg-white text-slate-900 font-bold border border-slate-300 rounded-xl focus:border-[#ff5b0a] focus:ring-4 focus:ring-orange-500/15 shadow-sm outline-none transition-all"
-                placeholder="Outsource Photo Editing Services Company | SmartPHOTOeditors"
-              />
-              <span className="text-[11px] text-slate-500 mt-1.5 block font-medium">
-                Recommended length: 50-60 characters ({pageTitle.length} chars)
-              </span>
-            </div>
-
-            <div>
-              <label className="block font-bold text-slate-800 mb-1.5">SEO Meta Description</label>
-              <textarea
-                rows={3}
-                value={metaDescription}
-                onChange={(e) => setMetaDescription(e.target.value)}
-                className="w-full px-3.5 py-3 bg-white text-slate-900 font-medium border border-slate-300 rounded-xl focus:border-[#ff5b0a] focus:ring-4 focus:ring-orange-500/15 shadow-sm outline-none leading-relaxed transition-all"
-                placeholder="Summary displayed under Google search results..."
-              />
-              <span className="text-[11px] text-slate-500 mt-1.5 block font-medium">
-                Recommended length: 140-160 characters ({metaDescription.length} chars)
-              </span>
-            </div>
           </div>
         </div>
       )}

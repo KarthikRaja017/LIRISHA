@@ -340,13 +340,17 @@ export default function AdminDashboard() {
 
   // Dynamic Browser Tab Title updating with active page
   useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (!isAuthenticated) {
+      document.title = 'Admin Mode | Sign In';
+      return;
+    }
     const current =
       pageMenuItems.find((p) => p.id === activeMenu) ||
       systemMenuItems.find((s) => s.id === activeMenu);
-    if (current && typeof document !== 'undefined') {
-      document.title = `${current.label} | LIRISHA Admin Mode`;
-    }
-  }, [activeMenu]);
+    const label = current?.label || 'Home Page';
+    document.title = `Admin Mode | ${label}`;
+  }, [activeMenu, isAuthenticated]);
 
   // Ensure Favicon points to the new camera logo
   useEffect(() => {
@@ -508,13 +512,13 @@ export default function AdminDashboard() {
 
             <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
               <span className="font-extrabold text-sm sm:text-base tracking-wide text-white whitespace-nowrap font-heading">
-                LIRISHA Admin Mode
+                Admin Mode
               </span>
 
               {/* Dynamic Active Page Indicator in Top Bar */}
               <div className="flex items-center gap-1.5 sm:gap-2 min-w-0">
                 <span className="text-slate-500 font-bold text-xs sm:text-sm">
-                  /
+                  |
                 </span>
                 <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gradient-to-r from-[#1265E8]/25 to-[#713CFF]/20 border border-[#1265E8]/40 text-[#00C8F8] font-bold text-xs shadow-sm min-w-0">
                   <i

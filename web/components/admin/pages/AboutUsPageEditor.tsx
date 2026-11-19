@@ -18,10 +18,9 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
 }) => {
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState<
-    "banner" | "stats" | "automation" | "scale" | "why_choose" | "cta" | "seo"
+    "banner" | "stats" | "automation" | "scale" | "why_choose" | "cta"
   >("banner");
 
-  // SEO
   const [pageTitle, setPageTitle] = useState(
     page?.title || "About Us | SmartPHOTOeditors"
   );
@@ -358,7 +357,6 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
           { id: "scale", label: "4. Scale With You", icon: "fa-arrow-up-right-dots" },
           { id: "why_choose", label: "5. Why Choose (6 Cards)", icon: "fa-star" },
           { id: "cta", label: "6. Outsource CTA", icon: "fa-bullhorn" },
-          { id: "seo", label: "7. SEO & Meta", icon: "fa-magnifying-glass" },
         ].map((tab) => (
           <button
             key={tab.id}
@@ -944,49 +942,6 @@ export const AboutUsPageEditor: React.FC<AboutUsPageEditorProps> = ({
                 placeholder="/contact-us"
               />
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* TAB 7: SEO */}
-      {activeTab === "seo" && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 shadow-sm space-y-6 text-xs">
-          <div className="border-b border-gray-100 pb-4">
-            <h3 className="text-base font-extrabold text-gray-900 flex items-center gap-2">
-              <span className="w-7 h-7 rounded-lg bg-blue-100 text-[#1265E8] flex items-center justify-center text-xs">
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </span>
-              Search Engine Optimization (SEO)
-            </h3>
-            <p className="text-gray-500 mt-1">
-              Configure browser title tag and search engine snippet description.
-            </p>
-          </div>
-
-          <div>
-            <label className="block font-bold text-gray-800 mb-1.5">
-              Browser Page Title
-            </label>
-            <input
-              type="text"
-              value={pageTitle}
-              onChange={(e) => setPageTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white text-gray-900 font-bold text-sm border border-gray-300 rounded-xl focus:border-[#1265E8] outline-none shadow-sm"
-              placeholder="About Us | SmartPHOTOeditors"
-            />
-          </div>
-
-          <div>
-            <label className="block font-bold text-gray-800 mb-1.5">
-              Meta Description
-            </label>
-            <textarea
-              rows={3}
-              value={metaDescription}
-              onChange={(e) => setMetaDescription(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white text-gray-900 font-normal border border-gray-300 rounded-xl focus:border-[#1265E8] outline-none leading-relaxed shadow-sm"
-              placeholder="Brief summary of page for Google search results..."
-            />
           </div>
         </div>
       )}

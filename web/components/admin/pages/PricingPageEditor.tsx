@@ -17,7 +17,7 @@ export const PricingPageEditor: React.FC<PricingPageEditorProps> = ({
   showToast,
 }) => {
   const [saving, setSaving] = useState(false);
-  const [activeTab, setActiveTab] = useState<"banner" | "tiers" | "seo">("banner");
+  const [activeTab, setActiveTab] = useState<"banner" | "tiers">("banner");
 
   const [pageTitle, setPageTitle] = useState(
     page?.title || "Transparent Pricing | SmartPHOTOeditors"
@@ -141,7 +141,6 @@ export const PricingPageEditor: React.FC<PricingPageEditorProps> = ({
         {[
           { id: "banner", label: "Hero Banner", icon: "fa-image" },
           { id: "tiers", label: `Pricing Tiers (${tiers.length})`, icon: "fa-money-bill-wave" },
-          { id: "seo", label: "SEO & Meta Tags", icon: "fa-magnifying-glass" },
         ].map((tab) => {
           const isActive = activeTab === tab.id;
           return (
@@ -315,41 +314,6 @@ export const PricingPageEditor: React.FC<PricingPageEditorProps> = ({
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      )}
-
-      {/* 3. SEO */}
-      {activeTab === "seo" && (
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-5 text-xs">
-          <div className="border-b border-slate-100 pb-5">
-            <div className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-lg bg-orange-100 text-[#ff5b0a] flex items-center justify-center text-sm font-bold">
-                <i className="fa-solid fa-magnifying-glass"></i>
-              </span>
-              <h3 className="text-base font-extrabold text-slate-900">Pricing Page SEO</h3>
-            </div>
-            <p className="text-xs text-slate-500 mt-1">Meta titles and search description.</p>
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">Page Title Tag</label>
-            <input
-              type="text"
-              value={pageTitle}
-              onChange={(e) => setPageTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-white text-slate-900 font-bold border border-slate-300 rounded-xl focus:border-[#ff5b0a] focus:ring-4 focus:ring-orange-500/15 shadow-sm outline-none transition-all"
-            />
-          </div>
-
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">Meta Description</label>
-            <textarea
-              rows={3}
-              value={metaDescription}
-              onChange={(e) => setMetaDescription(e.target.value)}
-              className="w-full px-3.5 py-3 bg-white text-slate-900 font-medium border border-slate-300 rounded-xl focus:border-[#ff5b0a] focus:ring-4 focus:ring-orange-500/15 shadow-sm outline-none leading-relaxed transition-all"
-            />
           </div>
         </div>
       )}

@@ -591,32 +591,6 @@ export const ContactUsPageEditor: React.FC<ContactUsPageEditorProps> = ({
             </div>
           </div>
         </div>
-
-        {/* SECTION 6: SEO TAGS */}
-        <div className="border-t border-slate-100 pt-6 space-y-4">
-          <div className="border-b border-slate-100 pb-3 flex items-center gap-2">
-            <span className="w-7 h-7 rounded-lg bg-blue-100 text-[#1265E8] flex items-center justify-center text-xs font-black">5</span>
-            <h3 className="text-base font-extrabold text-slate-900">SEO Meta Tags</h3>
-          </div>
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">Page Title</label>
-            <input
-              type="text"
-              value={pageTitle}
-              onChange={(e) => setPageTitle(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 focus:bg-white text-slate-900 font-bold border border-slate-200 rounded-xl focus:border-[#1265E8] shadow-sm outline-none transition-all"
-            />
-          </div>
-          <div>
-            <label className="block font-bold text-slate-800 mb-1.5">Meta Description</label>
-            <textarea
-              rows={2}
-              value={metaDescription}
-              onChange={(e) => setMetaDescription(e.target.value)}
-              className="w-full px-3.5 py-2.5 bg-slate-50 focus:bg-white text-slate-900 font-medium border border-slate-200 rounded-xl focus:border-[#1265E8] shadow-sm outline-none leading-relaxed transition-all"
-            />
-          </div>
-        </div>
       </div>
 
       {/* Save Bar */}
